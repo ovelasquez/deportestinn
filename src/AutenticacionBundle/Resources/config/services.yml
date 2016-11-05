@@ -1,0 +1,10 @@
+services:
+    acme_user.registration.form.type:
+        class: UBV\AutenticacionBundle\Form\Type\RegistrationFormType
+        tags:
+            - { name: form.type, alias: ubv_estacionamiento_registro_usuario }
+    
+    acme_user.profile.form.type:
+        class: UBV\AutenticacionBundle\Form\Type\ProfileFormType
+        tags:
+            - { name: form.type, alias: ubv_estacionamiento_perfil_usuario }

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="CampeonatoDisciplina" table="campeonato_disciplina">
+    <indexes>
+      <index name="idx_5274967e93baae11" columns="campeonato_id"/>
+      <index name="idx_5274967e2a30b056" columns="disciplina_id"/>
+      <index name="caducidades_campeonato_disciplina_fk" columns="caducidad_id"/>
+    </indexes>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="maximo" type="integer" column="maximo" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Capacidad maxima de atletas a registrar </option>
+      </options>
+    </field>
+    <field name="minimo" type="integer" column="minimo" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Capacidad minima de atletas a registrar </option>
+      </options>
+    </field>
+    <field name="inicio" type="date" column="fecha" nullable="false"/>
+    <field name="fin" type="date" column="fecha" nullable="false"/>
+    <many-to-one field="campeonato" target-entity="Campeonatos" fetch="LAZY">
+      <join-columns>
+        <join-column name="campeonato_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

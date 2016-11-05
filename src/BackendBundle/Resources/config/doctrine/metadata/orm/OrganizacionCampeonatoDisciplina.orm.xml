@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="OrganizacionCampeonatoDisciplina" table="organizacion_campeonato_disciplina">
+    <indexes>
+      <index name="organizacion_id" columns="organizacion_id"/>
+      <index name="disciplinas_organizacion_campeonato_disciplina_fk" columns="disciplina_id"/>
+    </indexes>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <many-to-one field="disciplina" target-entity="Disciplinas" fetch="LAZY">
+      <join-columns>
+        <join-column name="disciplina_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="organizacion" target-entity="Organizaciones" fetch="LAZY">
+      <join-columns>
+        <join-column name="organizacion_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

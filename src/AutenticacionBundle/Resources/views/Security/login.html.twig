@@ -1,0 +1,48 @@
+{% extends 'login.html.twig' %} 
+{% block body %}
+
+    <form action="{{ path("fos_user_security_check") }}" method="post" >
+         <h1>Login Form</h1>
+        {% if error %}
+            <div class="text-center text-danger">Error de credenciales por favor intente nuevamente</div>
+            </br>
+        {% endif %}
+        <div>
+            <div>
+                <input type="text" class="form-control" id="username" name="_username" placeholder="Nombre de Usuario &oacute; Correo Electr&oacute;nico" required="required" value="{{ last_username }}"/>
+            </div>
+
+            <div>        
+                <input class="form-control" id="password" name="_password" placeholder="Contraseña" required="required" type="password">
+            </div>
+
+            <div>
+                <button type="submit" class="btn btn-default submit"> Entrar &nbsp;</button>
+                
+                <a class="reset_pass" href="#">Lost your password?</a>
+            </div>
+
+
+        </div>
+
+
+       
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+
+        <div class="clearfix"></div>
+        <div class="separator">
+
+            <p class="change_link">New to site?
+                <a href="#toregister" class="to_register"> Create Account </a>
+            </p>
+            <div class="clearfix"></div>
+            <br />
+            <div>
+                <h1><i class="fa fa-paw" style="font-size: 26px;"></i> Lider Deportivo!</h1>
+
+                <p>©2015 All Rights Reserved. Privacy and Terms</p>
+            </div>
+        </div>
+    </form>
+
+{% endblock %} 

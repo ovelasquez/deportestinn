@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="User" table="user">
+    <unique-constraints>
+      <unique-constraint name="uniq_8d93d64992fc23a8" columns="username_canonical"/>
+      <unique-constraint name="uniq_8d93d649a0d96fbf" columns="email_canonical"/>
+    </unique-constraints>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="username" type="string" column="username" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="usernameCanonical" type="string" column="username_canonical" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="email" type="string" column="email" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="emailCanonical" type="string" column="email_canonical" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="enabled" type="boolean" column="enabled" nullable="false"/>
+    <field name="salt" type="string" column="salt" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="password" type="string" column="password" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="lastLogin" type="datetime" column="last_login" nullable="true"/>
+    <field name="locked" type="boolean" column="locked" nullable="false"/>
+    <field name="expired" type="boolean" column="expired" nullable="false"/>
+    <field name="expiresAt" type="datetime" column="expires_at" nullable="true"/>
+    <field name="confirmationToken" type="string" column="confirmation_token" length="255" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="passwordRequestedAt" type="datetime" column="password_requested_at" nullable="true"/>
+    <field name="roles" type="text" column="roles" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="credentialsExpired" type="boolean" column="credentials_expired" nullable="false"/>
+    <field name="credentialsExpireAt" type="datetime" column="credentials_expire_at" nullable="true"/>
+    <field name="cedula" type="string" column="cedula" length="255" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="nombre" type="string" column="nombre" length="255" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="apellido" type="string" column="apellido" length="255" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <many-to-many field="rol" target-entity="Roles" inversed-by="user" fetch="LAZY">
+      <join-table name="user_roles">
+        <join-columns>
+          <join-column name="user_id" referenced-column-name="id"/>
+        </join-columns>
+        <inverse-join-columns>
+          <join-column name="rol_id" referenced-column-name="id"/>
+        </inverse-join-columns>
+      </join-table>
+    </many-to-many>
+  </entity>
+</doctrine-mapping>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="EncuentroEquipo" table="encuentro_equipo">
+    <indexes>
+      <index name="idx_6d25924123bfbed" columns="equipo_id"/>
+      <index name="idx_6d259241e304c7c8" columns="encuentro_id"/>
+    </indexes>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <many-to-one field="equipo" target-entity="Equipos" fetch="LAZY">
+      <join-columns>
+        <join-column name="equipo_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="encuentro" target-entity="Encuentros" fetch="LAZY">
+      <join-columns>
+        <join-column name="encuentro_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

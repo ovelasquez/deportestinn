@@ -1,0 +1,18 @@
+autenticacion_usuarios:
+    path:     admin/usuarios/
+    defaults: { _controller: AutenticacionBundle:Security:listarUsuarios }
+    
+autenticacion_mostrar_usuarios:
+    path:     admin/perfil_usuario/{id}/
+    defaults: { _controller: AutenticacionBundle:Security:mostrarUsuario }
+    methods: GET
+
+autenticacion_desactivar_usuarios:
+    path:     admin/desactivar/{id}/{accion}
+    defaults: { _controller: AutenticacionBundle:Security:desactivarUsuario }
+    methods: GET
+
+autenticacion_cambio_clave_usuarios:
+    path:     admin/cambio_clave_usuario/{id}/
+    defaults: { _controller: AutenticacionBundle:Security:cambioClaveUsuario }
+    methods: [GET,POST]

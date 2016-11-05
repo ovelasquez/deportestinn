@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="DatosMedicos" table="datos__medicos">
+    <unique-constraints>
+      <unique-constraint name="uniq_b6600b5287ec6c10" columns="atleta_id"/>
+    </unique-constraints>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="altura" type="decimal" column="altura" precision="10" scale="0" nullable="false"/>
+    <field name="peso" type="decimal" column="peso" precision="10" scale="0" nullable="false"/>
+    <field name="tipoSangre" type="string" column="tipo_sangre" length="10" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="alergias" type="text" column="alergias" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="contactoNombre" type="string" column="contacto_nombre" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="contactoTelefono" type="string" column="contacto_telefono" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <many-to-one field="atleta" target-entity="Atletas" fetch="LAZY">
+      <join-columns>
+        <join-column name="atleta_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

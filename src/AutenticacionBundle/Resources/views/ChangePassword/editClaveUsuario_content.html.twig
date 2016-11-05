@@ -1,0 +1,199 @@
+{% block stylesheets %}
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/ubvestacionamiento/css/dashboard.css') }}" media="all">
+
+{% endblock stylesheets %}
+
+{% block content %}
+  {% include 'UBVEstacionamientoBundle:Dashboard:dashboardNavbar.html.twig' ignore missing %}
+  {% trans_default_domain 'FOSUserBundle' %}
+  <div class="panel panel-default ">
+    <div class="panel-heading">
+      <span class="glyphicon glyphicon-cloud" aria-hidden="true"></span> Mi Perfil
+    </div>
+    <div class="panel-body">
+      
+      <form action="{{ path('ubv_autenticacion_cambio_clave_usuarios', { 'id': id }) }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
+        <div class="row col-md-12">
+          <a href="{{ path('ubv_autenticacion_mostrar_usuarios', { 'id': id }) }}">
+            <button class="pull-right btn btn-danger"><span class="glyphicon glyphicon-remove-circle"></span> Cancelar</button>
+          </a>
+          <br></br>
+        </div>
+        <div class="row col-md-6">
+          <div class="col-md-6">
+            <div class="form-group">
+              {{ form_label(form.username) }}
+              <div class="input-icon">
+                {% if form.username.vars.errors[0].message is defined %}
+                  <span class="help-block">
+                    {{ form.username.vars.errors[0].message }}
+                  </span>
+                {% endif %}
+                {{ form_widget(form.username, {'attr': {'class': 'form-control','placeholder':'Nombre de Usuario', 'readonly':'true'}}) }}
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              {{ form_label(form.cedula) }}
+              <div class="input-icon">
+                {% if form.cedula.vars.errors[0].message is defined %}
+                  <span class="help-block">
+                    {{ form.cedula.vars.errors[0].message }}
+                  </span>
+                {% endif %}
+                {{ form_widget(form.cedula, {'attr': {'class': 'form-control','placeholder':'C&eacute;dula', 'readonly':'true'}}) }}
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              {{ form_label(form.primerNombre) }}
+              <div class="input-icon">
+                {% if form.primerNombre.vars.errors[0].message is defined %}
+                  <span class="help-block">
+                    {{ form.primerNombre.vars.errors[0].message }}
+                  </span>
+                {% endif %}
+                {{ form_widget(form.primerNombre, {'attr': {'class': 'form-control','placeholder':'Primer Nombre', 'readonly':'true'}}) }}
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              {{ form_label(form.segundoNombre) }}
+              <div class="input-icon">
+                {% if form.segundoNombre.vars.errors[0].message is defined %}
+                  <span class="help-block">
+                    {{ form.segundoNombre.vars.errors[0].message }}
+                  </span>
+                {% endif %}
+                {{ form_widget(form.segundoNombre, {'attr': {'class': 'form-control','placeholder':'Segundo Nombre', 'readonly':'true'}}) }}
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              {{ form_label(form.primerApellido) }}
+              <div class="input-icon">
+                {% if form.primerApellido.vars.errors[0].message is defined %}
+                  <span class="help-block">
+                    {{ form.primerApellido.vars.errors[0].message }}
+                  </span>
+                {% endif %}
+                {{ form_widget(form.primerApellido, {'attr': {'class': 'form-control','placeholder':'Primer Apellido', 'readonly':'true'}}) }}
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              {{ form_label(form.segundoApellido) }}
+              <div class="input-icon">
+                {% if form.segundoApellido.vars.errors[0].message is defined %}
+                  <span class="help-block">
+                    {{ form.segundoApellido.vars.errors[0].message }}
+                  </span>
+                {% endif %}
+                {{ form_widget(form.segundoApellido, {'attr': {'class': 'form-control','placeholder':'Segundo Apellido', 'readonly':'true'}}) }}
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group">
+              {{ form_label(form.email) }}
+              <div class="input-icon">
+                {% if form.email.vars.errors[0].message is defined %}
+                  <span class="help-block">
+                    {{ form.email.vars.errors[0].message }}
+                  </span>
+                {% endif %}
+                {{ form_widget(form.email, {'attr': {'class': 'form-control','placeholder':'Correo Eléctronico', 'readonly':'true'}}) }}
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="row form-group ">
+              <div class="col-md-6">
+                {{ form_label(form.plainPassword.first) }}
+                <div class="input-icon">
+  
+                  {% if form.plainPassword.first.vars.errors[0].message is defined %}
+                    <span class="help-block">
+                      {{ form.plainPassword.first.vars.errors[0].message }}
+                    </span>
+                  {% endif %}
+                  {{ form_widget(form.plainPassword.first, {'attr': {'class': 'form-control','placeholder':'Nueva Contraseña'}}) }}
+                </div>  
+              </div>
+              <div class="col-md-6">
+                {{ form_label(form.plainPassword.second) }}
+                <div class="input-icon">
+  
+                  {% if form.plainPassword.second.vars.errors[0].message is defined %}
+                    <span class="help-block">
+                      {{ form.plainPassword.second.vars.errors[0].message }}
+                    </span>
+                  {% endif %}
+                  {{ form_widget(form.plainPassword.second, {'attr': {'class': 'form-control','placeholder':'Repetir Nueva Contraseña'}}) }}
+                </div>  
+              </div>
+            </div>            
+          </div>
+          {#<div class="col-md-12">
+            <div class="form-group">
+              {{ form_label(form.current_password) }}
+              <div class="input-icon">
+                {% if form.current_password.vars.errors[0].message is defined %}
+                  <span class="help-block">
+                    {{ form.current_password.vars.errors[0].message }}
+                  </span>
+                {% endif %}
+                {{ form_widget(form.current_password, {'attr': {'class': 'form-control','placeholder':'Contraseña'}}) }}
+              </div>
+            </div>
+          </div>#}
+        </div>
+        <div class="row col-md-6">
+          <div class="col-md-12 col-md-push-1">
+            <div class=" form-group">
+              <label class="control-label">
+                Asociar Grupos:
+              </label>
+              <div class=" well">
+                <div class="form-group">
+                  <div class="input-icon">
+                    {% if form.groups.vars.errors[0].message is defined %}
+                      <span class="help-block">
+                        {{ form.groups.vars.errors[0].message }}
+                      </span>
+                    {% endif %}
+                      {{ form_widget(form.groups, {'attr': {'class': '','readonly':'true'}}) }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button type="submit" class="btn btn-md btn-primary btn-block"><span class="glyphicon glyphicon-save"></span> Guardar Perfil</button>
+            </div>
+          </div>
+        </div>
+        
+        {{ form_widget(form) }}
+        
+      </form>
+    </div>
+  </div>
+{% endblock content %}
+<script>
+  
+    {% for grupo in app.user.groups %}
+      {% if grupo.name == 'Administrador' %}
+        $( "#cambio_clave_usuario_groups_3" ).prop( "disabled", false );
+        {{loop.last}}
+      {%else%}
+        $( "#cambio_clave_usuario_groups_3" ).prop( "disabled", true );
+      {%endif%}
+    {% endfor %}
+    
+</script>

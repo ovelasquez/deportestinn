@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Campeonatos" table="campeonatos">
+    <indexes>
+      <index name="idx_60cdc91dcf098064" columns="liga_id"/>
+      <index name="caducidades_campeonatos_fk" columns="caducidad_id"/>
+    </indexes>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="nombre" type="string" column="nombre" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="descripcion" type="text" column="descripcion" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="ubicacion" type="string" column="ubicacion" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+     <field name="inicio" type="date" column="fecha" nullable="false"/>
+    <field name="fin" type="date" column="fecha" nullable="false"/>
+    <many-to-one field="liga" target-entity="Ligas" fetch="LAZY">
+      <join-columns>
+        <join-column name="liga_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>
