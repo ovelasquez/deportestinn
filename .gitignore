@@ -1,7 +1,7 @@
 # -- Symfony2 -----------------------------------------
 app/bootstrap.php.cache
 app/bootstrap_cache.php.cache
-app/config/parameters.yml
+app/config/parameters.ymlgit 
 app/cache/*
 app/logs/*
 vendor/*
