@@ -58,9 +58,20 @@
                                 <th>Direccion</th>
                                 <td>{{ organizacione.direccion }}</td>
                             </tr>
-                             <tr>
+                            <tr>
                                 <th>Campeonato</th>
                                 <td>{{ organizacione.campeonato }}</td>
+                            </tr>
+                            <tr>
+                                <th>Diaiplinas</th>
+                                <td> 
+                                    <ul>                                                                              
+                                        {% for disciplina in disciplinas %}
+                                            <li>{{disciplina}}  </li>
+                                        {% endfor %}
+                                    </ul>
+
+                                </td>
                             </tr>
                         </tbody>
                     </table>
