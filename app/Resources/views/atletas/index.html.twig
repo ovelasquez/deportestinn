@@ -1,0 +1,97 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Atletas list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nacionalidad</th>
+                <th>Cedula</th>
+                <th>Primerapellido</th>
+                <th>Segundoapellido</th>
+                <th>Primernombre</th>
+                <th>Segundonombre</th>
+                <th>Fechanacimiento</th>
+                <th>Genero</th>
+                <th>Email</th>
+                <th>Telefono</th>
+                <th>Fotografia</th>
+                <th>Imagencedula</th>
+                <th>Status</th>
+                <th>Institucion</th>
+                <th>Departamento</th>
+                <th>Contancia</th>
+                <th>Carnet</th>
+                <th>Altura</th>
+                <th>Peso</th>
+                <th>Tiposangre</th>
+                <th>Alergias</th>
+                <th>Contactonombre</th>
+                <th>Contactotelefono</th>
+                <th>Tallafranela</th>
+                <th>Tallapantalon</th>
+                <th>Tallapantaloncorto</th>
+                <th>Tallazapato</th>
+                <th>Tallagorra</th>
+                <th>Tallachaqueta</th>
+                <th>Tallamedias</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for atleta in atletas %}
+            <tr>
+                <td><a href="{{ path('atletas_show', { 'id': atleta.id }) }}">{{ atleta.id }}</a></td>
+                <td>{{ atleta.nacionalidad }}</td>
+                <td>{{ atleta.cedula }}</td>
+                <td>{{ atleta.primerApellido }}</td>
+                <td>{{ atleta.segundoApellido }}</td>
+                <td>{{ atleta.primerNombre }}</td>
+                <td>{{ atleta.segundoNombre }}</td>
+                <td>{% if atleta.fechaNacimiento %}{{ atleta.fechaNacimiento|date('Y-m-d') }}{% endif %}</td>
+                <td>{{ atleta.genero }}</td>
+                <td>{{ atleta.email }}</td>
+                <td>{{ atleta.telefono }}</td>
+                <td>{{ atleta.fotografia }}</td>
+                <td>{{ atleta.imagenCedula }}</td>
+                <td>{{ atleta.status }}</td>
+                <td>{{ atleta.institucion }}</td>
+                <td>{{ atleta.departamento }}</td>
+                <td>{{ atleta.contancia }}</td>
+                <td>{{ atleta.carnet }}</td>
+                <td>{{ atleta.altura }}</td>
+                <td>{{ atleta.peso }}</td>
+                <td>{{ atleta.tipoSangre }}</td>
+                <td>{{ atleta.alergias }}</td>
+                <td>{{ atleta.contactoNombre }}</td>
+                <td>{{ atleta.contactoTelefono }}</td>
+                <td>{{ atleta.tallaFranela }}</td>
+                <td>{{ atleta.tallaPantalon }}</td>
+                <td>{{ atleta.tallaPantalonCorto }}</td>
+                <td>{{ atleta.tallaZapato }}</td>
+                <td>{{ atleta.tallaGorra }}</td>
+                <td>{{ atleta.tallaChaqueta }}</td>
+                <td>{{ atleta.tallaMedias }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('atletas_show', { 'id': atleta.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('atletas_edit', { 'id': atleta.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('atletas_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

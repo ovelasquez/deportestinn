@@ -97,4 +97,7 @@ class Equipos
     {
         return $this->equipoOrganizacionCampeonatoDisciplina;
     }
+    public function __toString() {
+        return $this->getNombre();
+    }
 }

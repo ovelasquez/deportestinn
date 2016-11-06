@@ -34,7 +34,7 @@ class AtletaEquipo
     /**
      * @var \Atletas
      *
-     * @ORM\ManyToOne(targetEntity="Atletas")
+     * @ORM\ManyToOne(targetEntity="Atletas", cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="atleta_id", referencedColumnName="id")
      * })
