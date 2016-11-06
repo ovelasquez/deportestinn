@@ -1,0 +1,109 @@
+{% extends 'backend.html.twig' %} 
+
+{% block body %}
+<div class="row">
+	<div class="col-md-12 col-sm-12 col-xs-12">
+		<div class="x_panel">
+			<div class="x_title">
+				<h2>
+					Organizaciones <small>Crear</small>
+				</h2>
+				<ul class="nav navbar-right panel_toolbox">
+					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-expanded="false"><i
+							class="fa fa-wrench"></i></a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="#">Settings 1</a></li>
+							<li><a href="#">Settings 2</a></li>
+						</ul></li>
+					<li><a class="close-link"><i class="fa fa-close"></i></a></li>
+				</ul>
+				<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+				<br /> 
+				{{ form_start(form, { 'attr': {'class': 'form-horizontal form-label-left'} }) }} 
+				{{ form_errors(form) }}
+
+				<div class="form-group">
+					<label class="control-label col-md-3 col-sm-3 col-xs-12"
+						for="nombre">{{ form_label(form.nombre) }} <span
+						class="required">*</span>
+					</label>
+					<div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(form.nombre,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>
+				</div>
+                                <div class="form-group">
+					<label class="control-label col-md-3 col-sm-3 col-xs-12"
+						for="abreviatura">{{ form_label(form.abreviatura) }} <span
+						class="required">*</span>
+					</label>
+					<div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(form.abreviatura,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>
+				</div>
+                                <div class="form-group">
+					<label class="control-label col-md-3 col-sm-3 col-xs-12"
+						for="logo">{{ form_label(form.logo) }} <span
+						class="required">*</span>
+					</label>
+					<div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(form.logo,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>
+				</div>
+                                 <div class="form-group">
+					<label class="control-label col-md-3 col-sm-3 col-xs-12"
+						for="rif">{{ form_label(form.rif) }} <span
+						class="required">*</span>
+					</label>
+					<div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(form.rif,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>
+				</div>
+                                <div class="form-group">
+					<label class="control-label col-md-3 col-sm-3 col-xs-12"
+						for="telefono">{{ form_label(form.telefono) }} <span
+						class="required">*</span>
+					</label>
+					<div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(form.telefono,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>
+				</div>
+                                 <div class="form-group">
+					<label class="control-label col-md-3 col-sm-3 col-xs-12"
+						for="email">{{ form_label(form.email) }} <span
+						class="required">*</span>
+					</label>
+					<div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(form.email,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>
+				</div>
+                                <div class="form-group">
+					<label class="control-label col-md-3 col-sm-3 col-xs-12"
+						for="responsable">{{ form_label(form.responsable) }} <span
+						class="required">*</span>
+					</label>
+					<div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(form.responsable,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>
+				</div>
+                                <div class="form-group">
+					<label class="control-label col-md-3 col-sm-3 col-xs-12"
+						for="direccion">{{ form_label(form.direccion) }} <span
+						class="required">*</span>
+					</label>
+					<div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(form.direccion,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>
+				</div>
+                                <div class="form-group">
+					<label class="control-label col-md-3 col-sm-3 col-xs-12"
+						for="campeonato">{{ form_label(form.campeonato) }} <span
+						class="required">*</span>
+					</label>
+					<div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(form.campeonato,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>
+				</div>
+                                
+                                
+                              
+
+				<div class="ln_solid"></div>
+				<div class="form-group">
+					<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+						<a class="btn btn-primary" href="{{ path('ligas_index') }}" role="button">Cancelar</a>
+						<button type="submit" class="btn btn-success">Crear</button>
+					</div>
+				</div>
+				{{ form_end(form) }}
+			</div>
+			
+		</div>
+	</div>
+</div>
+{% endblock %}
