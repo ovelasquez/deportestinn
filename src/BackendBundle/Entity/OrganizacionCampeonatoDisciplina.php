@@ -100,4 +100,8 @@ class OrganizacionCampeonatoDisciplina
     {
         return $this->organizacion;
     }
+    
+    public function __toString() {
+        return $this->getOrganizacion()->getNombre()." - ".$this->getDisciplina()->getNombre();
+    }
 }

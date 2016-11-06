@@ -5,12 +5,12 @@ namespace BackendBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * AtetlaEquipo
+ * AtletaEquipo
  *
- * @ORM\Table(name="atetla_equipo", indexes={@ORM\Index(name="equipo_id", columns={"equipo_id"}), @ORM\Index(name="atleta_id", columns={"atleta_id"})})
+ * @ORM\Table(name="atleta_equipo", indexes={@ORM\Index(name="equipo_id", columns={"equipo_id"}), @ORM\Index(name="atleta_id", columns={"atleta_id"})})
  * @ORM\Entity
  */
-class AtetlaEquipo
+class AtletaEquipo
 {
     /**
      * @var integer
