@@ -1,21 +1,252 @@
-{% extends 'base.html.twig' %}
-
+{% extends 'backend.html.twig' %} 
 {% block body %}
-    <h1>AtletaEquipo edit</h1>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>
+                        Equipo - Atletas <small>Editar</small>
+                    </h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                        <li class="dropdown"><a href="#" class="dropdown-toggle"
+                                                data-toggle="dropdown" role="button" aria-expanded="false"><i
+                                    class="fa fa-wrench"></i></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Settings 1</a></li>
+                                <li><a href="#">Settings 2</a></li>
+                            </ul></li>
+                        <li><a class="close-link"><i class="fa fa-close"></i></a></li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <br /> 
+                    {{ form_start(edit_form, { 'attr': {'class': 'form-horizontal form-label-left'} }) }} 
+                    {{ form_errors(edit_form) }}
 
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
+                    <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                        <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Personales</a>
+                            </li>
+                            <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Académicos</a>
+                            </li>
+                            <li role="presentation" class=""><a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">Médicos</a>
+                            </li>
+                            <li role="presentation" class=""><a href="#tab_content4" role="tab" id="profile-tab3" data-toggle="tab" aria-expanded="false">Uniformes</a>
+                            </li>
+                            <li role="presentation" class=""><a href="#tab_content5" role="tab" id="profile-tab4" data-toggle="tab" aria-expanded="false">Deportivos</a>
+                            </li>
+                        </ul>
+                        <div id="myTabContent" class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">                                
+                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                    {{form_widget(edit_form.atleta.nacionalidad,{ 'attr': {'class': 'form-control'} } ) }}  
 
-    <ul>
-        <li>
-            <a href="{{ path('atletaequipo_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+                                    <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+                                </div>
+
+                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                    {{form_widget(edit_form.atleta.cedula,{ 'attr': {'class': 'form-control has-feedback-left'} } ) }}                       
+                                    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                                </div>
+
+                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                    {{form_widget(edit_form.atleta.primerApellido,{ 'attr': {'class': 'form-control'} } ) }}  
+                                    <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+                                </div>
+
+                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                    {{form_widget(edit_form.atleta.segundoApellido,{ 'attr': {'class': 'form-control has-feedback-left'} } ) }}                       
+                                    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                                </div>
+
+                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                    {{form_widget(edit_form.atleta.primerNombre,{ 'attr': {'class': 'form-control'} } ) }}  
+
+                                    <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+                                </div>
+
+                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                    {{form_widget(edit_form.atleta.segundoNombre,{ 'attr': {'class': 'form-control has-feedback-left'} } ) }}                       
+                                    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                                </div>
+
+                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                    {{form_widget(edit_form.atleta.fechaNacimiento,{ 'attr': {'class': 'form-control'} } ) }}  
+
+                                    <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+                                </div>
+
+                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                    {{form_widget(edit_form.atleta.genero,{ 'attr': {'class': 'form-control has-feedback-left'} } ) }}                       
+                                    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                                </div>
+
+                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                    {{form_widget(edit_form.atleta.email,{ 'attr': {'class': 'form-control'} } ) }}  
+
+                                    <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+                                </div>
+
+                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                    {{form_widget(edit_form.atleta.telefono,{ 'attr': {'class': 'form-control has-feedback-left'} } ) }}                       
+                                    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                                </div>
+
+                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                    {{form_widget(edit_form.atleta.fotografia,{ 'attr': {'class': 'form-control'} } ) }}  
+
+                                    <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+                                </div>
+
+                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                    {{form_widget(edit_form.atleta.imagenCedula,{ 'attr': {'class': 'form-control has-feedback-left'} } ) }}                       
+                                    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                                </div>
+                            </div>
+
+
+                            <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
+                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                    {{form_widget(edit_form.atleta.institucion,{ 'attr': {'class': 'form-control'} } ) }}  
+
+                                    <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+                                </div>
+
+                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                    {{form_widget(edit_form.atleta.departamento,{ 'attr': {'class': 'form-control has-feedback-left'} } ) }}                       
+                                    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                                </div>
+
+                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                    {{form_widget(edit_form.atleta.contancia,{ 'attr': {'class': 'form-control'} } ) }}  
+
+                                    <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+                                </div>
+
+                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                    {{form_widget(edit_form.atleta.carnet,{ 'attr': {'class': 'form-control has-feedback-left'} } ) }}                       
+                                    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                                </div>
+                            </div>
+
+                            <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
+                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                    {{form_widget(edit_form.atleta.altura,{ 'attr': {'class': 'form-control'} } ) }}  
+
+                                    <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+                                </div>
+
+                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                    {{form_widget(edit_form.atleta.peso,{ 'attr': {'class': 'form-control has-feedback-left'} } ) }}                       
+                                    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                                </div>
+
+                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                    {{form_widget(edit_form.atleta.tipoSangre,{ 'attr': {'class': 'form-control'} } ) }}  
+
+                                    <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+                                </div>
+
+                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                    {{form_widget(edit_form.atleta.alergias,{ 'attr': {'class': 'form-control has-feedback-left'} } ) }}                       
+                                    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                                </div>
+
+                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                    {{form_widget(edit_form.atleta.contactoNombre,{ 'attr': {'class': 'form-control'} } ) }}  
+
+                                    <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+                                </div>
+
+                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                    {{form_widget(edit_form.atleta.contactoTelefono,{ 'attr': {'class': 'form-control has-feedback-left'} } ) }}                       
+                                    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                                </div>
+
+
+                            </div>
+
+                            <div role="tabpanel" class="tab-pane fade" id="tab_content4" aria-labelledby="profile-tab">
+
+
+                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                    {{form_widget(edit_form.atleta.tallaFranela,{ 'attr': {'class': 'form-control'} } ) }}  
+
+                                    <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+                                </div>
+
+                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                    {{form_widget(edit_form.atleta.tallaPantalon,{ 'attr': {'class': 'form-control has-feedback-left'} } ) }}                       
+                                    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                                </div>
+
+                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                    {{form_widget(edit_form.atleta.tallaPantalonCorto,{ 'attr': {'class': 'form-control'} } ) }}  
+
+                                    <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+                                </div>
+
+                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                    {{form_widget(edit_form.atleta.tallaZapato,{ 'attr': {'class': 'form-control has-feedback-left'} } ) }}                       
+                                    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                                </div>
+
+                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                    {{form_widget(edit_form.atleta.tallaGorra,{ 'attr': {'class': 'form-control'} } ) }}  
+
+                                    <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+                                </div>
+
+
+                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                    {{form_widget(edit_form.atleta.tallaChaqueta,{ 'attr': {'class': 'form-control has-feedback-left'} } ) }}                       
+                                    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                                </div>
+
+                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                    {{form_widget(edit_form.atleta.tallaMedias,{ 'attr': {'class': 'form-control'} } ) }}  
+
+                                    <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+                                </div>
+
+                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                    {{form_widget(edit_form.atleta.status,{ 'attr': {'class': 'form-control has-feedback-left'} } ) }}                       
+                                    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                                </div>
+                            </div>
+
+                            <div role="tabpanel" class="tab-pane fade" id="tab_content5" aria-labelledby="profile-tab">
+                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                    {{form_widget(edit_form.equipo,{ 'attr': {'class': 'form-control has-feedback-left'} } ) }}                       
+                                    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                                </div>
+                            </div>
+
+
+
+
+                        </div>
+                    </div>
+
+                    <div class="ln_solid"></div>
+                    <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                            <button type="submit" class="btn btn-success">Editar</button>
+                        </div>
+                    </div>
+                    {{ form_end(edit_form) }}
+                </div>
+                <ul>	
+                    <li><a href="{{ path('ligas_index') }}">Regresar a la lista</a></li>				
+                    <li>
+                        {{ form_start(delete_form) }}
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                        {{ form_end(delete_form) }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 {% endblock %}
