@@ -41,6 +41,13 @@ class Campeonatos
      * @ORM\Column(name="ubicacion", type="string", length=255, nullable=false)
      */
     private $ubicacion;
+    
+      /**
+     * @var string
+     *
+     * @ORM\Column(name="logo", type="string", length=255, nullable=false)
+     */
+    private $logo;
 
   /**
      * @var \DateTime

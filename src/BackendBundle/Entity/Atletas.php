@@ -120,6 +120,13 @@ class Atletas {
      * @ORM\Column(name="institucion", type="string", length=255, nullable=false)
      */
     private $institucion;
+    
+     /**
+     * @var string
+     *
+     * @ORM\Column(name="ingreo", type="string", length=255, nullable=false)
+     */
+    private $ingreo;
 
     /**
      * @var string

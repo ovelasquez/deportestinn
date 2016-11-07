@@ -41,6 +41,13 @@ class Ligas
      * @ORM\Column(name="ubicacion", type="string", length=255, nullable=true)
      */
     private $ubicacion;
+    
+      /**
+     * @var string
+     *
+     * @ORM\Column(name="logo", type="string", length=255, nullable=false)
+     */
+    private $logo;
 
 
 
