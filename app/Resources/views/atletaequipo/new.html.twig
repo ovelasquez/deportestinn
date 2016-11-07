@@ -198,6 +198,13 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="ingreso">Año de Ingreso <span class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        {{form_widget(form.atleta.ingreso,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contancia">Contancia <span class="required">*</span></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         {{form_widget(form.atleta.contancia,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
@@ -263,62 +270,77 @@
 
                             {# PASO 4 #}
 
-                            <div id="step-4" class="content" style="display: none;">
+                            <div id="step-4" class="col-md-12 col-sm-12 col-xs-12 content" style="display: none;">
                                 <h2 class="StepTitle">Datos Uniformes</h2>
 
-                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                    {{form_widget(form.atleta.tallaFranela,{ 'attr': {'class': 'form-control'} } ) }}  
-
-                                    <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contactoTelefono">Talla de Franela <span class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        {{form_widget(form.atleta.tallaFranela,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                                    </div>
                                 </div>
 
-                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                    {{form_widget(form.atleta.tallaPantalon,{ 'attr': {'class': 'form-control has-feedback-left'} } ) }}                       
-                                    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contactoTelefono">Talla de Pantalón <span class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        {{form_widget(form.atleta.tallaPantalon,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                                    </div>
                                 </div>
 
-                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                    {{form_widget(form.atleta.tallaPantalonCorto,{ 'attr': {'class': 'form-control'} } ) }}  
-
-                                    <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contactoTelefono">Talla de Pantalón Corto <span class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        {{form_widget(form.atleta.tallaPantalonCorto,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                                    </div>
                                 </div>
 
-                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                    {{form_widget(form.atleta.tallaZapato,{ 'attr': {'class': 'form-control has-feedback-left'} } ) }}                       
-                                    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contactoTelefono">Talla de Zapato <span class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        {{form_widget(form.atleta.tallaZapato,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                                    </div>
                                 </div>
 
-                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                    {{form_widget(form.atleta.tallaGorra,{ 'attr': {'class': 'form-control'} } ) }}  
-
-                                    <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contactoTelefono">Talla de Gorra <span class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        {{form_widget(form.atleta.tallaGorra,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                                    </div>
                                 </div>
 
-
-                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                    {{form_widget(form.atleta.tallaChaqueta,{ 'attr': {'class': 'form-control has-feedback-left'} } ) }}                       
-                                    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contactoTelefono">Talla de Chaqueta <span class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        {{form_widget(form.atleta.tallaChaqueta,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                                    </div>
                                 </div>
 
-                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                    {{form_widget(form.atleta.tallaMedias,{ 'attr': {'class': 'form-control'} } ) }}  
-
-                                    <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contactoTelefono">Talla de Medias <span class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        {{form_widget(form.atleta.tallaMedias, { 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                                    </div>
                                 </div>
 
-                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                    {{form_widget(form.atleta.status,{ 'attr': {'class': 'form-control has-feedback-left'} } ) }}                       
-                                    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contactoTelefono">status <span class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        {{form_widget(form.atleta.status,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                                    </div>
                                 </div>
                             </div>
 
                             {# PASO 5 #}
-                            <div id="step-5" class="content" style="display: none;">
+                            <div id="step-5" class="col-md-12 col-sm-12 col-xs-12 content" style="display: none;">
                                 <h2 class="StepTitle">Datos Deportivos</h2>
-                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                    {{form_widget(form.equipo,{ 'attr': {'class': 'form-control has-feedback-left'} } ) }}                       
-                                    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                                
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="equipo">Equipo <span class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        {{form_widget(form.equipo,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                                    </div>
                                 </div>
+                               
                             </div>
 
 

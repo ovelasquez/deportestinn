@@ -245,6 +245,12 @@ class Atletas {
     private $tallaMedias;
 
 
+    public function __toString() {
+        return $this->getCedula();
+    }
+
+   
+
     /**
      * Get id
      *
@@ -589,6 +595,30 @@ class Atletas {
     public function getInstitucion()
     {
         return $this->institucion;
+    }
+
+    /**
+     * Set ingreo
+     *
+     * @param string $ingreo
+     *
+     * @return Atletas
+     */
+    public function setIngreo($ingreo)
+    {
+        $this->ingreo = $ingreo;
+
+        return $this;
+    }
+
+    /**
+     * Get ingreo
+     *
+     * @return string
+     */
+    public function getIngreo()
+    {
+        return $this->ingreo;
     }
 
     /**
@@ -973,9 +1003,5 @@ class Atletas {
     public function getTallaMedias()
     {
         return $this->tallaMedias;
-    }
-    
-    public function __toString() {
-        return $this->getCedula();
     }
 }

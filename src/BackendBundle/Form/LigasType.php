@@ -17,7 +17,8 @@ class LigasType extends AbstractType
         $builder
             ->add('nombre')
             ->add('descripcion')
-            ->add('ubicacion')
+            ->add('ubicacion') 
+            ->add('logo')
         ;
     }
     

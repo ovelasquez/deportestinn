@@ -232,4 +232,28 @@ class Campeonatos
     public function __toString() {
         return $this->getNombre();
     }
+
+    /**
+     * Set logo
+     *
+     * @param string $logo
+     *
+     * @return Campeonatos
+     */
+    public function setLogo($logo)
+    {
+        $this->logo = $logo;
+
+        return $this;
+    }
+
+    /**
+     * Get logo
+     *
+     * @return string
+     */
+    public function getLogo()
+    {
+        return $this->logo;
+    }
 }

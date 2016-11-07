@@ -34,6 +34,7 @@ class AtletasType extends AbstractType {
                 ->add('imagenCedula', 'text', array('required' => true, 'attr' => array('placeholder' => 'Imagen Cédula')))
                 ->add('institucion', 'text', array('required' => true, 'attr' => array('placeholder' => 'Institución')))
                 ->add('departamento', 'text', array('required' => true, 'attr' => array('placeholder' => 'Facultad')))
+                ->add('ingreso', 'text', array('required' => true, 'attr' => array('placeholder' => 'Año de Ingreso')))                
                 ->add('contancia', 'text', array('required' => true, 'attr' => array('placeholder' => 'Constancia')))
                 ->add('carnet', 'text', array('required' => true, 'attr' => array('placeholder' => 'Carnet')))
                 ->add('altura', 'integer', array('required' => true, 'attr' => array('placeholder' => 'Altura (Cms)')))
