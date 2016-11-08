@@ -15,7 +15,7 @@ class AtletaEquipoType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-                ->add('equipo', null, array('required' => true, 'empty_value' => '* Equipo', 'attr' => array('placeholder' => '* Equipo')))
+                ->add('equipo', null, array('required' => true, 'empty_value' => 'Equipo', 'attr' => array('placeholder' => 'Equipo')))
                 ->add('atleta', AtletasType::class)
         ;
     }

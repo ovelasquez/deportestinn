@@ -124,9 +124,9 @@ class Atletas {
      /**
      * @var string
      *
-     * @ORM\Column(name="ingreo", type="string", length=255, nullable=false)
+     * @ORM\Column(name="ingreso", type="string", length=255, nullable=false)
      */
-    private $ingreo;
+    private $ingreso;
 
     /**
      * @var string
@@ -598,27 +598,27 @@ class Atletas {
     }
 
     /**
-     * Set ingreo
+     * Set ingreso
      *
-     * @param string $ingreo
+     * @param string $ingreso
      *
      * @return Atletas
      */
-    public function setIngreo($ingreo)
+    public function setIngreso($ingreso)
     {
-        $this->ingreo = $ingreo;
+        $this->ingreso = $ingreso;
 
         return $this;
     }
 
     /**
-     * Get ingreo
+     * Get ingreso
      *
      * @return string
      */
-    public function getIngreo()
+    public function getIngreso()
     {
-        return $this->ingreo;
+        return $this->ingreso;
     }
 
     /**
