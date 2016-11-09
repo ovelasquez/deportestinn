@@ -1,4 +1,5 @@
 {% extends 'backend.html.twig' %} 
+
 {% block stylesheets %}
     <link href="{{ asset('bundles/backend/css/smart_wizard.min.css')}}"  rel="stylesheet">
     <link href="{{ asset('bundles/backend/css/smart_wizard_theme_arrows.min.css')}}"  rel="stylesheet">
@@ -14,18 +15,24 @@
                     </h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-                        <li class="dropdown"><a href="#" class="dropdown-toggle"
-                                                data-toggle="dropdown" role="button" aria-expanded="false"><i
+                        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i
                                     class="fa fa-wrench"></i></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Settings 1</a></li>
-                                <li><a href="#">Settings 2</a></li>
+                                <li><a href="{{ path('atletaequipo_index') }}">Regresar a la lista</a></li>
                             </ul></li>
                         <li><a class="close-link"><i class="fa fa-close"></i></a></li>
                     </ul>
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
+                    {% if problema is not empty %}
+                        <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            <strong>Error: </strong>  {{ problema }}
+                        </div>
+                    {% endif %}
+
+
                     <br /> 
                     {{ form_start(form, { 'attr': {'id':'atletas','class': 'form-horizontal form-label-left', 'data-toggle':'validator'} }) }} 
                     {{ form_errors(form) }}
@@ -38,6 +45,7 @@
                             <li><a href="#step-3"><small>Médicos</small></a></li>
                             <li><a href="#step-4"><small>Uniformes</small></a></li>
                             <li><a href="#step-5"><small>Deportivos</small></a></li>
+                            <li><a href="#step-6"><small>Observaciones</small></a></li>
                         </ul>
 
                         <div>
@@ -113,7 +121,7 @@
                                 <div class="form-step-0" role="form" data-toggle="validator">
 
                                     <div class="form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="genero">Gënero <span class="required">*</span></label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="genero">Género <span class="required">*</span></label>
                                         <div id="form-step-0" class="col-md-6 col-sm-6 col-xs-12" data-toggle="validator">
                                             {{form_widget(form.atleta.genero,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
                                         </div>
@@ -122,7 +130,7 @@
                                 <div class="form-step-0" role="form" data-toggle="validator">
 
                                     <div class="form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="genero">E-mail <span class="required">*</span></label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">E-mail <span class="required">*</span></label>
                                         <div id="form-step-0" class="col-md-6 col-sm-6 col-xs-12" data-toggle="validator">
                                             {{form_widget(form.atleta.email,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
                                         </div>
@@ -131,7 +139,7 @@
                                 <div class="form-step-0" role="form" data-toggle="validator">
 
                                     <div class="form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="genero">Teléfono <span class="required">*</span></label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="telefono">Teléfono <span class="required">*</span></label>
                                         <div id="form-step-0" class="col-md-6 col-sm-6 col-xs-12" data-toggle="validator">
                                             {{form_widget(form.atleta.telefono,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
                                         </div>
@@ -140,7 +148,7 @@
                                 <div class="form-step-0" role="form" data-toggle="validator">
 
                                     <div class="form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="genero">Fotografía <span class="required">*</span></label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="fotografia">Fotografía <span class="required">*</span></label>
                                         <div id="form-step-0" class="col-md-6 col-sm-6 col-xs-12" data-toggle="validator">
                                             {{form_widget(form.atleta.fotografia,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
                                         </div>
@@ -149,7 +157,7 @@
                                 <div class="form-step-0" role="form" data-toggle="validator">
 
                                     <div class="form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="genero">Imagen Cédula <span class="required">*</span></label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="imagenCedula">Imagen Cédula <span class="required">*</span></label>
                                         <div id="form-step-0" class="col-md-6 col-sm-6 col-xs-12" data-toggle="validator">
                                             {{form_widget(form.atleta.imagenCedula,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
                                         </div>
@@ -162,7 +170,7 @@
                             {# PASO 2 #}
 
                             <div id="step-2" >
-                               
+
                                 <h2 class="StepTitle">Datos Académicos</h2>
 
                                 <div class="form-step-1" role="form" data-toggle="validator">
@@ -216,7 +224,7 @@
                             {# PASO 3 #}
 
                             <div id="step-3" >
-                               
+
                                 <h2 class="StepTitle">Datos Médicos</h2>
 
                                 <div class="form-group">
@@ -241,7 +249,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="alergias">Alergias <span class="required">*</span></label>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="alergias">Alergias </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         {{form_widget(form.atleta.alergias,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
                                     </div>
@@ -265,8 +273,8 @@
 
                             {# PASO 4 #}
 
-                           <div id="step-4" >
-                               
+                            <div id="step-4" >
+
                                 <h2 class="StepTitle">Datos Uniformes</h2>
 
                                 <div class="form-group">
@@ -318,17 +326,12 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contactoTelefono">status <span class="required">*</span></label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        {{form_widget(form.atleta.status,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
-                                    </div>
-                                </div>
+
                             </div>
 
                             {# PASO 5 #}
                             <div id="step-5" >
-                                
+
                                 <h2 class="StepTitle">Datos Deportivos</h2>
 
                                 <div class="form-group">
@@ -337,11 +340,33 @@
                                         {{form_widget(form.equipo,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
                                     </div>
                                 </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contactoTelefono">status <span class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        {{form_widget(form.atleta.status,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                                    </div>
+                                </div>
+                            </div>
+
+                            {# PASO 6 #}
+                            <div id="step-6" >
+
+                                <h2 class="StepTitle">Observaciones</h2>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="observaciones">Observaciones </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        {{form_widget(form.atleta.observacion,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                                    </div>
+                                </div>
+
+
                             </div>
 
 
                         </div>
-                        
+
 
                     </div>
                     <!-- End SmartWizard Content -->
@@ -376,6 +401,8 @@
         <!-- jQuery Smart Wizard -->
         <script>
             $(document).ready(function () {
+
+
                 $('#smartwizard').smartWizard({
                     selected: 0,
                     theme: 'arrows',
@@ -400,7 +427,6 @@
                                     }
                                 }
                             },
-                            
                         ]
                     }
                 });
@@ -419,7 +445,7 @@
                     return true;
                 });
 
-                
+
 
             });
         </script>

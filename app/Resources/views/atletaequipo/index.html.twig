@@ -33,7 +33,10 @@
                         <thead>
                             <tr class="headings">
                                 <th>Id</th>
+                                <th></th>
+                                <th>Cédula</th>
                                 <th>Nombre</th>
+                                <th>Equipo</th>
                                 <th class=" no-link last"><span class="nobr">Acciones</span></th>
                             </tr>
                         </thead>
@@ -41,7 +44,10 @@
                             {% for atletaEquipo in atletaEquipos %}
                                 <tr>
                                     <td class=" "><a href="{{ path('atletaequipo_show', { 'id': atletaEquipo.id }) }}">{{ atletaEquipo.id }}</a></td>
-                                    <td class=" ">{{ atletaEquipo.equipo.nombre }}</td>
+                                    <td class=" "><img src="{{ asset('bundles/backend/images/img.jpg')}}" height="50px" alt="" class="imgage"></td>
+                                    <td class=" ">{{ atletaEquipo.atleta.nacionalidad }}-{{ atletaEquipo.atleta.cedula |number_format(0, ',', '.')   }} </td>
+                                    <td class=" ">{{ atletaEquipo.atleta.primerApellido }} {{ atletaEquipo.atleta.primerNombre }}</td>
+                                    <td class=" ">{{ atletaEquipo.equipo.nombre }} </td>
                                     <td class=" last">
                                         <ul>
                                             <li>

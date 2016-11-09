@@ -17,8 +17,9 @@
                                                 data-toggle="dropdown" role="button" aria-expanded="false"><i
                                     class="fa fa-wrench"></i></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Settings 1</a></li>
-                                <li><a href="#">Settings 2</a></li>
+                                <li><a href="{{ path('atletaequipo_new') }}">Agregar un Atleta</a></li>
+                                <li><a href="{{ path('atletaequipo_index') }}">Regresar a la lista</a></li>
+
                             </ul></li>
                         <li><a class="close-link"><i class="fa fa-close"></i></a></li>
                     </ul>
@@ -27,14 +28,14 @@
                 <div class="x_content">
                     <br /> 
 
-                    
 
 
-                        {{ form_start(edit_form, { 'attr': {'id':'atletas','class': 'form-horizontal form-label-left', 'data-toggle':'validator'} }) }} 
 
-                        {{ form_errors(edit_form) }}
-                        
-                         <!-- Smart Wizard -->
+                    {{ form_start(edit_form, { 'attr': {'id':'atletas','class': 'form-horizontal form-label-left', 'data-toggle':'validator'} }) }} 
+
+                    {{ form_errors(edit_form) }}
+
+                    <!-- Smart Wizard -->
                     <div id="smartwizard" >
                         <ul>
                             <li><a href="#step-1"><small>Personales</small></a></li>
@@ -42,6 +43,7 @@
                             <li><a href="#step-3"><small>Médicos</small></a></li>
                             <li><a href="#step-4"><small>Uniformes</small></a></li>
                             <li><a href="#step-5"><small>Deportivos</small></a></li>
+                            <li><a href="#step-6"><small>Observaciones</small></a></li>
                         </ul>
 
                         <div>
@@ -166,7 +168,7 @@
                             {# PASO 2 #}
 
                             <div id="step-2" >
-                               
+
                                 <h2 class="StepTitle">Datos Académicos</h2>
 
                                 <div class="form-step-1" role="form" data-toggle="validator">
@@ -220,7 +222,7 @@
                             {# PASO 3 #}
 
                             <div id="step-3" >
-                               
+
                                 <h2 class="StepTitle">Datos Médicos</h2>
 
                                 <div class="form-group">
@@ -245,7 +247,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="alergias">Alergias <span class="required">*</span></label>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="alergias">Alergias </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         {{form_widget(edit_form.atleta.alergias,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
                                     </div>
@@ -269,8 +271,8 @@
 
                             {# PASO 4 #}
 
-                           <div id="step-4" >
-                               
+                            <div id="step-4" >
+
                                 <h2 class="StepTitle">Datos Uniformes</h2>
 
                                 <div class="form-group">
@@ -322,17 +324,12 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contactoTelefono">status <span class="required">*</span></label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        {{form_widget(edit_form.atleta.status,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
-                                    </div>
-                                </div>
+
                             </div>
 
                             {# PASO 5 #}
                             <div id="step-5" >
-                                
+
                                 <h2 class="StepTitle">Datos Deportivos</h2>
 
                                 <div class="form-group">
@@ -341,102 +338,118 @@
                                         {{form_widget(edit_form.equipo,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
                                     </div>
                                 </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="status">Status <span class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        {{form_widget(edit_form.atleta.status,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                                    </div>
+                                </div>
+                            </div>
+
+                            {# PASO 6 #}
+                            <div id="step-6" >
+
+                                <h2 class="StepTitle">Observaciones</h2>
+                               
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="observaciones">Observaciones</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        {{form_widget(edit_form.atleta.observacion,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                                    </div>
+                                </div>
                             </div>
 
 
                         </div>
-                        
+
 
                     </div>
                     <!-- End SmartWizard Content -->
 
 
-                        
-                        {{ form_end(edit_form) }}
-                        
 
-                    </div>
-                    <ul>	
-                        <li><a href="{{ path('atletaequipo_index') }}">Regresar a la lista</a></li>				
-                        <li>
-                            {{ form_start(delete_form) }}
-                            <button type="submit" class="btn btn-danger">Eliminar</button>
-                            {{ form_end(delete_form) }}
-                        </li>
-                    </ul>
+                    {{ form_end(edit_form) }}
+
+
                 </div>
+
+                {{ form_start(delete_form) }}
+                <button type="submit" class="btn btn-danger">Eliminar</button>
+                {{ form_end(delete_form) }}
+
             </div>
         </div>
-    {% endblock %}
+    </div>
+{% endblock %}
 
-    {% block javascripts %}
+{% block javascripts %}
 
-        <!-- FastClick -->
-        <script src="{{ asset('bundles/backend/js/fastclick.js')}}"></script>
+    <!-- FastClick -->
+    <script src="{{ asset('bundles/backend/js/fastclick.js')}}"></script>
 
-        <!-- NProgress -->
-        <script src="{{ asset('bundles/backend/js/nprogress.js')}}"></script>
+    <!-- NProgress -->
+    <script src="{{ asset('bundles/backend/js/nprogress.js')}}"></script>
 
-        <!-- Include jQuery Validator plugin -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.5/validator.min.js"></script>
+    <!-- Include jQuery Validator plugin -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.5/validator.min.js"></script>
 
-        <!-- jQuery Smart Wizard --> 
-        <script src="{{ asset('bundles/backend/js/wizard/jquery.smartWizard.js')}}"></script>
+    <!-- jQuery Smart Wizard --> 
+    <script src="{{ asset('bundles/backend/js/wizard/jquery.smartWizard.js')}}"></script>
 
-        <!-- Custom Theme Scripts -->
-        <script src="{{ asset('bundles/backend/js/custom.js')}}"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="{{ asset('bundles/backend/js/custom.js')}}"></script>
 
 
-        <!-- jQuery Smart Wizard -->
-        <script>
-            $(document).ready(function () {
-                $('#smartwizard').smartWizard({
-                    selected: 0,
-                    theme: 'arrows',
-                    transitionEffect: 'fade',
-                    toolbarSettings: {toolbarPosition: 'bottom',
-                        toolbarExtraButtons: [
-                            {label: 'Finalizar', css: 'btn-info  btn-finish', onClick: function () {
-                                    if (!$(this).hasClass('disabled')) {
-                                        var elmForm = $("#atletas");
-                                        if (elmForm) {
-                                            elmForm.validator('validate');
-                                            var elmErr = elmForm.find('.has-error');
-                                            if (elmErr && elmErr.length > 0) {
-                                                alert('Oops todavía tenemos errores en el formulario');
-                                                return false;
-                                            } else {
-                                                alert('¡Estupendo! Estamos listos para enviar el formulario');
-                                                elmForm.submit();
-                                                return false;
-                                            }
+    <!-- jQuery Smart Wizard -->
+    <script>
+        $(document).ready(function () {
+            $('#smartwizard').smartWizard({
+                selected: 0,
+                theme: 'arrows',
+                transitionEffect: 'fade',
+                toolbarSettings: {toolbarPosition: 'bottom',
+                    toolbarExtraButtons: [
+                        {label: 'Finalizar', css: 'btn-info  btn-finish', onClick: function () {
+                                if (!$(this).hasClass('disabled')) {
+                                    var elmForm = $("#atletas");
+                                    if (elmForm) {
+                                        elmForm.validator('validate');
+                                        var elmErr = elmForm.find('.has-error');
+                                        if (elmErr && elmErr.length > 0) {
+                                            alert('Oops todavía tenemos errores en el formulario');
+                                            return false;
+                                        } else {
+                                            alert('¡Estupendo! Estamos listos para enviar el formulario');
+                                            elmForm.submit();
+                                            return false;
                                         }
                                     }
                                 }
-                            },
-                            
-                        ]
-                    }
-                });
-
-                // Initialize the leaveStep event
-                $("#smartwizard").on("leaveStep", function (e, anchorObject, stepNumber) {
-                    var elmForm = $(".form-step-" + stepNumber);
-                    if (elmForm) {
-                        elmForm.validator('validate');
-                        var elmErr = elmForm.children('.has-error');
-                        if (elmErr && elmErr.length > 0) {
-                            // Error found
-                            return false;
-                        }
-                    }
-                    return true;
-                });
-
-                
-
+                            }
+                        },
+                    ]
+                }
             });
-        </script>
-        <!-- /jQuery Smart Wizard -->
 
-    {% endblock %} 
+            // Initialize the leaveStep event
+            $("#smartwizard").on("leaveStep", function (e, anchorObject, stepNumber) {
+                var elmForm = $(".form-step-" + stepNumber);
+                if (elmForm) {
+                    elmForm.validator('validate');
+                    var elmErr = elmForm.children('.has-error');
+                    if (elmErr && elmErr.length > 0) {
+                        // Error found
+                        return false;
+                    }
+                }
+                return true;
+            });
+
+
+
+        });
+    </script>
+    <!-- /jQuery Smart Wizard -->
+
+{% endblock %} 

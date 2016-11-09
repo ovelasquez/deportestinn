@@ -5,14 +5,17 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
-class NacionalidadType extends AbstractType
+class StatusType extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'choices' => array(
-                'V' => 'Venezolana',
-                'E' => 'Extranjera',
+                'En Proceso' => 'En Proceso',
+                'Revisado' => 'Revisado',
+                'Validado' => 'Validado',
+                'Por Corregir' => 'Por Corregir',
+                
             )
         ));
     }

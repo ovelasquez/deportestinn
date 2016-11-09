@@ -11,6 +11,7 @@ use BackendBundle\Form\Type\SangreType;
 use BackendBundle\Form\Type\TallaRopaType;
 use BackendBundle\Form\Type\TallaMediasType;
 use BackendBundle\Form\Type\TallaZapatosType;
+use BackendBundle\Form\Type\StatusType;
 
 class AtletasType extends AbstractType {
 
@@ -29,7 +30,7 @@ class AtletasType extends AbstractType {
                 ->add('fechaNacimiento', 'birthday', array('attr' => array('placeholder' => 'Fecha de Nacimiento',), 'format' => 'dd-MM-yyyy'))
                 ->add('genero', GeneroType::class, array('placeholder' => 'Género',))
                 ->add('email', 'email', array('required' => true, 'attr' => array('placeholder' => 'E-mail')))
-                ->add('telefono', 'text', array('required' => true, 'attr' => array('placeholder' => 'Teléfono Personal')))
+                ->add('telefono', 'text', array('required' => true, 'attr' => array('placeholder' => 'Teléfono Personal' )))
                 ->add('fotografia', 'text', array('required' => true, 'attr' => array('placeholder' => 'Fotografía')))
                 ->add('imagenCedula', 'text', array('required' => true, 'attr' => array('placeholder' => 'Imagen Cédula')))
                 ->add('institucion', 'text', array('required' => true, 'attr' => array('placeholder' => 'Institución')))
@@ -40,7 +41,7 @@ class AtletasType extends AbstractType {
                 ->add('altura', 'integer', array('required' => true, 'attr' => array('placeholder' => 'Altura (Cms)')))
                 ->add('peso', 'integer', array('required' => true, 'attr' => array('placeholder' => 'Peso (Kgrs)')))
                 ->add('tipoSangre', SangreType::class, array('placeholder' => 'Tipo de Sangre',))
-                ->add('alergias', 'textarea', array('required' => true, 'attr' => array('rows' => '2', 'placeholder' => 'Alergias')))
+                ->add('alergias', 'textarea', array('required' => false, 'attr' => array('rows' => '2', 'placeholder' => 'Alergias')))
                 ->add('contactoNombre', 'text', array('required' => true, 'attr' => array('placeholder' => 'Nombre del Contacto en Caso de Emergencia')))
                 ->add('contactoTelefono', 'text', array('required' => true, 'attr' => array('placeholder' => 'Teléfono de Contacto en Caso de Emergencia')))
                 ->add('tallaFranela', TallaRopaType::class, array('placeholder' => 'Talla Franela',))
@@ -50,7 +51,9 @@ class AtletasType extends AbstractType {
                 ->add('tallaGorra', TallaRopaType::class, array('placeholder' => 'Talla Gorra',))
                 ->add('tallaMedias', TallaMediasType::class, array('placeholder' => 'Talla Medias',))
                 ->add('tallaZapato', TallaZapatosType::class, array('placeholder' => 'Talla Zapato',))
-                ->add('status', 'text', array('required' => true, 'attr' => array('placeholder' => 'Status')))
+                ->add('status', StatusType::class, array('placeholder' => 'Status',))
+                ->add('observacion', 'textarea', array('required' => false, 'attr' => array('rows' => '4', 'placeholder' => 'Observaciones')))
+                
         ;
     }
 

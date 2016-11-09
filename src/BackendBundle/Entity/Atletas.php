@@ -175,7 +175,7 @@ class Atletas {
     /**
      * @var string
      *
-     * @ORM\Column(name="alergias", type="text", nullable=false)
+     * @ORM\Column(name="alergias", type="text", nullable=true)
      */
     private $alergias;
 
@@ -243,6 +243,13 @@ class Atletas {
      * @ORM\Column(name="talla_medias", type="string", length=10, nullable=false)
      */
     private $tallaMedias;
+    
+     /**
+     * @var string
+     *
+     * @ORM\Column(name="observacion", type="text", nullable=true)
+     */
+    private $observacion;
 
 
     public function __toString() {
@@ -1003,5 +1010,29 @@ class Atletas {
     public function getTallaMedias()
     {
         return $this->tallaMedias;
+    }
+
+    /**
+     * Set observacion
+     *
+     * @param string $observacion
+     *
+     * @return Atletas
+     */
+    public function setObservacion($observacion)
+    {
+        $this->observacion = $observacion;
+
+        return $this;
+    }
+
+    /**
+     * Get observacion
+     *
+     * @return string
+     */
+    public function getObservacion()
+    {
+        return $this->observacion;
     }
 }
