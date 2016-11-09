@@ -113,15 +113,15 @@ class Atletas {
     private $status;
 
     //DATOS LABORALES
-    
+
     /**
      * @var string
      *
      * @ORM\Column(name="institucion", type="string", length=255, nullable=false)
      */
     private $institucion;
-    
-     /**
+
+    /**
      * @var string
      *
      * @ORM\Column(name="ingreso", type="string", length=255, nullable=false)
@@ -148,10 +148,10 @@ class Atletas {
      * @ORM\Column(name="carnet", type="string", length=255, nullable=false)
      */
     private $carnet;
-    
+
     // DATOS MEDICOS
-    
-     /**
+
+    /**
      * @var string
      *
      * @ORM\Column(name="altura", type="decimal", precision=10, scale=0, nullable=false)
@@ -192,10 +192,10 @@ class Atletas {
      * @ORM\Column(name="contacto_telefono", type="string", length=255, nullable=false)
      */
     private $contactoTelefono;
-    
+
     // DATOS UNIFORMES
-    
-     /**
+
+    /**
      * @var string
      *
      * @ORM\Column(name="talla_franela", type="string", length=10, nullable=false)
@@ -243,28 +243,24 @@ class Atletas {
      * @ORM\Column(name="talla_medias", type="string", length=10, nullable=false)
      */
     private $tallaMedias;
-    
-     /**
+
+    /**
      * @var string
      *
      * @ORM\Column(name="observacion", type="text", nullable=true)
      */
     private $observacion;
 
-
     public function __toString() {
         return $this->getCedula();
     }
-
-   
 
     /**
      * Get id
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -275,8 +271,7 @@ class Atletas {
      *
      * @return Atletas
      */
-    public function setNacionalidad($nacionalidad)
-    {
+    public function setNacionalidad($nacionalidad) {
         $this->nacionalidad = $nacionalidad;
 
         return $this;
@@ -287,8 +282,7 @@ class Atletas {
      *
      * @return string
      */
-    public function getNacionalidad()
-    {
+    public function getNacionalidad() {
         return $this->nacionalidad;
     }
 
@@ -299,8 +293,7 @@ class Atletas {
      *
      * @return Atletas
      */
-    public function setCedula($cedula)
-    {
+    public function setCedula($cedula) {
         $this->cedula = $cedula;
 
         return $this;
@@ -311,8 +304,7 @@ class Atletas {
      *
      * @return string
      */
-    public function getCedula()
-    {
+    public function getCedula() {
         return $this->cedula;
     }
 
@@ -323,8 +315,7 @@ class Atletas {
      *
      * @return Atletas
      */
-    public function setPrimerApellido($primerApellido)
-    {
+    public function setPrimerApellido($primerApellido) {
         $this->primerApellido = $primerApellido;
 
         return $this;
@@ -335,8 +326,7 @@ class Atletas {
      *
      * @return string
      */
-    public function getPrimerApellido()
-    {
+    public function getPrimerApellido() {
         return $this->primerApellido;
     }
 
@@ -347,8 +337,7 @@ class Atletas {
      *
      * @return Atletas
      */
-    public function setSegundoApellido($segundoApellido)
-    {
+    public function setSegundoApellido($segundoApellido) {
         $this->segundoApellido = $segundoApellido;
 
         return $this;
@@ -359,8 +348,7 @@ class Atletas {
      *
      * @return string
      */
-    public function getSegundoApellido()
-    {
+    public function getSegundoApellido() {
         return $this->segundoApellido;
     }
 
@@ -371,8 +359,7 @@ class Atletas {
      *
      * @return Atletas
      */
-    public function setPrimerNombre($primerNombre)
-    {
+    public function setPrimerNombre($primerNombre) {
         $this->primerNombre = $primerNombre;
 
         return $this;
@@ -383,8 +370,7 @@ class Atletas {
      *
      * @return string
      */
-    public function getPrimerNombre()
-    {
+    public function getPrimerNombre() {
         return $this->primerNombre;
     }
 
@@ -395,8 +381,7 @@ class Atletas {
      *
      * @return Atletas
      */
-    public function setSegundoNombre($segundoNombre)
-    {
+    public function setSegundoNombre($segundoNombre) {
         $this->segundoNombre = $segundoNombre;
 
         return $this;
@@ -407,8 +392,7 @@ class Atletas {
      *
      * @return string
      */
-    public function getSegundoNombre()
-    {
+    public function getSegundoNombre() {
         return $this->segundoNombre;
     }
 
@@ -419,8 +403,7 @@ class Atletas {
      *
      * @return Atletas
      */
-    public function setFechaNacimiento($fechaNacimiento)
-    {
+    public function setFechaNacimiento($fechaNacimiento) {
         $this->fechaNacimiento = $fechaNacimiento;
 
         return $this;
@@ -431,8 +414,7 @@ class Atletas {
      *
      * @return \DateTime
      */
-    public function getFechaNacimiento()
-    {
+    public function getFechaNacimiento() {
         return $this->fechaNacimiento;
     }
 
@@ -443,8 +425,7 @@ class Atletas {
      *
      * @return Atletas
      */
-    public function setGenero($genero)
-    {
+    public function setGenero($genero) {
         $this->genero = $genero;
 
         return $this;
@@ -455,8 +436,7 @@ class Atletas {
      *
      * @return string
      */
-    public function getGenero()
-    {
+    public function getGenero() {
         return $this->genero;
     }
 
@@ -467,8 +447,7 @@ class Atletas {
      *
      * @return Atletas
      */
-    public function setEmail($email)
-    {
+    public function setEmail($email) {
         $this->email = $email;
 
         return $this;
@@ -479,8 +458,7 @@ class Atletas {
      *
      * @return string
      */
-    public function getEmail()
-    {
+    public function getEmail() {
         return $this->email;
     }
 
@@ -491,8 +469,7 @@ class Atletas {
      *
      * @return Atletas
      */
-    public function setTelefono($telefono)
-    {
+    public function setTelefono($telefono) {
         $this->telefono = $telefono;
 
         return $this;
@@ -503,8 +480,7 @@ class Atletas {
      *
      * @return string
      */
-    public function getTelefono()
-    {
+    public function getTelefono() {
         return $this->telefono;
     }
 
@@ -515,8 +491,7 @@ class Atletas {
      *
      * @return Atletas
      */
-    public function setFotografia($fotografia)
-    {
+    public function setFotografia($fotografia) {
         $this->fotografia = $fotografia;
 
         return $this;
@@ -527,8 +502,7 @@ class Atletas {
      *
      * @return string
      */
-    public function getFotografia()
-    {
+    public function getFotografia() {
         return $this->fotografia;
     }
 
@@ -539,8 +513,7 @@ class Atletas {
      *
      * @return Atletas
      */
-    public function setImagenCedula($imagenCedula)
-    {
+    public function setImagenCedula($imagenCedula) {
         $this->imagenCedula = $imagenCedula;
 
         return $this;
@@ -551,8 +524,7 @@ class Atletas {
      *
      * @return string
      */
-    public function getImagenCedula()
-    {
+    public function getImagenCedula() {
         return $this->imagenCedula;
     }
 
@@ -563,8 +535,7 @@ class Atletas {
      *
      * @return Atletas
      */
-    public function setStatus($status)
-    {
+    public function setStatus($status) {
         $this->status = $status;
 
         return $this;
@@ -575,8 +546,7 @@ class Atletas {
      *
      * @return string
      */
-    public function getStatus()
-    {
+    public function getStatus() {
         return $this->status;
     }
 
@@ -587,8 +557,7 @@ class Atletas {
      *
      * @return Atletas
      */
-    public function setInstitucion($institucion)
-    {
+    public function setInstitucion($institucion) {
         $this->institucion = $institucion;
 
         return $this;
@@ -599,8 +568,7 @@ class Atletas {
      *
      * @return string
      */
-    public function getInstitucion()
-    {
+    public function getInstitucion() {
         return $this->institucion;
     }
 
@@ -611,8 +579,7 @@ class Atletas {
      *
      * @return Atletas
      */
-    public function setIngreso($ingreso)
-    {
+    public function setIngreso($ingreso) {
         $this->ingreso = $ingreso;
 
         return $this;
@@ -623,8 +590,7 @@ class Atletas {
      *
      * @return string
      */
-    public function getIngreso()
-    {
+    public function getIngreso() {
         return $this->ingreso;
     }
 
@@ -635,8 +601,7 @@ class Atletas {
      *
      * @return Atletas
      */
-    public function setDepartamento($departamento)
-    {
+    public function setDepartamento($departamento) {
         $this->departamento = $departamento;
 
         return $this;
@@ -647,8 +612,7 @@ class Atletas {
      *
      * @return string
      */
-    public function getDepartamento()
-    {
+    public function getDepartamento() {
         return $this->departamento;
     }
 
@@ -659,8 +623,7 @@ class Atletas {
      *
      * @return Atletas
      */
-    public function setContancia($contancia)
-    {
+    public function setContancia($contancia) {
         $this->contancia = $contancia;
 
         return $this;
@@ -671,8 +634,7 @@ class Atletas {
      *
      * @return string
      */
-    public function getContancia()
-    {
+    public function getContancia() {
         return $this->contancia;
     }
 
@@ -683,8 +645,7 @@ class Atletas {
      *
      * @return Atletas
      */
-    public function setCarnet($carnet)
-    {
+    public function setCarnet($carnet) {
         $this->carnet = $carnet;
 
         return $this;
@@ -695,8 +656,7 @@ class Atletas {
      *
      * @return string
      */
-    public function getCarnet()
-    {
+    public function getCarnet() {
         return $this->carnet;
     }
 
@@ -707,8 +667,7 @@ class Atletas {
      *
      * @return Atletas
      */
-    public function setAltura($altura)
-    {
+    public function setAltura($altura) {
         $this->altura = $altura;
 
         return $this;
@@ -719,8 +678,7 @@ class Atletas {
      *
      * @return string
      */
-    public function getAltura()
-    {
+    public function getAltura() {
         return $this->altura;
     }
 
@@ -731,8 +689,7 @@ class Atletas {
      *
      * @return Atletas
      */
-    public function setPeso($peso)
-    {
+    public function setPeso($peso) {
         $this->peso = $peso;
 
         return $this;
@@ -743,8 +700,7 @@ class Atletas {
      *
      * @return string
      */
-    public function getPeso()
-    {
+    public function getPeso() {
         return $this->peso;
     }
 
@@ -755,8 +711,7 @@ class Atletas {
      *
      * @return Atletas
      */
-    public function setTipoSangre($tipoSangre)
-    {
+    public function setTipoSangre($tipoSangre) {
         $this->tipoSangre = $tipoSangre;
 
         return $this;
@@ -767,8 +722,7 @@ class Atletas {
      *
      * @return string
      */
-    public function getTipoSangre()
-    {
+    public function getTipoSangre() {
         return $this->tipoSangre;
     }
 
@@ -779,8 +733,7 @@ class Atletas {
      *
      * @return Atletas
      */
-    public function setAlergias($alergias)
-    {
+    public function setAlergias($alergias) {
         $this->alergias = $alergias;
 
         return $this;
@@ -791,8 +744,7 @@ class Atletas {
      *
      * @return string
      */
-    public function getAlergias()
-    {
+    public function getAlergias() {
         return $this->alergias;
     }
 
@@ -803,8 +755,7 @@ class Atletas {
      *
      * @return Atletas
      */
-    public function setContactoNombre($contactoNombre)
-    {
+    public function setContactoNombre($contactoNombre) {
         $this->contactoNombre = $contactoNombre;
 
         return $this;
@@ -815,8 +766,7 @@ class Atletas {
      *
      * @return string
      */
-    public function getContactoNombre()
-    {
+    public function getContactoNombre() {
         return $this->contactoNombre;
     }
 
@@ -827,8 +777,7 @@ class Atletas {
      *
      * @return Atletas
      */
-    public function setContactoTelefono($contactoTelefono)
-    {
+    public function setContactoTelefono($contactoTelefono) {
         $this->contactoTelefono = $contactoTelefono;
 
         return $this;
@@ -839,8 +788,7 @@ class Atletas {
      *
      * @return string
      */
-    public function getContactoTelefono()
-    {
+    public function getContactoTelefono() {
         return $this->contactoTelefono;
     }
 
@@ -851,8 +799,7 @@ class Atletas {
      *
      * @return Atletas
      */
-    public function setTallaFranela($tallaFranela)
-    {
+    public function setTallaFranela($tallaFranela) {
         $this->tallaFranela = $tallaFranela;
 
         return $this;
@@ -863,8 +810,7 @@ class Atletas {
      *
      * @return string
      */
-    public function getTallaFranela()
-    {
+    public function getTallaFranela() {
         return $this->tallaFranela;
     }
 
@@ -875,8 +821,7 @@ class Atletas {
      *
      * @return Atletas
      */
-    public function setTallaPantalon($tallaPantalon)
-    {
+    public function setTallaPantalon($tallaPantalon) {
         $this->tallaPantalon = $tallaPantalon;
 
         return $this;
@@ -887,8 +832,7 @@ class Atletas {
      *
      * @return string
      */
-    public function getTallaPantalon()
-    {
+    public function getTallaPantalon() {
         return $this->tallaPantalon;
     }
 
@@ -899,8 +843,7 @@ class Atletas {
      *
      * @return Atletas
      */
-    public function setTallaPantalonCorto($tallaPantalonCorto)
-    {
+    public function setTallaPantalonCorto($tallaPantalonCorto) {
         $this->tallaPantalonCorto = $tallaPantalonCorto;
 
         return $this;
@@ -911,8 +854,7 @@ class Atletas {
      *
      * @return string
      */
-    public function getTallaPantalonCorto()
-    {
+    public function getTallaPantalonCorto() {
         return $this->tallaPantalonCorto;
     }
 
@@ -923,8 +865,7 @@ class Atletas {
      *
      * @return Atletas
      */
-    public function setTallaZapato($tallaZapato)
-    {
+    public function setTallaZapato($tallaZapato) {
         $this->tallaZapato = $tallaZapato;
 
         return $this;
@@ -935,8 +876,7 @@ class Atletas {
      *
      * @return string
      */
-    public function getTallaZapato()
-    {
+    public function getTallaZapato() {
         return $this->tallaZapato;
     }
 
@@ -947,8 +887,7 @@ class Atletas {
      *
      * @return Atletas
      */
-    public function setTallaGorra($tallaGorra)
-    {
+    public function setTallaGorra($tallaGorra) {
         $this->tallaGorra = $tallaGorra;
 
         return $this;
@@ -959,8 +898,7 @@ class Atletas {
      *
      * @return string
      */
-    public function getTallaGorra()
-    {
+    public function getTallaGorra() {
         return $this->tallaGorra;
     }
 
@@ -971,8 +909,7 @@ class Atletas {
      *
      * @return Atletas
      */
-    public function setTallaChaqueta($tallaChaqueta)
-    {
+    public function setTallaChaqueta($tallaChaqueta) {
         $this->tallaChaqueta = $tallaChaqueta;
 
         return $this;
@@ -983,8 +920,7 @@ class Atletas {
      *
      * @return string
      */
-    public function getTallaChaqueta()
-    {
+    public function getTallaChaqueta() {
         return $this->tallaChaqueta;
     }
 
@@ -995,8 +931,7 @@ class Atletas {
      *
      * @return Atletas
      */
-    public function setTallaMedias($tallaMedias)
-    {
+    public function setTallaMedias($tallaMedias) {
         $this->tallaMedias = $tallaMedias;
 
         return $this;
@@ -1007,8 +942,7 @@ class Atletas {
      *
      * @return string
      */
-    public function getTallaMedias()
-    {
+    public function getTallaMedias() {
         return $this->tallaMedias;
     }
 
@@ -1019,8 +953,7 @@ class Atletas {
      *
      * @return Atletas
      */
-    public function setObservacion($observacion)
-    {
+    public function setObservacion($observacion) {
         $this->observacion = $observacion;
 
         return $this;
@@ -1031,8 +964,46 @@ class Atletas {
      *
      * @return string
      */
-    public function getObservacion()
-    {
+    public function getObservacion() {
         return $this->observacion;
     }
+
+    /**
+     *  get Absolute Path Image 
+     * @return type
+     */
+    public function getAbsolutePath() {
+        return null === $this->fotografia ? null : $this->getUploadRootDir() . '/' . $this->fotografia;
+    }
+
+    /**
+     *  get Web Path Image 
+     * @return type
+     */
+    public function getWebPath() {
+        return null === $this->fotografia ? null : $this->getUploadDir() . '/' . $this->fotografia;
+    }
+
+    /**
+     *  get Upload Root Image 
+     * @return type
+     */
+    public function getUploadRootDir() {
+        // la ruta absoluta del directorio donde se deben
+        // guardar los archivos cargados
+        $dir = str_replace('\\', '/', __DIR__);
+        return $dir.'/../../../web/'.$this->getUploadDir();
+        //return '/var/www/deportestinn/web/' . $this->getUploadDir();
+    }
+
+    /**
+     *  get Upload Dir. 
+     * @return type
+     */
+    public function getUploadDir() {
+        // se deshace del __DIR__ para no meter la pata
+        // al mostrar el documento/imagen cargada en la vista.
+        return 'uploads/fotos';
+    }
+
 }

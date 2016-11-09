@@ -19,6 +19,9 @@ class AppKernel extends Kernel
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new BackendBundle\BackendBundle(),
             new AutenticacionBundle\AutenticacionBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new JMS\TranslationBundle\JMSTranslationBundle(),
+            new Comur\ImageBundle\ComurImageBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

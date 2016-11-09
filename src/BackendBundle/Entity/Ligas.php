@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="ligas")
  * @ORM\Entity
  */
-class Ligas
-{
+class Ligas {
+
     /**
      * @var integer
      *
@@ -41,23 +41,20 @@ class Ligas
      * @ORM\Column(name="ubicacion", type="string", length=255, nullable=true)
      */
     private $ubicacion;
-    
-      /**
+
+    /**
      * @var string
      *
      * @ORM\Column(name="logo", type="string", length=255, nullable=false)
      */
     private $logo;
 
-
-
     /**
      * Get id
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -68,8 +65,7 @@ class Ligas
      *
      * @return Ligas
      */
-    public function setNombre($nombre)
-    {
+    public function setNombre($nombre) {
         $this->nombre = $nombre;
 
         return $this;
@@ -80,8 +76,7 @@ class Ligas
      *
      * @return string
      */
-    public function getNombre()
-    {
+    public function getNombre() {
         return $this->nombre;
     }
 
@@ -92,8 +87,7 @@ class Ligas
      *
      * @return Ligas
      */
-    public function setDescripcion($descripcion)
-    {
+    public function setDescripcion($descripcion) {
         $this->descripcion = $descripcion;
 
         return $this;
@@ -104,8 +98,7 @@ class Ligas
      *
      * @return string
      */
-    public function getDescripcion()
-    {
+    public function getDescripcion() {
         return $this->descripcion;
     }
 
@@ -116,8 +109,7 @@ class Ligas
      *
      * @return Ligas
      */
-    public function setUbicacion($ubicacion)
-    {
+    public function setUbicacion($ubicacion) {
         $this->ubicacion = $ubicacion;
 
         return $this;
@@ -128,16 +120,13 @@ class Ligas
      *
      * @return string
      */
-    public function getUbicacion()
-    {
+    public function getUbicacion() {
         return $this->ubicacion;
     }
-    
-     public function __toString() {
+
+    public function __toString() {
         return $this->getNombre();
     }
-    
-    
 
     /**
      * Set logo
@@ -146,8 +135,7 @@ class Ligas
      *
      * @return Ligas
      */
-    public function setLogo($logo)
-    {
+    public function setLogo($logo) {
         $this->logo = $logo;
 
         return $this;
@@ -158,8 +146,42 @@ class Ligas
      *
      * @return string
      */
-    public function getLogo()
-    {
+    public function getLogo() {
         return $this->logo;
     }
+
+    /**
+     *  get Upload Root Image 
+     * @return type
+     */
+    public function getUploadRootDir() {
+        $dir = str_replace('\\', '/', __DIR__);   
+        return $dir . '/../../../web/' . $this->getUploadDir();   
+
+    }
+
+    /**
+     *  get Upload Dir. 
+     * @return type
+     */
+    public function getUploadDir() {
+        return 'uploads/logos/ligas';
+    }
+
+    /**
+     *  get Absolute Path Image 
+     * @return type
+     */
+    public function getAbsolutePath() {
+        return null === $this->logo ? null : $this->getUploadRootDir() . '/' . $this->logo;
+    }
+
+    /**
+     *  get Web Path Image 
+     * @return type
+     */
+    public function getWebPath() {
+        return null === $this->logo ? null : $this->getUploadDir() . '/' . $this->logo;
+    }
+
 }

@@ -29,3 +29,10 @@ fos_user_change_password:
 fos_user_group:
     resource: "@FOSUserBundle/Resources/config/routing/group.xml"
     prefix: /group
+
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
+comur_image:
+    resource: "@ComurImageBundle/Resources/config/routing.yml"
+    prefix:   /    

@@ -44,6 +44,9 @@
         <link rel="stylesheet"
               href="{{ asset('bundles/backend/css/switchery/switchery.min.css')}}" />
 
+        <script src="{{ asset('bundles/backend/js/jquery.min.js')}}"></script>
+        <script src="{{ asset('bundles/backend/js/bootstrap.min.js')}}"></script>
+
 
     {% block stylesheets %}{% endblock %}
 
@@ -99,18 +102,18 @@
                             <ul class="nav side-menu">
                                 {% block menu %}
                                     <li><a href="{{ path('backend_default_index') }}"><i class="fa fa-home"></i> Home <span ></span></a>
-                                        
+
                                     </li>
                                     <li>
                                         <a><i class="fa fa-edit"></i> Gestionar <span class="fa fa-chevron-down"></span></a>
-                                        
+
                                         <ul class="nav child_menu" style="display: none">
                                             <li><a href="{{ path('ligas_index') }}">Ligas</a></li>
                                         </ul>
                                         <ul class="nav child_menu" style="display: none">
                                             <li><a href="{{ path('campeonatos_index') }}">Campeonatos</a></li>
                                         </ul>
-                                          <ul class="nav child_menu" style="display: none">
+                                        <ul class="nav child_menu" style="display: none">
                                             <li><a href="{{ path('disciplinas_index') }}">Disciplinas</a></li>
                                         </ul>
                                         <ul class="nav child_menu" style="display: none">
@@ -126,7 +129,7 @@
                                             <li><a href="{{ path('atletaequipo_index') }}">Atletas</a></li>
                                         </ul>
 
-                                        
+
                                     </li>                                                                   
                                 {% endblock %}
                             </ul>
@@ -272,11 +275,10 @@
 
 
 
-    <script src="{{ asset('bundles/backend/js/jquery.min.js')}}"></script>
-    <script src="{{ asset('bundles/backend/js/bootstrap.min.js')}}"></script>
+
     <script
     src="{{ asset('bundles/backend/js/nicescroll/jquery.nicescroll.min.js')}}"></script>
-    <script src="{{ asset('bundles/backend/js/custom.js')}}"></script>
+    
 
     <!-- chart js -->
     <script src="{{ asset('bundles/backend/js/chartjs/chart.min.js')}}"></script>

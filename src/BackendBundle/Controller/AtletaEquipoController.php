@@ -43,14 +43,13 @@ class AtletaEquipoController extends Controller {
         $atletaEquipo = new AtletaEquipo();
         $form = $this->createForm('BackendBundle\Form\AtletaEquipoType', $atletaEquipo);
         $form->handleRequest($request);
-        $problema = "";
-
-        $em = $this->getDoctrine()->getManager();
+         $problema = "";
         if ($form->isSubmitted()) {
-        
+           
+            $em = $this->getDoctrine()->getManager();
             //  = ($request->request->get('atleta_equipo')['equipo']);
             //Equipo y Organizacion al cual va a registrarse el atleta
-            
+
             $equipo = $em->getRepository('BackendBundle:Equipos')->find($request->request->get('atleta_equipo')['equipo']);
             $disciplina = $equipo->getEquipoOrganizacionCampeonatoDisciplina()->getDisciplina();
             $organizacion = $equipo->getEquipoOrganizacionCampeonatoDisciplina()->getOrganizacion();

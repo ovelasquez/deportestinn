@@ -46,6 +46,27 @@ class CampeonatosController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $file = $campeonato->getLogo();
+            $fileName = $this->get('app.campeonato_uploader')->upload($file);
+            $campeonato->setLogo($fileName);
+
+
+            // $file stores the uploaded PDF file
+            /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
+          //  $file = $campeonato->getLogo();
+
+            // Generate a unique name for the file before saving it
+          //  $fileName = md5(uniqid()).'.'.$file->guessExtension();
+
+            // Move the file to the directory where brochures are stored
+         //   $file->move($this->getParameter('campeonatos_directory'),$fileName );
+
+            // Update the 'brochure' property to store the PDF file name
+            // instead of its contents
+         //   $campeonato->setLogo($fileName);
+
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($campeonato);
             $em->flush();
@@ -87,12 +108,19 @@ class CampeonatosController extends Controller
         $editForm = $this->createForm('BackendBundle\Form\CampeonatosType', $campeonato);
         $editForm->handleRequest($request);
 
+       
+
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            //$campeonato->setLogo( new File($this->getParameter('campeonatos_directory').'/'.$campeonato->getLogo()));
+            $file = $campeonato->getLogo();
+            $fileName = $this->get('app.campeonato_uploader')->upload($file);
+            $campeonato->setLogo($fileName);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($campeonato);
             $em->flush();
 
-            return $this->redirectToRoute('campeonatos_edit', array('id' => $campeonato->getId()));
+            return $this->redirectToRoute('campeonatos_show', array('id' => $campeonato->getId()));
         }
 
         return $this->render('campeonatos/edit.html.twig', array(

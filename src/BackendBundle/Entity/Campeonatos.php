@@ -3,6 +3,7 @@
 namespace BackendBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;  
 
 /**
  * Campeonatos
@@ -42,10 +43,12 @@ class Campeonatos
      */
     private $ubicacion;
     
-      /**
-     * @var string
+     
+     /**
+     * @ORM\Column(type="string")
      *
-     * @ORM\Column(name="logo", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(message="Please, upload the product brochure as a PDF file.")
+     * @Assert\File(mimeTypes = {"image/png", "image/jpeg", "image/jpg", "image/gif" })
      */
     private $logo;
 

@@ -5,6 +5,7 @@ namespace BackendBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class CampeonatosType extends AbstractType
 {
@@ -21,6 +22,7 @@ class CampeonatosType extends AbstractType
             ->add('inicio', 'date')
             ->add('fin', 'date')
             ->add('liga')
+            ->add('logo', FileType::class, array('label' => 'Logo','data_class' => null))
         ;
     }
     

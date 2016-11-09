@@ -100,4 +100,8 @@ class AtletaEquipo
     {
         return $this->atleta;
     }
+    
+    
+    
+    
 }

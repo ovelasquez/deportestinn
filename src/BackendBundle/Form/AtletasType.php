@@ -12,14 +12,19 @@ use BackendBundle\Form\Type\TallaRopaType;
 use BackendBundle\Form\Type\TallaMediasType;
 use BackendBundle\Form\Type\TallaZapatosType;
 use BackendBundle\Form\Type\StatusType;
+use BackendBundle\Entity\Atletas;
 
 class AtletasType extends AbstractType {
 
     /**
-     @param FormBuilderInterface $builder
-     @param array $options
+      @param FormBuilderInterface $builder
+      @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
+        $pEntity=new Atletas();
+        
+        //$pEntity = $builder->getForm()->getName();
+        //dump($pEntity->getUploadRootDir()); die();
         $builder
                 ->add('nacionalidad', NacionalidadType::class, array('placeholder' => 'Nacionalidad',))
                 ->add('cedula', 'integer', array('required' => true, 'attr' => array('placeholder' => 'Cédula de Identidad')))
@@ -30,12 +35,11 @@ class AtletasType extends AbstractType {
                 ->add('fechaNacimiento', 'birthday', array('attr' => array('placeholder' => 'Fecha de Nacimiento',), 'format' => 'dd-MM-yyyy'))
                 ->add('genero', GeneroType::class, array('placeholder' => 'Género',))
                 ->add('email', 'email', array('required' => true, 'attr' => array('placeholder' => 'E-mail')))
-                ->add('telefono', 'text', array('required' => true, 'attr' => array('placeholder' => 'Teléfono Personal' )))
-                ->add('fotografia', 'text', array('required' => true, 'attr' => array('placeholder' => 'Fotografía')))
+                ->add('telefono', 'text', array('required' => true, 'attr' => array('placeholder' => 'Teléfono Personal')))
                 ->add('imagenCedula', 'text', array('required' => true, 'attr' => array('placeholder' => 'Imagen Cédula')))
                 ->add('institucion', 'text', array('required' => true, 'attr' => array('placeholder' => 'Institución')))
                 ->add('departamento', 'text', array('required' => true, 'attr' => array('placeholder' => 'Facultad')))
-                ->add('ingreso', 'text', array('required' => true, 'attr' => array('placeholder' => 'Año de Ingreso')))                
+                ->add('ingreso', 'text', array('required' => true, 'attr' => array('placeholder' => 'Año de Ingreso')))
                 ->add('contancia', 'text', array('required' => true, 'attr' => array('placeholder' => 'Constancia')))
                 ->add('carnet', 'text', array('required' => true, 'attr' => array('placeholder' => 'Carnet')))
                 ->add('altura', 'integer', array('required' => true, 'attr' => array('placeholder' => 'Altura (Cms)')))
@@ -53,12 +57,35 @@ class AtletasType extends AbstractType {
                 ->add('tallaZapato', TallaZapatosType::class, array('placeholder' => 'Talla Zapato',))
                 ->add('status', StatusType::class, array('placeholder' => 'Status',))
                 ->add('observacion', 'textarea', array('required' => false, 'attr' => array('rows' => '4', 'placeholder' => 'Observaciones')))
-                
-        ;
+                ->add('fotografia', 'comur_image', array(
+                    'uploadConfig' => array(
+                        'uploadRoute' => 'comur_api_upload', //optional
+                        'uploadUrl' => $pEntity->getUploadRootDir(), // required - see explanation below (you can also put just a dir path)
+                        'webDir' => 'web/'.$pEntity->getUploadDir(), // required - see explanation below (you can also put just a dir path)
+                        'fileExt' => '*.jpg;*.gif;*.png;*.jpeg', //optional
+                        'libraryDir' => null, //optional
+                        'libraryRoute' => 'comur_api_image_library', //optional
+                        'showLibrary' => false //optional
+                    ),
+                    'cropConfig' => array(
+                        'minWidth' => 240,
+                        'minHeight' => 300,
+                        'aspectRatio' => true, //optional
+                        'cropRoute' => 'comur_api_crop', //optional
+                        'forceResize' => false, //optional
+                        'thumbs' => array(//optional
+                            array(
+                                'maxWidth' => 120,
+                                'maxHeight' => 150,
+                                'useAsFieldImage' => true  //optional
+                            )
+                        )
+                    ),
+                )) ;
     }
 
     /**
-     @param OptionsResolver $resolver
+      @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
