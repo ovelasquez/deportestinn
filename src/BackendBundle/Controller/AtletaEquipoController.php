@@ -7,8 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use BackendBundle\Entity\AtletaEquipo;
-use BackendBundle\Form\AtletaEquipoType;
-use BackendBundle\Entity\CampeonatoDisciplina;
+
 
 /**
  * AtletaEquipo controller.
@@ -43,35 +42,58 @@ class AtletaEquipoController extends Controller {
         $atletaEquipo = new AtletaEquipo();
         $form = $this->createForm('BackendBundle\Form\AtletaEquipoType', $atletaEquipo);
         $form->handleRequest($request);
-         $problema = "";
+        $problema = "";
         if ($form->isSubmitted()) {
-           
             $em = $this->getDoctrine()->getManager();
-            //  = ($request->request->get('atleta_equipo')['equipo']);
+            
+            //dump($request); die(); //->request->get('atleta_equipo')['equipo']);
+            
             //Equipo y Organizacion al cual va a registrarse el atleta
-
             $equipo = $em->getRepository('BackendBundle:Equipos')->find($request->request->get('atleta_equipo')['equipo']);
             $disciplina = $equipo->getEquipoOrganizacionCampeonatoDisciplina()->getDisciplina();
             $organizacion = $equipo->getEquipoOrganizacionCampeonatoDisciplina()->getOrganizacion();
             $campeonato = $equipo->getEquipoOrganizacionCampeonatoDisciplina()->getOrganizacion()->getCampeonato();
-            //Informacion de la disiciplina en el campeonato: Max, Min, Fecha de inicio y de fin
-            $campeonatoDisciplina = new CampeonatoDisciplina();
+            
+            //Informacion de la disiciplina en el campeonato: Max, Min, Fecha de inicio y de fin            
             $campeonatoDisciplina = $em->getRepository('BackendBundle:CampeonatoDisciplina')->findOneBy(array('disciplina' => $disciplina, 'campeonato' => $campeonato));
 
-            //Verificamos si estamos dentro del rango permitido.
+            //Verificamos si estamos dentro del rango de fecha permitido para la inscripcion
             $inicio = $campeonatoDisciplina->getInicio();
             $fin = $campeonatoDisciplina->getFin();
             $hoy = new \DateTime('now');
 
             //Si esta dentro del rango
             if (($hoy >= $inicio) && ($hoy <= $fin)) {
-                //Verificamos sino estamos por encima del máx
+                //Verificamos sino estamos por encima del máx de atletas permitidos
                 $max = $campeonatoDisciplina->getMaximo();
                 $min = $campeonatoDisciplina->getMinimo();
+                //Buscamos la cantidad de atletas registrados
                 $registrados = $em->getRepository('BackendBundle:AtletaEquipo')->findAll(array('equipo' => $equipo));
                 // echo count($registrados);  die();
                 if ($max > count($registrados)) {
                     if ($form->isSubmitted() && $form->isValid()) {
+                       
+                        //Obtenemos la Fotografia
+                        $file = $atletaEquipo->getAtleta()->getFotografia();
+                        //$fileName = $this->get('app.foto_uploader')->upload($file);
+                        $fileName = $this->get('app.file_uploader')->upload($file,$this->container->getParameter('atletas_foto_directory'));
+                        $atletaEquipo->getAtleta()->setFotografia($fileName);
+                        //Obtenemos la Imagen Cedula
+                        $file = $atletaEquipo->getAtleta()->getImagenCedula();
+                        //$fileName = $this->get('app.cedula_uploader')->upload($file);
+                        $fileName = $this->get('app.file_uploader')->upload($file,$this->container->getParameter('atletas_cedula_directory'));
+                        $atletaEquipo->getAtleta()->setImagenCedula($fileName);
+                        //Obtenemos la Constancia de Estudio
+                        $file = $atletaEquipo->getAtleta()->getContancia();
+                        //$fileName = $this->get('app.constancia_uploader')->upload($file);
+                        $fileName = $this->get('app.file_uploader')->upload($file,$this->container->getParameter('atletas_constancia_directory'));
+                        $atletaEquipo->getAtleta()->setContancia($fileName);
+                        //Obtenemos la Carnet
+                        $file = $atletaEquipo->getAtleta()->getCarnet();
+                        //$fileName = $this->get('app.carnet_uploader')->upload($file);
+                        $fileName = $this->get('app.file_uploader')->upload($file,$this->container->getParameter('atletas_carnet_directory'));
+                        $atletaEquipo->getAtleta()->setCarnet($fileName);
+                        
                         $em->persist($atletaEquipo);
                         $em->flush();
                         return $this->redirectToRoute('atletaequipo_show', array('id' => $atletaEquipo->getId()));

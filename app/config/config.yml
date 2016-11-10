@@ -9,7 +9,14 @@ imports:
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: es
-    campeonatos_directory: '%kernel.root_dir%/../web/uploads/logos/campeonatos'
+    uploads_directory: '%kernel.root_dir%/../web/uploads'
+    ligas_directory: '%kernel.root_dir%/../web/uploads/logos/ligas'
+    campeonatos_directory: '/logos/campeonatos'
+    atletas_foto_directory: '/atletas/fotos'
+    atletas_cedula_directory: '/atletas/cedula'
+    atletas_constancia_directory: '/atletas/constancia'
+    atletas_carnet_directory: '/atletas/carnet'
+    org: '16'
 
 framework:
     #esi:             ~

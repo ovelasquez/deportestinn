@@ -46,25 +46,10 @@ class CampeonatosController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            //Obtenemos el logo
             $file = $campeonato->getLogo();
-            $fileName = $this->get('app.campeonato_uploader')->upload($file);
+            $fileName = $this->get('app.file_uploader')->upload($file,$this->container->getParameter('campeonatos_directory'));
             $campeonato->setLogo($fileName);
-
-
-            // $file stores the uploaded PDF file
-            /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
-          //  $file = $campeonato->getLogo();
-
-            // Generate a unique name for the file before saving it
-          //  $fileName = md5(uniqid()).'.'.$file->guessExtension();
-
-            // Move the file to the directory where brochures are stored
-         //   $file->move($this->getParameter('campeonatos_directory'),$fileName );
-
-            // Update the 'brochure' property to store the PDF file name
-            // instead of its contents
-         //   $campeonato->setLogo($fileName);
 
 
             $em = $this->getDoctrine()->getManager();
@@ -107,9 +92,7 @@ class CampeonatosController extends Controller
         $deleteForm = $this->createDeleteForm($campeonato);
         $editForm = $this->createForm('BackendBundle\Form\CampeonatosType', $campeonato);
         $editForm->handleRequest($request);
-
        
-
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             //$campeonato->setLogo( new File($this->getParameter('campeonatos_directory').'/'.$campeonato->getLogo()));
             $file = $campeonato->getLogo();

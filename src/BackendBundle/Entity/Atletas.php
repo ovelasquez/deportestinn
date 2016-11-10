@@ -3,6 +3,7 @@
 namespace BackendBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;  
 
 /**
  * Atletas
@@ -91,17 +92,19 @@ class Atletas {
      */
     private $telefono;
 
-    /**
-     * @var string
+     /**
+     * @ORM\Column(type="string")
      *
-     * @ORM\Column(name="fotografia", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(message="Por favor ingresar una imagen en formato png, jpeg o gif.")
+     * @Assert\File(mimeTypes = {"image/png", "image/jpeg", "image/jpg", "image/gif" })
      */
     private $fotografia;
 
-    /**
-     * @var string
+     /**
+     * @ORM\Column(type="string")
      *
-     * @ORM\Column(name="imagen_cedula", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(message="Por favor ingresar una imagen en formato png, jpeg o gif.")
+     * @Assert\File(mimeTypes = {"image/png", "image/jpeg", "image/jpg", "image/gif" })
      */
     private $imagenCedula;
 
@@ -135,17 +138,19 @@ class Atletas {
      */
     private $departamento;
 
-    /**
-     * @var string
+     /**
+     * @ORM\Column(type="string")
      *
-     * @ORM\Column(name="contancia", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(message="Por favor ingresar una imagen en formato png, jpeg o gif.")
+     * @Assert\File(mimeTypes = {"image/png", "image/jpeg", "image/jpg", "image/gif" })
      */
     private $contancia;
 
-    /**
-     * @var string
+     /**
+     * @ORM\Column(type="string")
      *
-     * @ORM\Column(name="carnet", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(message="Por favor ingresar una imagen en formato png, jpeg o gif.")
+     * @Assert\File(mimeTypes = {"image/png", "image/jpeg", "image/jpg", "image/gif" })
      */
     private $carnet;
 

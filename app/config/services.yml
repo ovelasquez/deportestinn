@@ -7,6 +7,6 @@ services:
 #    app.brochure_uploader:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
-    app.campeonato_uploader:
+    app.file_uploader:
         class: BackendBundle\FileUploader
-        arguments: ['%campeonatos_directory%']
+        arguments: ['%uploads_directory%']

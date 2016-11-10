@@ -1,0 +1,253 @@
+{% extends 'gentelella.html.twig' %} 
+
+{% block Titulo %} ATLETAS {% endblock %}
+{% block Subtitulo %}Detalle{% endblock %} 
+
+{% block paneltoolbox %} 
+    <li><a href="{{ path('atletas_index') }}">Back to the list</a>
+    </li>
+    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+    </li>
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+        <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Settings 1</a>
+            </li>
+            <li><a href="#">Settings 2</a>
+            </li>
+        </ul>
+    </li>
+    <li><a class="close-link"><i class="fa fa-close"></i></a>
+    </li>
+{% endblock %}   
+
+{% block body %}
+    <div class="col-md-3 col-sm-3 col-xs-12 profile_left">
+        <div class="profile_img">
+            <div id="crop-avatar">
+                <!-- Current avatar -->
+                <img class="img-responsive avatar-view"  src="{{ asset('uploads/atletas/fotos/')}}{{atleta.fotografia}}" alt="Avatar" title="Change the avatar">
+            </div>
+
+
+        </div>
+        <h3>{{ atleta.primerApellido }} {{ atleta.primerNombre }}</h3>
+
+        <ul class="list-unstyled user_data">
+            <li><i class="fa fa-map-marker user-profile-icon"></i> {{ atleta.nacionalidad }}-{{ atleta.cedula |number_format(0, ',', '.')   }} 
+            </li>
+
+            <li>
+                <i class="fa fa-briefcase user-profile-icon"></i> 
+            </li>
+
+            <li class="m-top-xs">
+                <i class="fa fa-external-link user-profile-icon"></i>
+                <a href="mailto:{{ atleta.email }}" target="_blank">{{ atleta.email }}</a>
+            </li>
+        </ul>
+        <a class="btn btn-success" href="{{ path('atletas_edit', { 'id': atleta.id }) }}"><i class="fa fa-edit m-right-xs"></i>Editar</a>
+        <br />
+    </div>
+    <div class="col-md-9 col-sm-9 col-xs-12">
+        <div class="" role="tabpanel" data-example-id="togglable-tabs">
+            <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Personales</a>
+                </li>
+                <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Académicos</a>
+                </li>
+                <li role="presentation" class=""><a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">Médicos</a>
+                </li>
+                <li role="presentation" class=""><a href="#tab_content4" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">Uniformes</a>
+                </li>
+                <li role="presentation" class=""><a href="#tab_content5" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">Deportivos</a>
+                </li>
+                <li role="presentation" class=""><a href="#tab_content6" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">Observaciones</a>
+                </li>
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">                               
+                    <h2>Datos Personales</h2>
+                    <br>
+                    <table class="table table-striped responsive-utilities	">
+                        <tbody>
+
+                            <tr>
+                                <th>Cédula</th>
+                                <td>{{ atleta.nacionalidad }}-{{ atleta.cedula |number_format(0, ',', '.')   }}</td>
+                            </tr>
+                            <tr>
+                                <th>Primer Apellido</th>
+                                <td>{{ atleta.primerApellido }}</td>
+                            </tr>
+                            <tr>
+                                <th>Segundo Apellido</th>
+                                <td>{{ atleta.segundoApellido }}</td>
+                            </tr>
+                            <tr>
+                                <th>Primer Nombre</th>
+                                <td>{{ atleta.primerNombre }}</td>
+                            </tr>
+                            <tr>
+                                <th>Segundo Nombre</th>
+                                <td>{{ atleta.segundoNombre }}</td>
+                            </tr>
+                            <tr>
+                                <th>Fecha Nacimiento</th>
+                                <td>{{ atleta.fechaNacimiento|date('d-m-Y') }}</td>
+                            </tr>
+                            <tr>
+                                <th>Gënero</th>
+                                <td>{{ atleta.genero }}</td>
+                            </tr>
+                            <tr>
+                                <th>E-mail</th>
+                                <td>{{ atleta.email }}</td>
+                            </tr>
+                            <tr>
+                                <th>Teléfono</th>
+                                <td>{{ atleta.telefono }}</td>
+                            </tr>
+                            <tr>
+                                <th>Imagen Cédula</th>
+                                <td> <a target="_blank" href="{{ asset('uploads/atletas/cedula/')}}{{atleta.imagenCedula}}">  <img src="{{ asset('uploads/atletas/cedula/')}}{{atleta.imagenCedula}}" height="120px"  alt="Avatar" title="Change the avatar"> </a>
+                                    
+                                    </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">                                   
+                    <h2>Datos Académicos</h2>
+                    <br>
+                    <table class="table table-striped responsive-utilities	">
+                        <tbody>
+
+                            <tr>
+                                <th>Institución</th>
+                                <td>{{ atleta.institucion }}</td>
+                            </tr>
+                            <tr>
+                                <th>Departamento</th>
+                                <td>{{ atleta.departamento }}</td>
+                            </tr>
+                            <tr>
+                                <th>Año de Ingreso</th>
+                                <td>{{ atleta.ingreso}}</td>
+                            </tr>
+                            <tr>
+                                <th>Constancia</th>
+                                <td> <a target="_blank" href="{{ asset('uploads/atletas/constancia/')}}{{ atleta.contancia }}">  <img src="{{ asset('uploads/atletas/constancia/')}}{{ atleta.contancia }}" height="120px"  alt="Avatar" title="Change the avatar" /> </a></td>
+                            </tr>
+                            <tr>
+                                <th>Carnet</th>
+                                <td> <a target="_blank" href="{{ asset('uploads/atletas/carnet/')}}{{ atleta.carnet }}">  <img src="{{ asset('uploads/atletas/carnet/')}}{{ atleta.carnet }}" height="120px"  alt="Avatar" title="Change the avatar" /> </a></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
+                    <h2>Datos Médicos</h2>
+                    <br>
+                    <table class="table table-striped responsive-utilities	">
+                        <tbody>
+
+                            <tr>
+                                <th>Altura</th>
+                                <td>{{ atleta.altura }}</td>
+                            </tr>
+                            <tr>
+                                <th>Peso</th>
+                                <td>{{ atleta.peso }}</td>
+                            </tr>
+                            <tr>
+                                <th>Tipo de Sangre</th>
+                                <td>{{ atleta.tipoSangre }}</td>
+                            </tr>
+                            <tr>
+                                <th>Alergias</th>
+                                <td>{{ atleta.alergias }}</td>
+                            </tr>
+                            <tr>
+                                <th>Nombre Contacto</th>
+                                <td>{{ atleta.contactoNombre }}</td>
+                            </tr>
+                            <tr>
+                                <th>Teléfono Contacto</th>
+                                <td>{{ atleta.contactoTelefono }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="tab_content4" aria-labelledby="profile-tab">
+                    <h2>Datos Uniformes</h2>
+                    <br>
+                    <table class="table table-striped responsive-utilities	">
+                        <tbody>
+                            <tr>
+                                <th>Talla de Franela</th>
+                                <td>{{ atleta.tallaFranela }}</td>
+                            </tr>
+                            <tr>
+                                <th>Talla de Pantalón</th>
+                                <td>{{ atleta.tallaPantalon }}</td>
+                            </tr>
+                            <tr>
+                                <th>Talla de Pantalón Corto</th>
+                                <td>{{ atleta.tallaPantalonCorto }}</td>
+                            </tr>
+                            <tr>
+                                <th>Talla de Zapato</th>
+                                <td>{{ atleta.tallaZapato }}</td>
+                            </tr>
+                            <tr>
+                                <th>Talla de Gorra </th>
+                                <td>{{ atleta.tallaGorra }}</td>
+                            </tr>
+                            <tr>
+                                <th>Talla de Chaqueta</th>
+                                <td>{{ atleta.tallaChaqueta }}</td>
+                            </tr>
+                            <tr>
+                                <th> Talla de Medias </th>
+                                <td>{{ atleta.tallaMedias }}</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <div role="tabpanel" class="tab-pane fade" id="tab_content5" aria-labelledby="profile-tab">
+                    <h2>Datos Deportivos</h2>
+                    <br>
+                    <table class="table table-striped responsive-utilities	">
+                        <tbody>
+                            <tr>
+                                <th> Equipo :</th>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th> Status </th>
+                                <td>{{ atleta.status }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="tab_content6" aria-labelledby="profile-tab">
+                    <h2>Observaciones</h2>
+                    <br>
+                    <table class="table table-striped responsive-utilities	">
+                        <tbody>
+                            <tr>
+                                <th> </th>
+                                <td>{{ atleta.observacion }}</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -47,7 +47,7 @@ class Campeonatos
      /**
      * @ORM\Column(type="string")
      *
-     * @Assert\NotBlank(message="Please, upload the product brochure as a PDF file.")
+     * @Assert\NotBlank(message="Por favor ingresar una imagen en formato png, jpeg o gif.")
      * @Assert\File(mimeTypes = {"image/png", "image/jpeg", "image/jpg", "image/gif" })
      */
     private $logo;
