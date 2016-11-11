@@ -10,7 +10,7 @@ imports:
 parameters:
     locale: es
     uploads_directory: '%kernel.root_dir%/../web/uploads'
-    ligas_directory: '%kernel.root_dir%/../web/uploads/logos/ligas'
+    ligas_directory: '/logos/ligas'
     campeonatos_directory: '/logos/campeonatos'
     atletas_foto_directory: '/atletas/fotos'
     atletas_cedula_directory: '/atletas/cedula'

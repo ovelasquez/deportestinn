@@ -41,24 +41,24 @@ class CampeonatosController extends Controller
      */
     public function newAction(Request $request)
     {
+        
+        $porciones = explode("-", $request->request->get('datefilter'));     
         $campeonato = new Campeonatos();
         $form = $this->createForm('BackendBundle\Form\CampeonatosType', $campeonato);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            //Obtenemos el logo
-            $file = $campeonato->getLogo();
-            $fileName = $this->get('app.file_uploader')->upload($file,$this->container->getParameter('campeonatos_directory'));
-            $campeonato->setLogo($fileName);
-
-
+             dump($campeonato); 
+            $liga->setInicio(new \DateTime(trim($porciones[0])));             
+             $liga->setFin(new \DateTime(trim($porciones[1])));
+        
             $em = $this->getDoctrine()->getManager();
             $em->persist($campeonato);
             $em->flush();
 
             return $this->redirectToRoute('campeonatos_show', array('id' => $campeonato->getId()));
         }
-
+        dump($form); die();
         return $this->render('campeonatos/new.html.twig', array(
             'campeonato' => $campeonato,
             'form' => $form->createView(),
@@ -88,17 +88,21 @@ class CampeonatosController extends Controller
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Campeonatos $campeonato)
-    {
+    {        
+        //dump($request); die();
         $deleteForm = $this->createDeleteForm($campeonato);
         $editForm = $this->createForm('BackendBundle\Form\CampeonatosType', $campeonato);
         $editForm->handleRequest($request);
+
+         //Si va a editar armamos la variable periodo para mostarlo en la vista         
+        $periodo=($campeonato->getInicio()->format("d/m/Y"))."-".($campeonato->getFin()->format("d/m/Y"));
        
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            //$campeonato->setLogo( new File($this->getParameter('campeonatos_directory').'/'.$campeonato->getLogo()));
-            $file = $campeonato->getLogo();
-            $fileName = $this->get('app.campeonato_uploader')->upload($file);
-            $campeonato->setLogo($fileName);
-
+            //Si vamos a almacenar en la BD tratamos a porciones y las asignamos  a las respectivas fechas            
+            $porciones = explode("-", $request->request->get('datefilter'));                  
+            $campeonato->setInicio(new \DateTime(trim($porciones[0])));                                    
+            $campeonato->setFin(new \DateTime(trim($porciones[1])));
+            
             $em = $this->getDoctrine()->getManager();
             $em->persist($campeonato);
             $em->flush();
@@ -108,6 +112,7 @@ class CampeonatosController extends Controller
 
         return $this->render('campeonatos/edit.html.twig', array(
             'campeonato' => $campeonato,
+            'periodo' => $periodo,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));

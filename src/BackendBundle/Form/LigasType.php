@@ -5,6 +5,7 @@ namespace BackendBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class LigasType extends AbstractType {
 
@@ -12,29 +13,30 @@ class LigasType extends AbstractType {
      * @param FormBuilderInterface $builder
      * @param array $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options) {
-        $pEntity = $builder->getForm()->getData();
-
+    public function buildForm(FormBuilderInterface $builder, array $options) { 
+        $pEntity = $builder->getForm()->getData();             
         $builder
                 ->add('nombre')
                 ->add('descripcion')
                 ->add('ubicacion')
+                ->add('inicio', DateType::class)
+                ->add('fin', DateType::class)                
                 ->add('logo', 'comur_image', array(
                     'uploadConfig' => array(
                         'uploadRoute' => 'comur_api_upload', //optional
                         'uploadUrl' => $pEntity->getUploadRootDir(), // required - see explanation below (you can also put just a dir path)
-                        'webDir' => 'web/' . $pEntity->getUploadDir(), // required - see explanation below (you can also put just a dir path)
+                        'webDir' =>  '../web/'.$pEntity->getUploadDir(), // required - see explanation below (you can also put just a dir path)
                         'fileExt' => '*.jpg;*.gif;*.png;*.jpeg', //optional
                         'libraryDir' => null, //optional
                         'libraryRoute' => 'comur_api_image_library', //optional
-                        'showLibrary' => false //optional
+                        'showLibrary' => false //optional                        
                     ),
                     'cropConfig' => array(
                         'minWidth' => 240,
                         'minHeight' => 300,
                         'aspectRatio' => true, //optional
                         'cropRoute' => 'comur_api_crop', //optional
-                        'forceResize' => false, //optional
+                        'forceResize' => true, //optional
                         'thumbs' => array(//optional
                             array(
                                 'maxWidth' => 120,
@@ -43,8 +45,9 @@ class LigasType extends AbstractType {
                             )
                         )
                     ),
+                    
                 ))
-        ;
+                ;
     }
 
     /**

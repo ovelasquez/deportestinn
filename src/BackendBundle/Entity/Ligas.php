@@ -49,6 +49,20 @@ class Ligas {
      */
     private $logo;
 
+     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="inicio", type="date", nullable=false)
+     */
+    private $inicio;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fin", type="date", nullable=false)
+     */
+    private $fin;
+
     /**
      * Get id
      *
@@ -156,8 +170,7 @@ class Ligas {
      */
     public function getUploadRootDir() {
         $dir = str_replace('\\', '/', __DIR__);   
-        return $dir . '/../../../web/' . $this->getUploadDir();   
-
+        return $dir . '/../../../web/' . $this->getUploadDir();          
     }
 
     /**
@@ -184,4 +197,52 @@ class Ligas {
         return null === $this->logo ? null : $this->getUploadDir() . '/' . $this->logo;
     }
 
+
+    /**
+     * Set inicio
+     *
+     * @param \DateTime $inicio
+     *
+     * @return Ligas
+     */
+    public function setInicio($inicio)
+    {
+        $this->inicio = $inicio;
+
+        return $this;
+    }
+
+    /**
+     * Get inicio
+     *
+     * @return \DateTime
+     */
+    public function getInicio()
+    {
+        return $this->inicio;
+    }
+
+    /**
+     * Set fin
+     *
+     * @param \DateTime $fin
+     *
+     * @return Ligas
+     */
+    public function setFin($fin)
+    {
+        $this->fin = $fin;
+
+        return $this;
+    }
+
+    /**
+     * Get fin
+     *
+     * @return \DateTime
+     */
+    public function getFin()
+    {
+        return $this->fin;
+    }
 }

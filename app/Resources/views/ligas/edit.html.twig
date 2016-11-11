@@ -1,79 +1,122 @@
-{% extends 'gentelella.html.twig' %} 
+{% extends 'gentelella.html.twig' %}
+{% block stylesheets %}
+<link href="{{ asset('bundles/backend/vendors/bootstrap-daterangepicker/daterangepicker.css')  }}"   rel="stylesheet">  
+{% endblock %} 
+{% block title %} Ligas {% endblock %}
+
+{% block Titulo %} DeportesTINN {% endblock %}
+
+{% block Subtitulo %} Ligas <small>Editar</small> {% endblock %} 
+
+{% block cerrar %} href="{{ path('ligas_index')}}" {% endblock %}                
 {% block body %}
-    <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="x_panel">
-                <div class="x_title">
-                    <h2>
-                        Liga <small>Editar</small>
-                    </h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-                        <li class="dropdown"><a href="#" class="dropdown-toggle"
-                                                data-toggle="dropdown" role="button" aria-expanded="false"><i
-                                    class="fa fa-wrench"></i></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Settings 1</a></li>
-                                <li><a href="#">Settings 2</a></li>
-                            </ul></li>
-                        <li><a class="close-link"><i class="fa fa-close"></i></a></li>
-                    </ul>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="x_content">
-                    <br /> 
-                    {{ form_start(edit_form, { 'attr': {'class': 'form-horizontal form-label-left'} }) }} 
-                    {{ form_errors(edit_form) }}
+ {% include "ComurImageBundle:Form:croppable_image_modal.html.twig" with {'include_jquery': false, 'include_bootstrap': false} %}
+        <br /> 
+        {{ form_start(edit_form, { 'attr': {'class': 'form-horizontal form-label-left'} }) }} 
+        {{ form_errors(edit_form) }}
 
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12"
-                               for="nombre">{{ form_label(edit_form.nombre) }} <span
-                                class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(edit_form.nombre,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>
-                    </div>
+        <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                    for="nombre">{{ form_label(edit_form.nombre) }} <span
+                    class="required">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(edit_form.nombre,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>
+        </div>
 
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12"
-                               for="descripcion">{{ form_label(edit_form.descripcion) }} <span
-                                class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(edit_form.descripcion,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>
-                    </div>
+        <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                    for="descripcion">{{ form_label(edit_form.descripcion) }} <span
+                    class="required">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(edit_form.descripcion,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>
+        </div>
 
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12"
-                               for="ubicacion">{{ form_label(edit_form.ubicacion) }} <span
-                                class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(edit_form.ubicacion,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12"
-                               for="first-name">{{ form_label(edit_form.logo) }} <span
-                                class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(edit_form.logo,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>
-                    </div>
+        <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                    for="ubicacion">{{ form_label(edit_form.ubicacion) }} <span
+                    class="required">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(edit_form.ubicacion,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>
+        </div>
+        
+        <div id="inicio" class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                    for="inicio">{{ form_label(edit_form.inicio) }} 
+                <span class="required">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(edit_form.inicio) }}</div>
+        </div>
 
-                    <div class="ln_solid"></div>
-                    <div class="form-group">
-                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                            <button type="submit" class="btn btn-success">Editar</button>
-                        </div>
-                    </div>
-                    {{ form_end(edit_form) }}
-                </div>
-                <ul>	
-                    <li><a href="{{ path('ligas_index') }}">Regresar a la lista</a></li>				
-                    <li>
-                        {{ form_start(delete_form) }}
-                        <button type="submit" class="btn btn-danger">Eliminar</button>
-                        {{ form_end(delete_form) }}
-                    </li>
-                </ul>
+        <div id="fin" class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                    for="fin">{{ form_label(edit_form.fin) }}
+                <span class="required">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(edit_form.fin) }}</div>
+        </div>
+
+         <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                for="fin">Periodo
+            <span class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12"><input type="text" name="datefilter" value="{{periodo}}" /></div>
+    </div>
+
+     <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                    for="first-name">{{ form_label(edit_form.logo) }} <span
+                    class="required">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(edit_form.logo,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>                    
+        </div>
+
+        <div class="ln_solid"></div>
+        <div class="form-group">
+            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                <button type="submit" class="btn btn-success">Editar</button>
+            
+                 
             </div>
         </div>
-    </div>
+        {{ form_end(edit_form) }}
+        {{ form_start(delete_form) }}            
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                {{ form_end(delete_form) }}
+
+      
+{% endblock %}
+{% block javascripts %}
+<script src="{{ asset('bundles/backend/vendors/moment/moment.js')}}"></script>
+<script src="{{ asset('bundles/backend/vendors/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
+<script src="{{ asset('bundles/backend/vendors/holder.js') }}"></script>
+<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+<script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script> 
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#inicio").hide();
+    $("#fin").hide();        
+});
+
+$(function() {
+
+  $('input[name="datefilter"]').daterangepicker({
+      autoUpdateInput: false,
+      locale: {
+          cancelLabel: 'Clear'
+      }
+  });
+
+  $('input[name="datefilter"]').on('apply.daterangepicker', function(ev, picker) {
+      $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+  });
+
+  $('input[name="datefilter"]').on('cancel.daterangepicker', function(ev, picker) {
+      $(this).val('');
+  });
+
+});
+</script>
+
 {% endblock %}

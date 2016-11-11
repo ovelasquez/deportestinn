@@ -96,10 +96,6 @@ class AtletasController extends Controller {
             return $this->redirectToRoute('atletas_show', array('id' => $atleta->getId()));
         }
 
-
-
-
-
         return $this->render('atletas/new.html.twig', array(
                     'atleta' => $atleta,
                     'form' => $form->createView(),

@@ -1,8 +1,8 @@
 {% extends 'gentelella.html.twig' %} 
 {% block title %} Ligas {% endblock %}
-
-{% block Titulo %} DeportesTINN! {% endblock %}
-{% block Subtitulo %} Ligas Deportivas{% endblock %} 
+{% block Titulo %} DeportesTINN!!! {% endblock %}
+{% block Subtitulo %} Ligas <small>Ver</small> {% endblock %} 
+{% block cerrar %} href="{{ path('ligas_index')}}" {% endblock %}                  
 {% block body %}
     <div class="col-md-3 col-sm-3 col-xs-12 profile_left">
         <div class="profile_img">
@@ -12,10 +12,10 @@
             </div>
         </div>
         <h3>{{liga.nombre}}</h3>
-
         <ul class="list-unstyled user_data">
-            <li><i class="fa fa-map-marker user-profile-icon"></i> {{liga.ubicacion}}
-            </li>
+            <li>
+                <i class="fa fa-briefcase user-profile-icon"></i> Liga: {{liga.nombre }}</li>
+            <li><i class="fa fa-map-marker user-profile-icon"></i> Ubicación: {{ liga.ubicacion}}</li>            
         </ul>
         <a class="btn btn-success" href="{{ path('ligas_edit', { 'id': liga.id }) }}"><i class="fa fa-edit m-right-xs"></i>Editar</a>
         <br />
@@ -23,31 +23,39 @@
     <div class="col-md-9 col-sm-9 col-xs-12">
         <div class="" role="tabpanel" data-example-id="togglable-tabs">
             <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Información</a>
-                </li>                
+                <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Información</a> </li>                                
             </ul>
             <div id="myTabContent" class="tab-content">
                 <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">                               
-                    <h2>Datos de la Liga</h2>
+                    <h2>Datos de la liga</h2>
                     <br>
                     <table class="table table-striped responsive-utilities	">
                         <tbody>
+
                             <tr>
                                 <th>Nombre</th>
-                                <td>{{liga.nombre}}</td>
+                                <td>{{ liga.nombre }}</td>
                             </tr>
                             <tr>
-                                <th>Descripcion</th>
-                                <td>{{liga.descripcion}}</td>
-                            </tr>                            
+                                <th>Descripción</th>
+                                <td>{{ liga.descripcion }}</td>
+                            </tr>
                             <tr>
                                 <th>Ubicación</th>
-                                <td>{{liga.ubicacion}}</td>
-                            </tr>                            
+                                <td>{{ liga.ubicacion }}</td>
+                            </tr>
+                            <th>Fecha de inicio</th>
+                                <td>{{ liga.inicio|date('d-m-Y') }}</td>
+                            </tr>
+                            <th>Fecha de Culminación</th>
+                                <td>{{ liga.fin|date('d-m-Y') }}</td>
+                            </tr>                                            
                         </tbody>
                     </table>
-                </div>                                                                              
+                </div>
+                
             </div>
+           
         </div>
-    </div>
+        
 {% endblock %}

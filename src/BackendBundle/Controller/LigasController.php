@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+
 use BackendBundle\Entity\Ligas;
 use BackendBundle\Form\LigasType;
 
@@ -25,9 +26,8 @@ class LigasController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
         $ligas = $em->getRepository('BackendBundle:Ligas')->findAll();
-
+       
         return $this->render('ligas/index.html.twig', array(
             'ligas' => $ligas,
         ));
@@ -40,12 +40,16 @@ class LigasController extends Controller
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request)
-    {
+    {        
+        $porciones = explode("-", $request->request->get('datefilter'));                 
         $liga = new Ligas();
         $form = $this->createForm('BackendBundle\Form\LigasType', $liga);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+             $liga->setInicio(new \DateTime(trim($porciones[0])));             
+             $liga->setFin(new \DateTime(trim($porciones[1])));
+          
             $em = $this->getDoctrine()->getManager();
             $em->persist($liga);
             $em->flush();
@@ -67,6 +71,7 @@ class LigasController extends Controller
      */
     public function showAction(Ligas $liga)
     {
+        
         $deleteForm = $this->createDeleteForm($liga);
 
         return $this->render('ligas/show.html.twig', array(
@@ -83,20 +88,30 @@ class LigasController extends Controller
      */
     public function editAction(Request $request, Ligas $liga)
     {
+
         $deleteForm = $this->createDeleteForm($liga);
         $editForm = $this->createForm('BackendBundle\Form\LigasType', $liga);
         $editForm->handleRequest($request);
 
+        //Si va a editar armamos la variable periodo para mostarlo en la vista         
+        $periodo=($liga->getInicio()->format("d/m/Y"))."-".($liga->getFin()->format("d/m/Y"));
+
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            //Si vamos a almacenar en la BD tratamos a porciones y las asignamos  a las respectivas fechas
+            $porciones = explode("-", $request->request->get('datefilter'));                  
+            $liga->setInicio(new \DateTime(trim($porciones[0])));                                    
+            $liga->setFin(new \DateTime(trim($porciones[1])));
+           
             $em = $this->getDoctrine()->getManager();
             $em->persist($liga);
             $em->flush();
 
-            return $this->redirectToRoute('ligas_edit', array('id' => $liga->getId()));
-        }
-
+            return $this->redirectToRoute('ligas_show', array('id' => $liga->getId()));
+        }       
+        
         return $this->render('ligas/edit.html.twig', array(
-            'liga' => $liga,
+            'liga' => $liga,            
+            'periodo' => $periodo,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));

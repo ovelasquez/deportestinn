@@ -5,7 +5,7 @@ namespace BackendBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class CampeonatosType extends AbstractType
 {
@@ -15,14 +15,40 @@ class CampeonatosType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $pEntity = $builder->getForm()->getData();    
         $builder
             ->add('nombre')
             ->add('descripcion')
             ->add('ubicacion')
-            ->add('inicio', 'date')
-            ->add('fin', 'date')
+            ->add('inicio', DateType::class)
+            ->add('fin', DateType::class)
             ->add('liga')
-            ->add('logo', FileType::class, array('label' => 'Logo','data_class' => null))
+            ->add('logo', 'comur_image', array(
+                    'uploadConfig' => array(
+                        'uploadRoute' => 'comur_api_upload', //optional
+                        'uploadUrl' => $pEntity->getUploadRootDir(), // required - see explanation below (you can also put just a dir path)
+                        'webDir' =>  '../web/'.$pEntity->getUploadDir(), // required - see explanation below (you can also put just a dir path)
+                        'fileExt' => '*.jpg;*.gif;*.png;*.jpeg', //optional
+                        'libraryDir' => null, //optional
+                        'libraryRoute' => 'comur_api_image_library', //optional
+                        'showLibrary' => true //optional                        
+                    ),
+                    'cropConfig' => array(
+                        'minWidth' => 300,
+                        'minHeight' => 240,
+                        'aspectRatio' => true, //optional
+                        'cropRoute' => 'comur_api_crop', //optional
+                        'forceResize' => true, //optional
+                        'thumbs' => array(//optional
+                            array(
+                                'maxWidth' => 120,
+                                'maxHeight' => 150,
+                                'useAsFieldImage' => true  //optional
+                            )
+                        )
+                    ),
+                    
+                ))
         ;
     }
     
