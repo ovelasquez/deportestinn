@@ -47,61 +47,46 @@ class AtletasController extends Controller {
 
         $_ORG = $this->container->getParameter('org');
 
-        $disciplinasOrg = $em->getRepository('BackendBundle:OrganizacionCampeonatoDisciplina')->findBy(array("organizacion" => $_ORG));
+        $disciplinasOrg = $em->getRepository('BackendBundle:OrganizacionCampeonatoDisciplina')->findBy(array("organizacion" => $_ORG),array('disciplina' => 'DESC'));
+        
         if (count($disciplinasOrg) > 0):
             $idsD = array();
-            foreach ($disciplinasOrg as $disc) {
-                array_push($idsD, $disc->getId());
-            }
-            $equipos = $em->getRepository('BackendBundle:Equipos')->findAllByDisciplina($idsD);
+            $idsDb = array();
             
-            foreach ($disciplinasOrg as $disc) {
-                array_push($idsD, $disc->getId());
+            foreach ($disciplinasOrg as $disc) {                
+                $idsD[$disc->getId()]= array($disc->getDisciplina()->getId(),$disc->getDisciplina()->getNombre(),array());
+                array_push($idsDb, $disc->getId());
+            }
+            
+            $equipos = $em->getRepository('BackendBundle:Equipos')->findAllByDisciplina($idsDb);
+            
+            
+            foreach ($equipos as $equipo) {
+                array_push($idsD[$equipo->getEquipoOrganizacionCampeonatoDisciplina()->getId()][2], array($equipo->getId(),$equipo->getNombre()));
             }
 
         endif;
 
-
-
-        //dump(json_encode(R::exportAll($equipos))); dump(json_encode($disciplinasOrg)); die();
+        //dump(json_encode($idsD)); die();
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-
-
-            //Obtenemos la Fotografia
-            $file = $atleta->getFotografia();
-            //$fileName = $this->get('app.foto_uploader')->upload($file);
-            $fileName = $this->get('app.file_uploader')->upload($file, $this->container->getParameter('atletas_foto_directory'));
-            $atleta->setFotografia($fileName);
-            //Obtenemos la Imagen Cedula
-            $file = $atleta->getImagenCedula();
-            //$fileName = $this->get('app.cedula_uploader')->upload($file);
-            $fileName = $this->get('app.file_uploader')->upload($file, $this->container->getParameter('atletas_cedula_directory'));
-            $atleta->setImagenCedula($fileName);
-            //Obtenemos la Constancia de Estudio
-            $file = $atleta->getContancia();
-            //$fileName = $this->get('app.constancia_uploader')->upload($file);
-            $fileName = $this->get('app.file_uploader')->upload($file, $this->container->getParameter('atletas_constancia_directory'));
-            $atleta->setContancia($fileName);
-            //Obtenemos la Carnet
-            $file = $atleta->getCarnet();
-            //$fileName = $this->get('app.carnet_uploader')->upload($file);
-            $fileName = $this->get('app.file_uploader')->upload($file, $this->container->getParameter('atletas_carnet_directory'));
-            $atleta->setCarnet($fileName);
 
             $em->persist($atleta);
             $em->flush();
 
             return $this->redirectToRoute('atletas_show', array('id' => $atleta->getId()));
         }
+       
+   
+        
+        
 
         return $this->render('atletas/new.html.twig', array(
                     'atleta' => $atleta,
                     'form' => $form->createView(),
-                    'problema' => $problema,
-                    'disciplinasOrg' => $disciplinasOrg,
-                    'equipos' => $equipos,
+                    'problema' => $problema,                    
+                    'disciplinas' => $idsD,
+                    'jsonEq' => json_encode($idsD),
         ));
     }
 
@@ -133,26 +118,6 @@ class AtletasController extends Controller {
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
-
-            //Obtenemos la Fotografia
-            $file = $atleta->getFotografia();
-            $fileName = $this->get('app.file_uploader')->upload($file, $this->container->getParameter('atletas_foto_directory'));
-            $atleta->setFotografia($fileName);
-
-            //Obtenemos la Imagen Cedula
-            $file = $atleta->getImagenCedula();
-            $fileName = $this->get('app.file_uploader')->upload($file, $this->container->getParameter('atletas_cedula_directory'));
-            $atleta->setImagenCedula($fileName);
-
-            //Obtenemos la Constancia de Estudio
-            $file = $atleta->getContancia();
-            $fileName = $this->get('app.file_uploader')->upload($file, $this->container->getParameter('atletas_constancia_directory'));
-            $atleta->setContancia($fileName);
-
-            //Obtenemos la Carnet
-            $file = $atleta->getCarnet();
-            $fileName = $this->get('app.file_uploader')->upload($file, $this->container->getParameter('atletas_carnet_directory'));
-            $atleta->setCarnet($fileName);
 
 
             $em->persist($atleta);

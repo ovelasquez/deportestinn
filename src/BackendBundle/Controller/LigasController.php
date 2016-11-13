@@ -47,6 +47,7 @@ class LigasController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+           
              $liga->setInicio(new \DateTime(trim($porciones[0])));             
              $liga->setFin(new \DateTime(trim($porciones[1])));
           
@@ -94,9 +95,10 @@ class LigasController extends Controller
         $editForm->handleRequest($request);
 
         //Si va a editar armamos la variable periodo para mostarlo en la vista         
-        $periodo=($liga->getInicio()->format("d/m/Y"))."-".($liga->getFin()->format("d/m/Y"));
+        $periodo=($liga->getInicio()->format("m/d/Y"))."-".($liga->getFin()->format("m/d/Y"));
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+             //dump($liga); die;
             //Si vamos a almacenar en la BD tratamos a porciones y las asignamos  a las respectivas fechas
             $porciones = explode("-", $request->request->get('datefilter'));                  
             $liga->setInicio(new \DateTime(trim($porciones[0])));                                    

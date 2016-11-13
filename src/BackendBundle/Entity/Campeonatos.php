@@ -3,7 +3,7 @@
 namespace BackendBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;  
+
 
 /**
  * Campeonatos
@@ -44,11 +44,10 @@ class Campeonatos
     private $ubicacion;
     
      
-     /**
-     * @ORM\Column(type="string")
+   /**
+     * @var string
      *
-     * @Assert\NotBlank(message="Por favor ingresar una imagen en formato png, jpeg o gif.")
-     * @Assert\File(mimeTypes = {"image/png", "image/jpeg", "image/jpg", "image/gif" })
+     * @ORM\Column(name="logo", type="string", length=255, nullable=false)
      */
     private $logo;
 
@@ -232,9 +231,7 @@ class Campeonatos
         return $this->liga;
     }
     
-    public function __toString() {
-        return $this->getNombre();
-    }
+   
 
     /**
      * Set logo
@@ -259,14 +256,7 @@ class Campeonatos
     {
         return $this->logo;
     }
-    /**
-     *  get Upload Root Image 
-     * @return type
-     */
-    public function getUploadRootDir() {
-        $dir = str_replace('\\', '/', __DIR__);   
-        return $dir . '/../../../web/' . $this->getUploadDir();          
-    }
+
 
     /**
      *  get Upload Dir. 
@@ -274,6 +264,16 @@ class Campeonatos
      */
     public function getUploadDir() {
         return 'uploads/logos/campeonatos';
+    }
+    
+    
+    /**
+     *  get Upload Root Image 
+     * @return type
+     */
+    public function getUploadRootDir() {
+       $dir = str_replace('\\', '/', __DIR__);   
+       return $dir . '/../../../web/' . $this->getUploadDir();       
     }
 
     /**
@@ -290,6 +290,10 @@ class Campeonatos
      */
     public function getWebPath() {
         return null === $this->logo ? null : $this->getUploadDir() . '/' . $this->logo;
+    }
+    
+     public function __toString() {
+        return $this->getNombre();
     }
 
 }

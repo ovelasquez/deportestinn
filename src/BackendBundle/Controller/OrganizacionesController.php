@@ -138,7 +138,7 @@ class OrganizacionesController extends Controller {
             }
             $em->flush();
 
-            return $this->redirectToRoute('organizaciones_edit', array('id' => $organizacione->getId()));
+            return $this->redirectToRoute('organizaciones_show', array('id' => $organizacione->getId()));
         }
 
         //Buscar todas las disciplinas asociadas al campeonato
@@ -146,7 +146,7 @@ class OrganizacionesController extends Controller {
         //dump($campeonatoDisciplinas);  
         
         //Buscar todas las disciplinas asociadas a la organizacion en el campeonato
-        $em = $this->getDoctrine()->getManager();
+       // $em = $this->getDoctrine()->getManager();
         $disciplinas = $em->getRepository('BackendBundle:OrganizacionCampeonatoDisciplina')->findByOrganizacion($organizacione->getId());
         //dump($disciplinas);  
         

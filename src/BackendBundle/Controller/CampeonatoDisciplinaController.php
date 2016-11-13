@@ -14,22 +14,21 @@ use BackendBundle\Form\CampeonatoDisciplinaType;
  *
  * @Route("/campeonatodisciplina")
  */
-class CampeonatoDisciplinaController extends Controller
-{
+class CampeonatoDisciplinaController extends Controller {
+
     /**
      * Lists all CampeonatoDisciplina entities.
      *
      * @Route("/", name="campeonatodisciplina_index")
      * @Method("GET")
      */
-    public function indexAction()
-    {
+    public function indexAction() {
         $em = $this->getDoctrine()->getManager();
 
         $campeonatoDisciplinas = $em->getRepository('BackendBundle:CampeonatoDisciplina')->findAll();
 
         return $this->render('campeonatodisciplina/index.html.twig', array(
-            'campeonatoDisciplinas' => $campeonatoDisciplinas,
+                    'campeonatoDisciplinas' => $campeonatoDisciplinas,
         ));
     }
 
@@ -39,14 +38,18 @@ class CampeonatoDisciplinaController extends Controller
      * @Route("/new", name="campeonatodisciplina_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
-    {
+    public function newAction(Request $request) {
+        $porciones = explode("-", $request->request->get('datefilter'));
         $campeonatoDisciplina = new CampeonatoDisciplina();
-        
+        //Si va a editar armamos la variable periodo para mostarlo en la vista         
+
         $form = $this->createForm('BackendBundle\Form\CampeonatoDisciplinaType', $campeonatoDisciplina);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $campeonatoDisciplina->setInicio(new \DateTime(trim($porciones[0])));
+            $campeonatoDisciplina->setFin(new \DateTime(trim($porciones[1])));
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($campeonatoDisciplina);
             $em->flush();
@@ -55,8 +58,8 @@ class CampeonatoDisciplinaController extends Controller
         }
 
         return $this->render('campeonatodisciplina/new.html.twig', array(
-            'campeonatoDisciplina' => $campeonatoDisciplina,
-            'form' => $form->createView(),
+                    'campeonatoDisciplina' => $campeonatoDisciplina,
+                    'form' => $form->createView(),
         ));
     }
 
@@ -66,13 +69,12 @@ class CampeonatoDisciplinaController extends Controller
      * @Route("/{id}", name="campeonatodisciplina_show")
      * @Method("GET")
      */
-    public function showAction(CampeonatoDisciplina $campeonatoDisciplina)
-    {
+    public function showAction(CampeonatoDisciplina $campeonatoDisciplina) {
         $deleteForm = $this->createDeleteForm($campeonatoDisciplina);
 
         return $this->render('campeonatodisciplina/show.html.twig', array(
-            'campeonatoDisciplina' => $campeonatoDisciplina,
-            'delete_form' => $deleteForm->createView(),
+                    'campeonatoDisciplina' => $campeonatoDisciplina,
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -82,24 +84,31 @@ class CampeonatoDisciplinaController extends Controller
      * @Route("/{id}/edit", name="campeonatodisciplina_edit")
      * @Method({"GET", "POST"})
      */
-    public function editAction(Request $request, CampeonatoDisciplina $campeonatoDisciplina)
-    {
+    public function editAction(Request $request, CampeonatoDisciplina $campeonatoDisciplina) {
         $deleteForm = $this->createDeleteForm($campeonatoDisciplina);
         $editForm = $this->createForm('BackendBundle\Form\CampeonatoDisciplinaType', $campeonatoDisciplina);
         $editForm->handleRequest($request);
 
+        //Si va a editar armamos la variable periodo para mostarlo en la vista         
+        $periodo = ($campeonatoDisciplina->getInicio()->format("d/m/Y")) . "-" . ($campeonatoDisciplina->getFin()->format("d/m/Y"));
+
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $porciones = explode("-", $request->request->get('datefilter'));
+            $campeonatoDisciplina->setInicio(new \DateTime(trim($porciones[0])));
+            $campeonatoDisciplina->setFin(new \DateTime(trim($porciones[1])));
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($campeonatoDisciplina);
             $em->flush();
 
-            return $this->redirectToRoute('campeonatodisciplina_edit', array('id' => $campeonatoDisciplina->getId()));
+            return $this->redirectToRoute('campeonatodisciplina_show', array('id' => $campeonatoDisciplina->getId()));            
         }
 
         return $this->render('campeonatodisciplina/edit.html.twig', array(
-            'campeonatoDisciplina' => $campeonatoDisciplina,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+                    'campeonatoDisciplina' => $campeonatoDisciplina,
+                    'periodo' => $periodo,
+                    'edit_form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -109,8 +118,7 @@ class CampeonatoDisciplinaController extends Controller
      * @Route("/{id}", name="campeonatodisciplina_delete")
      * @Method("DELETE")
      */
-    public function deleteAction(Request $request, CampeonatoDisciplina $campeonatoDisciplina)
-    {
+    public function deleteAction(Request $request, CampeonatoDisciplina $campeonatoDisciplina) {
         $form = $this->createDeleteForm($campeonatoDisciplina);
         $form->handleRequest($request);
 
@@ -130,12 +138,12 @@ class CampeonatoDisciplinaController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm(CampeonatoDisciplina $campeonatoDisciplina)
-    {
+    private function createDeleteForm(CampeonatoDisciplina $campeonatoDisciplina) {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('campeonatodisciplina_delete', array('id' => $campeonatoDisciplina->getId())))
-            ->setMethod('DELETE')
-            ->getForm()
+                        ->setAction($this->generateUrl('campeonatodisciplina_delete', array('id' => $campeonatoDisciplina->getId())))
+                        ->setMethod('DELETE')
+                        ->getForm()
         ;
     }
+
 }

@@ -27,25 +27,18 @@
                 <tr>
                     <td><a href="{{ path('ligas_show', { 'id': liga.id }) }}">{{ liga.id }}</a></td>
                     <td>{{ liga.nombre }}</td>                   
-                    <td>
-                       
-                            <a href="{{ path('ligas_show', { 'id': liga.id }) }}">
-                            <button class="btn btn-xs btn-success"><i class="fa fa-eye"></i> </button>
-                            </a> 
-                           
-                            <a href="{{ path('ligas_edit', { 'id': liga.id }) }}">
-                            <button class="btn btn-xs btn-warning"><i class="fa fa-pencil"></i> </button>
-                            </a>
-                          
+                    <td>                       
+                        <a href="{{ path('ligas_show', { 'id': liga.id }) }}"><button class="btn btn-xs btn-success"><i class="fa fa-eye"></i> </button></a> 
+                        <a href="{{ path('ligas_edit', { 'id': liga.id }) }}"><button class="btn btn-xs btn-warning"><i class="fa fa-pencil"></i> </button></a>                          
                     </td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
     <br/><br/>
-    
+
     <a href="{{ path('ligas_new') }}"><button  class="btn btn-success pull-left">Crear Liga</button></a>
-   
+
 
 {% endblock %} 
 {% block javascripts %}
@@ -123,7 +116,7 @@
             $('#datatable-responsive').DataTable();
 
             $('#datatable-scroller').DataTable({
-                ajax: "js/datatables/json/scroller-demo.json",
+                ajax: "bundles/backend/js/datatables/json/scroller-demo.json",
                 deferRender: true,
                 scrollY: 380,
                 scrollCollapse: true,

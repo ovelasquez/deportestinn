@@ -138,10 +138,6 @@ class Ligas {
         return $this->ubicacion;
     }
 
-    public function __toString() {
-        return $this->getNombre();
-    }
-
     /**
      * Set logo
      *
@@ -151,7 +147,6 @@ class Ligas {
      */
     public function setLogo($logo) {
         $this->logo = $logo;
-
         return $this;
     }
 
@@ -163,40 +158,6 @@ class Ligas {
     public function getLogo() {
         return $this->logo;
     }
-
-    /**
-     *  get Upload Root Image 
-     * @return type
-     */
-    public function getUploadRootDir() {
-        $dir = str_replace('\\', '/', __DIR__);   
-        return $dir . '/../../../web/' . $this->getUploadDir();          
-    }
-
-    /**
-     *  get Upload Dir. 
-     * @return type
-     */
-    public function getUploadDir() {
-        return 'uploads/logos/ligas';
-    }
-
-    /**
-     *  get Absolute Path Image 
-     * @return type
-     */
-    public function getAbsolutePath() {
-        return null === $this->logo ? null : $this->getUploadRootDir() . '/' . $this->logo;
-    }
-
-    /**
-     *  get Web Path Image 
-     * @return type
-     */
-    public function getWebPath() {
-        return null === $this->logo ? null : $this->getUploadDir() . '/' . $this->logo;
-    }
-
 
     /**
      * Set inicio
@@ -244,5 +205,28 @@ class Ligas {
     public function getFin()
     {
         return $this->fin;
+    }
+    
+    /**
+     *  get Upload Root Image 
+     * @return type
+     */
+    public function getUploadRootDir() {
+        $dir = str_replace('\\', '/', __DIR__);   
+        return $dir . '/../../../web/' . $this->getUploadDir();          
+    }
+
+    /**
+     *  get Upload Dir. 
+     * @return type
+     */
+    public function getUploadDir() {
+        return 'uploads/logos/ligas';
+    }
+
+    
+    
+     public function __toString() {
+        return $this->getNombre();
     }
 }

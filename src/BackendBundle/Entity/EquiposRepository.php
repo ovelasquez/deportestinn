@@ -24,7 +24,8 @@ class EquiposRepository extends EntityRepository {
     public function findAllByDisciplina($disc) {
         
         $query = $this->getEntityManager()
-                ->createQuery("SELECT  eq FROM BackendBundle:Equipos eq WHERE eq.equipoOrganizacionCampeonatoDisciplina IN(:disc) ORDER BY eq.equipoOrganizacionCampeonatoDisciplina ASC");
+                ->createQuery("SELECT  eq  FROM BackendBundle:Equipos eq  LEFT JOIN BackendBundle:OrganizacionCampeonatoDisciplina r WITH eq.equipoOrganizacionCampeonatoDisciplina=r.id "
+                        . "LEFT JOIN BackendBundle:Disciplinas d WITH r.disciplina=d.id WHERE eq.equipoOrganizacionCampeonatoDisciplina IN(:disc)  ORDER BY eq.equipoOrganizacionCampeonatoDisciplina ASC");
         $query->setParameter('disc', $disc);        
         $entities = $query->getResult();
 

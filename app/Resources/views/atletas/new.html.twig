@@ -30,6 +30,7 @@
 {% endblock %}   
 
 {% block body %} 
+    {% include "ComurImageBundle:Form:croppable_image_modal.html.twig" with {'include_jquery': false, 'include_bootstrap': false} %}
     <br /> 
     {% if problema is not empty %}
         <div class="alert alert-danger alert-dismissible fade in" role="alert">
@@ -103,16 +104,37 @@
         </ul>
         <div id="step-1">
             <h2 class="StepTitle">Datos Personales</h2>
-            
+
             <div class="form-step-4" role="form" data-toggle="validator">
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="equipo">Disciplinas <span class="required">*</span></label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        
+                        <select id="disciplinas">    
+                            {% set discF=''%}
+                            {% set i = 1 %}
+                            {% for disciplina in disciplinas %}
+                                {% if disciplina[2][0] is defined %}
+                                    {% if i == 1 %} 
+                                        {% set discF=disciplina%} 
+                                    {% endif %}
+
+                                    <option value="{{ disciplina[0] }}">{{ disciplina[1] }}</option>
+                                    {% set i = i+1 %}
+                                {% endif%}
+                            {% endfor %}    
+                        </select>
+                        {% if discF !='' %}
+                            <select id="equipos">    
+                                {% for equipo in discF[2] %}
+                                    <option value="{{ equipo[0] }}">{{ equipo[1] }}</option>
+                                {% endfor %}    
+                            </select>
+                        {% endif%}
+
                     </div>
                 </div>
             </div>
-            
+
             <div class="form-step-0" role="form" data-toggle="validator">
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nacionalidad">Nacionalidad <span class="required">*</span>
@@ -169,8 +191,8 @@
                     </div>
                 </div>
             </div>
-            <div class="form-step-0" role="form" data-toggle="validator">
 
+            <div class="form-step-0" role="form" data-toggle="validator">                      
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="fechaNacimiento">Fecha Nacimiento <span class="required">*</span></label>
                     <div id="form-step-0" class="col-md-6 col-sm-6 col-xs-12" data-toggle="validator">
@@ -432,29 +454,39 @@
         </div>
 
     </div>
-    <!-- End SmartWizard Content -->
-    <!-- End SmartWizard Content -->
+    <!-- End SmartWizard Content -->    
     {{ form_end(form) }}
 {% endblock %}
-
-
-
 {% block javascripts %}    
     <!-- Include jQuery Validator plugin -->
     <script src="{{ asset('bundles/backend/vendors/smart-wizard/js/validator.min.js')}}"></script>
-
     <!-- jQuery Smart Wizard -->
     <script src="{{ asset('bundles/backend/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js')}}"></script>
-
-    <!-- jQuery Smart Wizard -->
-
+    <!-- Imagenes -->
+    <script src="{{ asset('bundles/backend/vendors/holder.js') }}"></script>
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script> 
 
     <script type="text/javascript">
         $(document).ready(function () {
-// Smart Wizard         
+            // Smart Wizard
+            var eqD = '{{jsonEq|raw}}';
+            var data = JSON.parse(eqD);
 
 
 
+            $("#disciplinas").change(function () {
+                var id = $("#disciplinas").val();
+                jQuery.each(data, function (i, val) {
+                    if (val[0] === id) {
+                        $("#equipos option").remove();
+                        jQuery.each(val[2], function (i, valE) {
+                            $("#equipos").append('<option value="' + valE[0] + '">' + valE[1] + '</option>');
+                        });
+                    }
+                });
+
+            });
             $('#wizard').smartWizard({
                 //onLeaveStep: leaveAStepCallback,
                 onFinish: onFinishCallback,
@@ -535,7 +567,5 @@
         }
         );
     </script>
-
     <!-- /jQuery Smart Wizard -->   
-
 {% endblock %} 

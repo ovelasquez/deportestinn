@@ -105,6 +105,8 @@ class AtletaEquipoController extends Controller {
                 $problema = "Inscripción Fuera de Fecha";
             }
         }
+        
+       
 
         return $this->render('atletaequipo/new.html.twig', array(
                     'atletaEquipo' => $atletaEquipo,

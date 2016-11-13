@@ -10,20 +10,19 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 class CampeonatosType extends AbstractType
 {
     /**
-     * @param FormBuilderInterface $builder
-     * @param array $options
+     * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $pEntity = $builder->getForm()->getData();    
+        $pEntity = $builder->getForm()->getData();
         $builder
-            ->add('nombre')
-            ->add('descripcion')
-            ->add('ubicacion')
-            ->add('inicio', DateType::class)
-            ->add('fin', DateType::class)
-            ->add('liga')
-            ->add('logo', 'comur_image', array(
+                ->add('nombre')
+                ->add('descripcion')
+                ->add('ubicacion')               
+                ->add('liga')
+                ->add('inicio', DateType::class)
+                ->add('fin', DateType::class)                
+                ->add('logo', 'comur_image', array(
                     'uploadConfig' => array(
                         'uploadRoute' => 'comur_api_upload', //optional
                         'uploadUrl' => $pEntity->getUploadRootDir(), // required - see explanation below (you can also put just a dir path)
@@ -31,11 +30,11 @@ class CampeonatosType extends AbstractType
                         'fileExt' => '*.jpg;*.gif;*.png;*.jpeg', //optional
                         'libraryDir' => null, //optional
                         'libraryRoute' => 'comur_api_image_library', //optional
-                        'showLibrary' => true //optional                        
+                        'showLibrary' => false //optional                        
                     ),
                     'cropConfig' => array(
-                        'minWidth' => 300,
-                        'minHeight' => 240,
+                        'minWidth' => 240,
+                        'minHeight' => 300,
                         'aspectRatio' => true, //optional
                         'cropRoute' => 'comur_api_crop', //optional
                         'forceResize' => true, //optional
@@ -49,11 +48,11 @@ class CampeonatosType extends AbstractType
                     ),
                     
                 ))
-        ;
+                ;
     }
     
     /**
-     * @param OptionsResolver $resolver
+     * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
@@ -61,4 +60,14 @@ class CampeonatosType extends AbstractType
             'data_class' => 'BackendBundle\Entity\Campeonatos'
         ));
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getBlockPrefix()
+    {
+        return 'backendbundle_campeonatos';
+    }
+
+
 }

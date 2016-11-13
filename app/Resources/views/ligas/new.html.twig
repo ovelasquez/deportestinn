@@ -47,7 +47,21 @@
         <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(form.logo,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>
     </div>
 
-    
+    <div id="inicio" class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                    for="inicio">{{ form_label(form.inicio) }} 
+                <span class="required">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(form.inicio) }}</div>
+        </div>
+
+        <div id="fin" class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                    for="fin">{{ form_label(form.fin) }}
+                <span class="required">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(form.fin) }}</div>
+        </div>
 
     <div class="form-group">
         <label class="control-label col-md-3 col-sm-3 col-xs-12"
@@ -56,8 +70,6 @@
         </label>
         <div class="col-md-6 col-sm-6 col-xs-12"><input type="text" name="datefilter" value="" /></div>
     </div>
-
-
 
     <div class="ln_solid"></div>
     <div class="form-group">
@@ -72,7 +84,6 @@
 
 {% block javascripts %}
 <script src="{{ asset('bundles/backend/vendors/moment/moment.js')}}"></script>
-
 <script src="{{ asset('bundles/backend/vendors/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
 <script src="{{ asset('bundles/backend/vendors/holder.js') }}"></script>
 <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
@@ -80,13 +91,10 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-    $("#ligas_inicio").hide();
-    $("#ligas_fin").hide();
-    
-    
+    $("#inicio").hide();
+    $("#fin").hide();        
 });
 $(function() {
-
   $('input[name="datefilter"]').daterangepicker({
       autoUpdateInput: false,
       locale: {

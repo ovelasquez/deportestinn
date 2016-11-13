@@ -92,7 +92,7 @@ class EquiposController extends Controller
             $em->persist($equipo);
             $em->flush();
 
-            return $this->redirectToRoute('equipos_edit', array('id' => $equipo->getId()));
+            return $this->redirectToRoute('equipos_show', array('id' => $equipo->getId()));
         }
 
         return $this->render('equipos/edit.html.twig', array(

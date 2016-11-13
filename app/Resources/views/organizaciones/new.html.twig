@@ -1,6 +1,7 @@
 {% extends 'gentelella.html.twig' %} 
 
 {% block body %}
+      {% include "ComurImageBundle:Form:croppable_image_modal.html.twig" with {'include_jquery': false, 'include_bootstrap': false} %}
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
@@ -23,7 +24,7 @@
                 </div>
                 <div class="x_content">
                     <br /> 
-                    {{ form_start(form, { 'attr': {'class': 'form-horizontal form-label-left','data-parsley-validate':''} }) }} 
+                    {{ form_start(form, {'id':'organizaciones', 'attr': {'class': 'form-horizontal form-label-left','data-parsley-validate':''} }) }} 
                     {{ form_errors(form) }}
 
                     <div class="form-group">
@@ -100,10 +101,9 @@
                             {% set i = 1 %}
                             {% for campeonatoDisciplina in campeonatoDisciplinas %}
                                 <input type="checkbox" name="disciplinas[]" id="disciplina{{i}}" value="{{campeonatoDisciplina.disciplina.id}}" 
-                                       {% if i == 1 %} data-parsley-mincheck="1" {% endif %}
-                                 required class="flat" />  {{campeonatoDisciplina.disciplina.nombre}}
+                                       {% if i == 1 %} data-parsley-mincheck="1" {% endif %}  />  {{campeonatoDisciplina.disciplina.nombre}}
                                 <br />
-                                 {% set i = i+1 %}
+                                {% set i = i+1 %}
 
                             {% endfor %}
 
@@ -128,10 +128,14 @@
 
 
 {% block javascripts %}
+    <script src="{{ asset('bundles/backend/vendors/holder.js') }}"></script>
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script> 
+    <script src="{{ asset('bundles/backend/vendors/parsleyjs/src/parsley.js') }}"></script>
 
     <script type="text/javascript">
         $(function () {
-            $('.organizaciones').parsley().on('field:validated', function () {
+            $('#organizaciones').parsley().on('field:validated', function () {
                 var ok = $('.parsley-error').length === 0;
                 $('.bs-callout-info').toggleClass('hidden', !ok);
                 $('.bs-callout-warning').toggleClass('hidden', ok);

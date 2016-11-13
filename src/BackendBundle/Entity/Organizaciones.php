@@ -314,4 +314,41 @@ class Organizaciones
     {
         return $this->campeonato;
     }
+    
+    /**
+     *  get Upload Root Image 
+     * @return type
+     */
+    public function getUploadRootDir() {
+        $dir = str_replace('\\', '/', __DIR__);   
+        return $dir . '/../../../web/' . $this->getUploadDir();          
+    }
+
+    /**
+     *  get Upload Dir. 
+     * @return type
+     */
+    public function getUploadDir() {
+        return 'uploads/logos/organizaciones';
+    }
+
+    /**
+     *  get Absolute Path Image 
+     * @return type
+     */
+    public function getAbsolutePath() {
+        return null === $this->logo ? null : $this->getUploadRootDir() . '/' . $this->logo;
+    }
+
+    /**
+     *  get Web Path Image 
+     * @return type
+     */
+    public function getWebPath() {
+        return null === $this->logo ? null : $this->getUploadDir() . '/' . $this->logo;
+    }
+    
+     public function __toString() {
+        return $this->getNombre();
+    }
 }

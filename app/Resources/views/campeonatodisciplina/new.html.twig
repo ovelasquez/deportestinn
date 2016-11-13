@@ -1,111 +1,108 @@
-{% extends 'backend.html.twig' %} 
+{% extends 'gentelella.html.twig' %} 
+{% block stylesheets %}
+    <link href="{{ asset('bundles/backend/vendors/bootstrap-daterangepicker/daterangepicker.css')  }}"   rel="stylesheet">  
+{% endblock %}
+
+{% block title %} Disciplinas {% endblock %}
+
+{% block Titulo %} DeportesTINN {% endblock %}
+
+{% block Subtitulo %} Campeonatos/Disciplinas <small>Crear</small> {% endblock %} 
 
 {% block body %}
-    <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="x_panel">
-                <div class="x_title">
-                    <h2>
-                        Campeonatos Disciplinas  <small>Crear</small>
-                    </h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-                        <li class="dropdown"><a href="#" class="dropdown-toggle"
-                                                data-toggle="dropdown" role="button" aria-expanded="false"><i
-                                    class="fa fa-wrench"></i></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Settings 1</a></li>
-                                <li><a href="#">Settings 2</a></li>
-                            </ul></li>
-                        <li><a class="close-link"><i class="fa fa-close"></i></a></li>
-                    </ul>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="x_content">
-                    <br /> 
-                    {{ form_start(form, { 'attr': {'class': 'form-horizontal form-label-left'} }) }} 
-                    {{ form_errors(form) }}
 
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12"
-                               for="maximo">{{ form_label(form.maximo) }} 
-                            <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(form.maximo) }}</div>
-                    </div>
+    <br /> 
+    {{ form_start(form, { 'attr': {'class': 'form-horizontal form-label-left'} }) }} 
+    {{ form_errors(form) }}
 
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12"
-                               for="minimo">{{ form_label(form.minimo) }} 
-                            <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(form.minimo) }}</div>
-                    </div>
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12"
+               for="campeonato">{{ form_label(form.campeonato) }} 
+            <span class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(form.campeonato,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>
+    </div>
 
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12"
-                               for="inicio">{{ form_label(form.inicio) }} 
-                            <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(form.inicio) }}</div>
-                    </div>
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12"
+               for="disciplina">{{ form_label(form.disciplina) }} 
+            <span class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(form.disciplina,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>
+    </div>
 
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12"
-                               for="fin">{{ form_label(form.fin) }}
-                            <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(form.fin) }}</div>
-                    </div>
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12"
+               for="maximo">{{ form_label(form.maximo) }} 
+            <span class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12 ">{{form_widget(form.maximo,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>
+    </div>
 
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12"
-                               for="disciplina">{{ form_label(form.disciplina) }} 
-                            <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(form.disciplina) }}</div>
-                    </div>
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12"
+               for="minimo">{{ form_label(form.minimo) }} 
+            <span class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(form.minimo,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>
+    </div>
 
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12"
-                               for="campeonato">{{ form_label(form.campeonato) }} 
-                            <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(form.campeonato) }}</div>
-                    </div>
+    <div id="inicio" class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12"
+               for="inicio">{{ form_label(form.inicio) }} 
+            <span class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(form.inicio) }}</div>
+    </div>
 
-                    <div class="ln_solid"></div>
-                    <div class="form-group">
-                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                            <a class="btn btn-primary" href="{{ path('campeonatodisciplina_index') }}" role="button">Cancelar</a>
-                            <button type="submit" class="btn btn-success">Crear</button>
-                        </div>
-                    </div>
-                    {{ form_end(form) }}
-                </div>
+    <div id="fin" class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12"
+               for="fin">{{ form_label(form.fin) }}
+            <span class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(form.fin) }}</div>
+    </div>
+    
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                for="fin">Periodo
+            <span class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12"><input type="text" name="datefilter" value="" /></div>
+    </div>
 
-            </div>
+    <div class="ln_solid"></div>
+    <div class="form-group">
+        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+            <a class="btn btn-primary" href="{{ path('campeonatodisciplina_index') }}" role="button">Cancelar</a>
+            <button type="submit" class="btn btn-success">Crear</button>
         </div>
     </div>
+    {{ form_end(form) }}              
 {% endblock %}
+
 {% block javascripts %}
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#campeonatos_inicio').daterangepicker({
-                singleDatePicker: true,
-                showDropdowns: true
-            },
-            function (start, end, label) {
+<script src="{{ asset('bundles/backend/vendors/moment/moment.js')}}"></script>
+<script src="{{ asset('bundles/backend/vendors/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
 
-            });
-
-            $('#campeonatos_fin').daterangepicker({
-                singleDatePicker: true,
-                showDropdowns: true
-            },
-            function (start, end, label) {
-
-            });
-        });
-    </script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#inicio").hide();
+    $("#fin").hide();        
+});
+$(function() {
+  $('input[name="datefilter"]').daterangepicker({
+      autoUpdateInput: false,
+      locale: {
+          cancelLabel: 'Clear'
+      }
+  });
+  $('input[name="datefilter"]').on('apply.daterangepicker', function(ev, picker) {
+      $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+  });
+  $('input[name="datefilter"]').on('cancel.daterangepicker', function(ev, picker) {
+      $(this).val('');
+  });
+});
+</script>
 {% endblock %}

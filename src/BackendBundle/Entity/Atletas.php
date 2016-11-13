@@ -3,7 +3,7 @@
 namespace BackendBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;  
+
 
 /**
  * Atletas
@@ -92,19 +92,17 @@ class Atletas {
      */
     private $telefono;
 
-     /**
-     * @ORM\Column(type="string")
+   /**
+     * @var string
      *
-     * @Assert\NotBlank(message="Por favor ingresar una imagen en formato png, jpeg o gif.")
-     * @Assert\File(mimeTypes = {"image/png", "image/jpeg", "image/jpg", "image/gif" })
+     * @ORM\Column(name="fotografia", type="string", length=255, nullable=false)
      */
     private $fotografia;
 
-     /**
-     * @ORM\Column(type="string")
+   /**
+     * @var string
      *
-     * @Assert\NotBlank(message="Por favor ingresar una imagen en formato png, jpeg o gif.")
-     * @Assert\File(mimeTypes = {"image/png", "image/jpeg", "image/jpg", "image/gif" })
+     * @ORM\Column(name="imagen_cedula", type="string", length=255, nullable=false)
      */
     private $imagenCedula;
 
@@ -138,19 +136,17 @@ class Atletas {
      */
     private $departamento;
 
-     /**
-     * @ORM\Column(type="string")
+  /**
+     * @var string
      *
-     * @Assert\NotBlank(message="Por favor ingresar una imagen en formato png, jpeg o gif.")
-     * @Assert\File(mimeTypes = {"image/png", "image/jpeg", "image/jpg", "image/gif" })
+     * @ORM\Column(name="contancia", type="string", length=255, nullable=false)
      */
     private $contancia;
 
      /**
-     * @ORM\Column(type="string")
+     * @var string
      *
-     * @Assert\NotBlank(message="Por favor ingresar una imagen en formato png, jpeg o gif.")
-     * @Assert\File(mimeTypes = {"image/png", "image/jpeg", "image/jpg", "image/gif" })
+     * @ORM\Column(name="carnet", type="string", length=255, nullable=false)
      */
     private $carnet;
 
@@ -974,41 +970,70 @@ class Atletas {
     }
 
     /**
-     *  get Absolute Path Image 
-     * @return type
-     */
-    public function getAbsolutePath() {
-        return null === $this->fotografia ? null : $this->getUploadRootDir() . '/' . $this->fotografia;
-    }
-
-    /**
-     *  get Web Path Image 
-     * @return type
-     */
-    public function getWebPath() {
-        return null === $this->fotografia ? null : $this->getUploadDir() . '/' . $this->fotografia;
-    }
-
-    /**
      *  get Upload Root Image 
      * @return type
      */
-    public function getUploadRootDir() {
-        // la ruta absoluta del directorio donde se deben
-        // guardar los archivos cargados
-        $dir = str_replace('\\', '/', __DIR__);
-        return $dir.'/../../../web/'.$this->getUploadDir();
-        //return '/var/www/deportestinn/web/' . $this->getUploadDir();
+    public function getUploadRootDirFotografia() {
+        $dir = str_replace('\\', '/', __DIR__);   
+        return $dir . '/../../../web/' . $this->getUploadDirFotografia();          
     }
 
     /**
      *  get Upload Dir. 
      * @return type
      */
-    public function getUploadDir() {
-        // se deshace del __DIR__ para no meter la pata
-        // al mostrar el documento/imagen cargada en la vista.
-        return 'uploads/fotos';
+    public function getUploadDirFotografia() {
+        return 'uploads/atletas/fotos';
     }
+    
+    /**
+     *  get Upload Dir. 
+     * @return type
+     */
+    public function getUploadDirCedula() {
+        return 'uploads/atletas/cedulas';
+    }
+     /**
+     *  get Upload Root Image 
+     * @return type
+     */
+    public function getUploadRootDirCedula() {
+        $dir = str_replace('\\', '/', __DIR__);   
+        return $dir . '/../../../web/' . $this->getUploadDirCedula();          
+    }
+    
+     /**
+     *  get Upload Dir. 
+     * @return type
+     */
+    public function getUploadDirContancia() {
+        return 'uploads/atletas/constancias';
+    }
+     /**
+     *  get Upload Root Image 
+     * @return type
+     */
+    public function getUploadRootDirContancia() {
+        $dir = str_replace('\\', '/', __DIR__);   
+        return $dir . '/../../../web/' . $this->getUploadDirContancia();          
+    }
+    
+        /**
+     *  get Upload Dir. 
+     * @return type
+     */
+    public function getUploadDirCarnet() {
+        return 'uploads/atletas/carnet';
+    }
+     /**
+     *  get Upload Root Image 
+     * @return type
+     */
+    public function getUploadRootDirCarnet() {
+        $dir = str_replace('\\', '/', __DIR__);   
+        return $dir . '/../../../web/' . $this->getUploadDirCarnet();          
+    }
+    
 
+  
 }

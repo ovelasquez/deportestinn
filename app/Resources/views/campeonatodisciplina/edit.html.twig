@@ -1,21 +1,119 @@
-{% extends 'base.html.twig' %}
+{% extends 'gentelella.html.twig' %}
+{% block stylesheets %}
+    <link href="{{ asset('bundles/backend/vendors/bootstrap-daterangepicker/daterangepicker.css')  }}"   rel="stylesheet">  
+{% endblock %} 
+{% block title %} Ligas {% endblock %}
 
+{% block Titulo %} DeportesTINN {% endblock %}
+
+{% block Subtitulo %} Campeonatos/Disciplinas <small>Editar</small> {% endblock %} 
+
+{% block cerrar %} href="{{ path('ligas_index')}}" {% endblock %}                
 {% block body %}
-    <h1>CampeonatoDisciplina edit</h1>
+    {% include "ComurImageBundle:Form:croppable_image_modal.html.twig" with {'include_jquery': false, 'include_bootstrap': false} %}
+    <br /> 
+    {{ form_start(edit_form, { 'attr': {'class': 'form-horizontal form-label-left'} }) }} 
+    {{ form_errors(edit_form) }}
 
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12"
+               for="campeonato">{{ form_label(edit_form.campeonato) }} <span
+                class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(edit_form.campeonato,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12"
+               for="disciplina">{{ form_label(edit_form.disciplina) }} <span
+                class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(edit_form.disciplina,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12"
+               for="maximo">{{ form_label(edit_form.maximo) }} <span
+                class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(edit_form.maximo,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12"
+               for="minimo">{{ form_label(edit_form.minimo) }} <span
+                class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(edit_form.minimo,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>
+    </div>
+
+    <div id="inicio" class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12"
+               for="inicio">{{ form_label(edit_form.inicio) }} 
+            <span class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(edit_form.inicio) }}</div>
+    </div>
+
+    <div id="fin" class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12"
+               for="fin">{{ form_label(edit_form.fin) }}
+            <span class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(edit_form.fin) }}</div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12"
+               for="Periodo">Periodo
+            <span class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12"><input type="text" name="datefilter" value="{{periodo}}" /></div>
+    </div>
+
+
+    <div class="ln_solid"></div>
+    <div class="form-group">
+        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+            <button type="submit" class="btn btn-success">Editar</button>
+
+
+        </div>
+    </div>
     {{ form_end(edit_form) }}
+    {{ form_start(delete_form) }}            
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    {{ form_end(delete_form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('campeonatodisciplina_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('bundles/backend/vendors/moment/moment.js')}}"></script>
+    <script src="{{ asset('bundles/backend/vendors/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#inicio").hide();
+            $("#fin").hide();
+        });
+
+        $(function () {
+
+            $('input[name="datefilter"]').daterangepicker({
+                autoUpdateInput: false,
+                locale: {
+                    cancelLabel: 'Clear'
+                }
+            });
+
+            $('input[name="datefilter"]').on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+            });
+
+            $('input[name="datefilter"]').on('cancel.daterangepicker', function (ev, picker) {
+                $(this).val('');
+            });
+
+        });
+    </script>
+
 {% endblock %}

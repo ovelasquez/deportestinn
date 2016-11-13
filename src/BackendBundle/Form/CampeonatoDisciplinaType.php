@@ -5,6 +5,8 @@ namespace BackendBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+
 
 class CampeonatoDisciplinaType extends AbstractType
 {
@@ -17,8 +19,8 @@ class CampeonatoDisciplinaType extends AbstractType
         $builder
             ->add('maximo')
             ->add('minimo')
-            ->add('inicio', 'date')
-            ->add('fin', 'date')
+            ->add('inicio', DateType::class)
+            ->add('fin', DateType::class)    
             ->add('disciplina')
             ->add('campeonato')
         ;

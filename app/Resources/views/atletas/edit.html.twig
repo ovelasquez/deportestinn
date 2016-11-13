@@ -32,7 +32,7 @@
 {% endblock %}    
 
 {% block body %} 
-   
+       {% include "ComurImageBundle:Form:croppable_image_modal.html.twig" with {'include_jquery': false, 'include_bootstrap': false} %}
 
     {{ form_start(edit_form, { 'attr': {'id':'atletas','class': 'form-horizontal form-label-left', 'data-toggle':'validator'} }) }} 
 
@@ -434,7 +434,10 @@
     <!-- jQuery Smart Wizard -->
     <script src="{{ asset('bundles/backend/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js')}}"></script>
 
-    <!-- jQuery Smart Wizard -->
+     <!-- Imagenes -->
+    <script src="{{ asset('bundles/backend/vendors/holder.js') }}"></script>
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script> 
 
 
     <script type="text/javascript">
