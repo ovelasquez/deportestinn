@@ -90,7 +90,7 @@ class CampeonatoDisciplinaController extends Controller {
         $editForm->handleRequest($request);
 
         //Si va a editar armamos la variable periodo para mostarlo en la vista         
-        $periodo = ($campeonatoDisciplina->getInicio()->format("d/m/Y")) . "-" . ($campeonatoDisciplina->getFin()->format("d/m/Y"));
+        $periodo = ($campeonatoDisciplina->getInicio()->format("m/d/Y")) . "-" . ($campeonatoDisciplina->getFin()->format("m/d/Y"));
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $porciones = explode("-", $request->request->get('datefilter'));

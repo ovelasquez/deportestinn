@@ -45,6 +45,7 @@ class AtletasController extends Controller {
         $problema = "";
         $em = $this->getDoctrine()->getManager();
 
+        //Fijamos La Organización por Parameters ORG
         $_ORG = $this->container->getParameter('org');
 
         $disciplinasOrg = $em->getRepository('BackendBundle:OrganizacionCampeonatoDisciplina')->findBy(array("organizacion" => $_ORG),array('disciplina' => 'DESC'));
@@ -75,11 +76,7 @@ class AtletasController extends Controller {
             $em->flush();
 
             return $this->redirectToRoute('atletas_show', array('id' => $atleta->getId()));
-        }
-       
-   
-        
-        
+        }                          
 
         return $this->render('atletas/new.html.twig', array(
                     'atleta' => $atleta,

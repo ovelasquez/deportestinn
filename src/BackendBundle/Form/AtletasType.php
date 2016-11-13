@@ -89,7 +89,7 @@ class AtletasType extends AbstractType {
                 ))
                 ->add('institucion', 'text', array('required' => true, 'attr' => array('placeholder' => 'Institución')))
                 ->add('departamento', 'text', array('required' => true, 'attr' => array('placeholder' => 'Facultad')))
-                ->add('ingreso', 'text', array('required' => true, 'attr' => array('placeholder' => 'Año de Ingreso')))
+                ->add('ingreso', 'integer', array('required' => true, 'attr' => array('placeholder' => 'Año de Ingreso')))
                 
                 ->add('contancia', 'comur_image', array(
                     'uploadConfig' => array(

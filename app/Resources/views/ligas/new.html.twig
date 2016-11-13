@@ -2,12 +2,10 @@
 {% block stylesheets %}
 <link href="{{ asset('bundles/backend/vendors/bootstrap-daterangepicker/daterangepicker.css')  }}"   rel="stylesheet">  
 {% endblock %}
-      
 {% block title %} Ligas {% endblock %}
-
 {% block Titulo %} DeportesTINN {% endblock %}
-
 {% block Subtitulo %} Ligas <small>Crear</small> {% endblock %} 
+{% block cerrar %} href="{{ path('ligas_index')}}" {% endblock %}    
                 
 {% block body %}
  {% include "ComurImageBundle:Form:croppable_image_modal.html.twig" with {'include_jquery': false, 'include_bootstrap': false} %}
@@ -68,7 +66,7 @@
                 for="fin">Periodo
             <span class="required">*</span>
         </label>
-        <div class="col-md-6 col-sm-6 col-xs-12"><input type="text" name="datefilter" value="" /></div>
+        <div class="col-md-6 col-sm-6 col-xs-12"><input type="text" name="datefilter" value="" class="form-control col-md-7 col-xs-12"/></div>
     </div>
 
     <div class="ln_solid"></div>

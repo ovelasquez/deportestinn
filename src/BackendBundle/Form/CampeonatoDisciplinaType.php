@@ -17,8 +17,8 @@ class CampeonatoDisciplinaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('maximo')
-            ->add('minimo')
+            ->add('maximo','text')
+            ->add('minimo','text')
             ->add('inicio', DateType::class)
             ->add('fin', DateType::class)    
             ->add('disciplina')

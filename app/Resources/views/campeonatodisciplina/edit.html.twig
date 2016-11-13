@@ -1,6 +1,7 @@
 {% extends 'gentelella.html.twig' %}
 {% block stylesheets %}
-    <link href="{{ asset('bundles/backend/vendors/bootstrap-daterangepicker/daterangepicker.css')  }}"   rel="stylesheet">  
+    <link href="{{ asset('bundles/backend/vendors/bootstrap-daterangepicker/daterangepicker.css')  }}"   rel="stylesheet"> 
+    <link href="{{ asset('bundles/backend/vendors/BootstrapFormHelpers/css/bootstrap-formhelpers.min.css')}}" rel="stylesheet"> 
 {% endblock %} 
 {% block title %} Ligas {% endblock %}
 
@@ -36,7 +37,7 @@
                for="maximo">{{ form_label(edit_form.maximo) }} <span
                 class="required">*</span>
         </label>
-        <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(edit_form.maximo,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>
+        <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(edit_form.maximo,{ 'attr': {'data-min':'1', 'class': 'bfh-number form-control col-md-7 col-xs-12'} } ) }}</div>
     </div>
 
     <div class="form-group">
@@ -44,7 +45,7 @@
                for="minimo">{{ form_label(edit_form.minimo) }} <span
                 class="required">*</span>
         </label>
-        <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(edit_form.minimo,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>
+        <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(edit_form.minimo,{ 'attr': {'data-min':'1', 'class': 'bfh-number form-control col-md-7 col-xs-12'} } ) }}</div>
     </div>
 
     <div id="inicio" class="form-group">
@@ -68,7 +69,7 @@
                for="Periodo">Periodo
             <span class="required">*</span>
         </label>
-        <div class="col-md-6 col-sm-6 col-xs-12"><input type="text" name="datefilter" value="{{periodo}}" /></div>
+        <div class="col-md-6 col-sm-6 col-xs-12"><input type="text" name="datefilter" value="{{periodo}}" class="form-control col-md-7 col-xs-12" /></div>
     </div>
 
 
@@ -90,6 +91,7 @@
 {% block javascripts %}
     <script src="{{ asset('bundles/backend/vendors/moment/moment.js')}}"></script>
     <script src="{{ asset('bundles/backend/vendors/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
+    <script src="{{ asset('bundles/backend/vendors/BootstrapFormHelpers/js/bootstrap-formhelpers.min.js')}}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $("#inicio").hide();

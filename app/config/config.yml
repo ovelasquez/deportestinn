@@ -17,6 +17,7 @@ parameters:
     atletas_constancia_directory: '/atletas/constancia'
     atletas_carnet_directory: '/atletas/carnet'
     org: '16'
+    camp: '3'
 
 framework:
     #esi:             ~

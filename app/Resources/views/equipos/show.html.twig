@@ -8,7 +8,7 @@
         <div class="profile_img">
             <div id="crop-avatar">
                 <!-- Current avatar -->
-                <img class="img-responsive avatar-view"  src="{{ asset('uploads/logos/campeonatos/')}}{{equipo.equipoOrganizacionCampeonatoDisciplina.organizacion.campeonato.logo}}" alt="{{equipo.equipoOrganizacionCampeonatoDisciplina.organizacion.campeonato.nombre }}" title="{{equipo.equipoOrganizacionCampeonatoDisciplina.organizacion.campeonato.nombre }}">
+                <img class="img-responsive avatar-view"  src="{{ asset('uploads/logos/disciplinas/')}}{{equipo.equipoOrganizacionCampeonatoDisciplina.disciplina.logo}}" alt="{{equipo.equipoOrganizacionCampeonatoDisciplina.disciplina.nombre }}" title="{{equipo.equipoOrganizacionCampeonatoDisciplina.disciplina.nombre }}">
             </div>
         </div>
         <h3>{{equipo.nombre}}</h3>
@@ -36,7 +36,7 @@
                                 <td>{{ equipo.nombre }}</td>
                             </tr>
                             <tr>
-                                <th>Organización</th>
+                                <th>Organización / Disciplina</th>
                                 <td>{{ equipo.equipoOrganizacionCampeonatoDisciplina  }}</td>
                             </tr>                                                                    
                         </tbody>

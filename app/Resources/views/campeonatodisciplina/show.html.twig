@@ -1,14 +1,14 @@
 {% extends 'gentelella.html.twig' %} 
 {% block title %} Ligas {% endblock %}
 {% block Titulo %} DeportesTINN!!! {% endblock %}
-{% block Subtitulo %} Ligas <small>Ver</small> {% endblock %} 
-{% block cerrar %} href="{{ path('ligas_index')}}" {% endblock %}                  
+{% block Subtitulo %} Campeonato/Disciplina <small>Ver</small> {% endblock %} 
+{% block cerrar %} href="{{ path('campeonatodisciplina_index')}}" {% endblock %}                  
 {% block body %}
     <div class="col-md-3 col-sm-3 col-xs-12 profile_left">
         <div class="profile_img">
             <div id="crop-avatar">
                 <!-- Current avatar -->
-                <img class="img-responsive avatar-view"  src="{{ asset('uploads/logos/campeonatos/')}}{{campeonatoDisciplina.campeonato.logo}}" alt="{{campeonatoDisciplina.campeonato}}" title="{{campeonatoDisciplina.campeonato}}">
+                <img class="img-responsive avatar-view"  src="{{ asset('uploads/logos/disciplinas/')}}{{campeonatoDisciplina.disciplina.logo}}" alt="{{campeonatoDisciplina.disciplina}}" title="{{campeonatoDisciplina.disciplina}}">
             </div>
         </div>
         <h3>{{ campeonatoDisciplina.campeonato}}/{{ campeonatoDisciplina.disciplina }}</h3>

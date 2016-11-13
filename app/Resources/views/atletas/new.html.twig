@@ -5,6 +5,7 @@
     <!-- Wizard -->
     <link href="{{ asset('bundles/backend/vendors/smart-wizard/css/smart_wizard.min.css')}}" rel="stylesheet"> 
     <link href="{{ asset('bundles/backend/vendors/smart-wizard/css/smart_wizard_theme_arrows.min.css')}}" rel="stylesheet"> 
+    <link href="{{ asset('bundles/backend/vendors/BootstrapFormHelpers/css/bootstrap-formhelpers.min.css')}}" rel="stylesheet"> 
 {% endblock %}
 
 {% block Titulo %} Atletas {% endblock %}
@@ -196,8 +197,11 @@
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="fechaNacimiento">Fecha Nacimiento <span class="required">*</span></label>
                     <div id="form-step-0" class="col-md-6 col-sm-6 col-xs-12" data-toggle="validator">
-                        {{form_widget(form.fechaNacimiento,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                        {{form_widget(form.fechaNacimiento,{ 'attr': {'class': 'bfh-datepicker form-control col-md-7 col-xs-12'} } ) }}  
                     </div>
+                                       
+                    
+                    
                 </div>
             </div>
             <div class="form-step-0" role="form" data-toggle="validator">
@@ -462,6 +466,9 @@
     <script src="{{ asset('bundles/backend/vendors/smart-wizard/js/validator.min.js')}}"></script>
     <!-- jQuery Smart Wizard -->
     <script src="{{ asset('bundles/backend/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js')}}"></script>
+    
+    <script src="{{ asset('bundles/backend/vendors/BootstrapFormHelpers/js/bootstrap-formhelpers.min.js')}}"></script>
+    
     <!-- Imagenes -->
     <script src="{{ asset('bundles/backend/vendors/holder.js') }}"></script>
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>

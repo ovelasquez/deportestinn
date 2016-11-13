@@ -43,9 +43,9 @@ class OrganizacionesController extends Controller {
         $organizacione = new Organizaciones();
         $form = $this->createForm('BackendBundle\Form\OrganizacionesType', $organizacione);
         $form->handleRequest($request);
+        $em = $this->getDoctrine()->getManager();
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
             $em->persist($organizacione);
             //$em->flush();
             //obtenemos las disciplinas asociadas a la organizacion            
@@ -63,10 +63,13 @@ class OrganizacionesController extends Controller {
             return $this->redirectToRoute('organizaciones_show', array('id' => $organizacione->getId()));
         }
 
-        $em = $this->getDoctrine()->getManager();
+
+        //Fijamos el Campeonato por Parameters Camp
+        $_CAMP = $this->container->getParameter('camp');
+
 
         //Buscar todas las disciplinas asociadas al campeonato
-        $campeonatoDisciplinas = $em->getRepository('BackendBundle:CampeonatoDisciplina')->findByCampeonato(1);
+        $campeonatoDisciplinas = $em->getRepository('BackendBundle:CampeonatoDisciplina')->findByCampeonato($_CAMP);
 
         return $this->render('organizaciones/new.html.twig', array(
                     'organizacione' => $organizacione,
@@ -88,6 +91,7 @@ class OrganizacionesController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         $disciplinas = $em->getRepository('BackendBundle:OrganizacionCampeonatoDisciplina')->findByOrganizacion($organizacione->getId());
+        
         $deportes = array();
         foreach ($disciplinas as &$valor) {
             $disciplina = $em->getRepository('BackendBundle:Disciplinas')->find($valor->getDisciplina()->getId());
@@ -118,17 +122,15 @@ class OrganizacionesController extends Controller {
 
             $em->persist($organizacione);
             //$em->flush();
-            
             //Buscar todas las disciplinas asociadas a la organizacion en el campeonato y las eliminamos                      
             $disciplinas = $em->getRepository('BackendBundle:OrganizacionCampeonatoDisciplina')->findByOrganizacion($organizacione->getId());
             foreach ($disciplinas as &$valor) {
-            $em->remove($valor);            
+                $em->remove($valor);
             }
-           // $em->flush();
-            
+            // $em->flush();
             //obtenemos las disciplinas asociadas a la organizacion            
             $disciplinasAsociadas = $request->request->get('disciplinas');
-                        
+
             foreach ($disciplinasAsociadas as &$valor) {
                 $organizacionDisciplinas = new OrganizacionCampeonatoDisciplina();
                 $disciplina = $em->getRepository('BackendBundle:Disciplinas')->find($valor);
@@ -142,26 +144,27 @@ class OrganizacionesController extends Controller {
         }
 
         //Buscar todas las disciplinas asociadas al campeonato
-        $campeonatoDisciplinas = $em->getRepository('BackendBundle:CampeonatoDisciplina')->findByCampeonato(1);
+         //Fijamos el Campeonato por Parameters Camp
+        $_CAMP = $this->container->getParameter('camp');
+        $campeonatoDisciplinas = $em->getRepository('BackendBundle:CampeonatoDisciplina')->findByCampeonato($_CAMP);
         //dump($campeonatoDisciplinas);  
-        
         //Buscar todas las disciplinas asociadas a la organizacion en el campeonato
-       // $em = $this->getDoctrine()->getManager();
+        // $em = $this->getDoctrine()->getManager();
         $disciplinas = $em->getRepository('BackendBundle:OrganizacionCampeonatoDisciplina')->findByOrganizacion($organizacione->getId());
         //dump($disciplinas);  
-        
+
         $deportes = array();
 
         //comparamos cual de las disciplinas del campeonatos estan asociadas con la organizacion 
         foreach ($campeonatoDisciplinas as &$valor) {
-            $chek=0;
+            $chek = 0;
             foreach ($disciplinas as &$k) {
                 $disciplina = $em->getRepository('BackendBundle:Disciplinas')->find($k->getDisciplina()->getId());
                 // dump($disciplina);
                 if ($valor->getDisciplina()->getId() === $disciplina->getId()) {
                     //$deportes(NombreDisciplina,IdDisciplina,1 o 0) -> 1 = si y 0 = no
-                    $chek=1;
-                }else{
+                    $chek = 1;
+                } else {
                     
                 }
             }
@@ -170,7 +173,7 @@ class OrganizacionesController extends Controller {
         //dump($deportes);  die();
 
         return $this->render('organizaciones/edit.html.twig', array(
-                    'organizacione' => $organizacione,                    
+                    'organizacione' => $organizacione,
                     'deportes' => $deportes,
                     'edit_form' => $editForm->createView(),
                     'delete_form' => $deleteForm->createView(),

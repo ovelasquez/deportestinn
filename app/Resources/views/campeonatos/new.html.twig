@@ -1,14 +1,11 @@
 {% extends 'gentelella.html.twig' %} 
 {% block stylesheets %}
 <link href="{{ asset('bundles/backend/vendors/bootstrap-daterangepicker/daterangepicker.css')  }}"   rel="stylesheet">  
-{% endblock %}
-      
+{% endblock %}      
 {% block title %} Campeonatos {% endblock %}
-
 {% block Titulo %} DeportesTINN {% endblock %}
-
 {% block Subtitulo %} Campeonatos <small>Crear</small> {% endblock %} 
-                
+{% block cerrar %} href="{{ path('campeonatos_index')}}" {% endblock %}                  
 {% block body %}
  {% include "ComurImageBundle:Form:croppable_image_modal.html.twig" with {'include_jquery': false, 'include_bootstrap': false} %}
     <br /> 
@@ -60,7 +57,7 @@
                 for="fin">Periodo
             <span class="required">*</span>
         </label>
-        <div class="col-md-6 col-sm-6 col-xs-12"><input type="text" name="datefilter" value="" /></div>
+        <div class="col-md-6 col-sm-6 col-xs-12"><input type="text" name="datefilter" value="" class="form-control col-md-7 col-xs-12" /></div>
     </div>
 
      <div id="inicio" class="form-group">
@@ -82,7 +79,7 @@
         <div class="ln_solid"></div>
     <div class="form-group">
         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-            <a class="btn btn-primary" href="{{ path('ligas_index') }}" role="button">Cancelar</a>
+            <a class="btn btn-primary" href="{{ path('campeonatos_index') }}" role="button">Cancelar</a>
             <button type="submit" class="btn btn-success">Crear</button>
         </div>
     </div>

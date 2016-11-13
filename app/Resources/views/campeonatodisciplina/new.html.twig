@@ -1,14 +1,12 @@
 {% extends 'gentelella.html.twig' %} 
 {% block stylesheets %}
     <link href="{{ asset('bundles/backend/vendors/bootstrap-daterangepicker/daterangepicker.css')  }}"   rel="stylesheet">  
+    <link href="{{ asset('bundles/backend/vendors/BootstrapFormHelpers/css/bootstrap-formhelpers.min.css')}}" rel="stylesheet"> 
 {% endblock %}
-
 {% block title %} Disciplinas {% endblock %}
-
 {% block Titulo %} DeportesTINN {% endblock %}
-
 {% block Subtitulo %} Campeonatos/Disciplinas <small>Crear</small> {% endblock %} 
-
+{% block cerrar %} href="{{ path('campeonatodisciplina_index')}}" {% endblock %} 
 {% block body %}
 
     <br /> 
@@ -36,7 +34,7 @@
                for="maximo">{{ form_label(form.maximo) }} 
             <span class="required">*</span>
         </label>
-        <div class="col-md-6 col-sm-6 col-xs-12 ">{{form_widget(form.maximo,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>
+        <div class="col-md-6 col-sm-6 col-xs-12 ">{{form_widget(form.maximo,{ 'attr': {'data-min':'1', 'class': 'bfh-number data-min="1"  form-control col-md-7 col-xs-12'} } ) }}</div>
     </div>
 
     <div class="form-group">
@@ -44,7 +42,7 @@
                for="minimo">{{ form_label(form.minimo) }} 
             <span class="required">*</span>
         </label>
-        <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(form.minimo,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>
+        <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(form.minimo,{ 'attr': {'data-min':'1','class': 'bfh-number  form-control col-md-7 col-xs-12'} } ) }}</div>
     </div>
 
     <div id="inicio" class="form-group">
@@ -52,7 +50,7 @@
                for="inicio">{{ form_label(form.inicio) }} 
             <span class="required">*</span>
         </label>
-        <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(form.inicio) }}</div>
+        <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(form.inicio,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div> 
     </div>
 
     <div id="fin" class="form-group">
@@ -68,7 +66,7 @@
                 for="fin">Periodo
             <span class="required">*</span>
         </label>
-        <div class="col-md-6 col-sm-6 col-xs-12"><input type="text" name="datefilter" value="" /></div>
+        <div class="col-md-6 col-sm-6 col-xs-12"><input type="text" name="datefilter" value="" class="form-control col-md-7 col-xs-12" /></div>
     </div>
 
     <div class="ln_solid"></div>
@@ -84,6 +82,7 @@
 {% block javascripts %}
 <script src="{{ asset('bundles/backend/vendors/moment/moment.js')}}"></script>
 <script src="{{ asset('bundles/backend/vendors/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
+<script src="{{ asset('bundles/backend/vendors/BootstrapFormHelpers/js/bootstrap-formhelpers.min.js')}}"></script>
 
 <script type="text/javascript">
 $(document).ready(function() {

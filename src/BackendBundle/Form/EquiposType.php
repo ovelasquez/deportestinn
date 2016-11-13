@@ -16,7 +16,7 @@ class EquiposType extends AbstractType
     {
         $builder
             ->add('nombre')
-            ->add('equipoOrganizacionCampeonatoDisciplina')
+            ->add('equipoOrganizacionCampeonatoDisciplina', null, array('required' => true, 'empty_value' => 'Seleccione'))                   
         ;
     }
     

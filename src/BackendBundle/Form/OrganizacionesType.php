@@ -19,10 +19,10 @@ class OrganizacionesType extends AbstractType {
                 ->add('abreviatura')
                 ->add('rif')
                 ->add('telefono')
-                ->add('email')
+                ->add('email', 'email', array('required' => true, 'attr' => array('placeholder' => 'E-mail')))
                 ->add('responsable')
                 ->add('direccion')
-                ->add('campeonato')
+                ->add('campeonato', null, array('required' => true, 'empty_value' => 'Seleccione'))                
                 ->add('logo', 'comur_image', array(
                     'uploadConfig' => array(
                         'uploadRoute' => 'comur_api_upload', //optional
@@ -31,7 +31,7 @@ class OrganizacionesType extends AbstractType {
                         'fileExt' => '*.jpg;*.gif;*.png;*.jpeg', //optional
                         'libraryDir' => null, //optional
                         'libraryRoute' => 'comur_api_image_library', //optional
-                        'showLibrary' => false //optional                        
+                        'showLibrary' => true //optional                        
                     ),
                     'cropConfig' => array(
                         'minWidth' => 200,

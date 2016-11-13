@@ -10,7 +10,7 @@
 {% block body %}
     {% include "ComurImageBundle:Form:croppable_image_modal.html.twig" with {'include_jquery': false, 'include_bootstrap': false} %}
     <br />     
-    {{ form_start(edit_form, { 'attr': {'id':'organizaciones','class': 'form-horizontal form-label-left','data-parsley-validate':''} }) }} 
+    {{ form_start(edit_form, {'attr': {'id':'organizaciones','class': 'form-horizontal form-label-left'} }) }} 
     {{ form_errors(edit_form) }}
 
     <div class="form-group">
@@ -49,8 +49,8 @@
         <label class="control-label col-md-3 col-sm-3 col-xs-12"
                for="telefono">{{ form_label(edit_form.telefono) }} <span
                 class="required">*</span>
-        </label>
-        <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(edit_form.telefono,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>
+        </label>        
+        <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(edit_form.telefono,{ 'attr': {'data-format':'+58 (ddd) ddd-dddd','class': 'bfh-phone form-control col-md-7 col-xs-12'} } ) }}</div>
     </div>
 
     <div class="form-group">
@@ -115,22 +115,19 @@
     {{ form_start(delete_form) }} <button type="submit" class="btn btn-danger">Eliminar</button> {{ form_end(delete_form) }}
 
 {% endblock %}
+
 {% block javascripts %}
     <script src="{{ asset('bundles/backend/vendors/holder.js') }}"></script>
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script> 
-    <script src="{{ asset('bundles/backend/vendors/parsleyjs/src/parsley.js') }}"></script>
-    
-<script type="text/javascript">
-        $(function () {
-            $('#organizaciones').parsley().on('field:validated', function () {
-                var ok = $('.parsley-error').length === 0;
-                $('.bs-callout-info').toggleClass('hidden', !ok);
-                $('.bs-callout-warning').toggleClass('hidden', ok);
-            })
-                    .on('form:submit', function () {
-                        return true; // Don't submit form for this demo
-                    });
+    <!-- Valida el formulario, sobre todo que elija almenos 1 disciplina a la organizacion-->
+    <script src="{{ asset('bundles/backend/vendors/parsleyjs/dist/parsley.js') }}"></script>
+    <script src="{{ asset('bundles/backend/vendors/parsleyjs/dist/i18n/es.js') }}"></script>
+    <!--> Formatear inputs-->
+    <script src="{{ asset('bundles/backend/vendors/BootstrapFormHelpers/js/bootstrap-formhelpers.min.js')}}"></script>
+    <script type="text/javascript">
+        jQuery(function () {
+            jQuery('#organizaciones').parsley();
         });
     </script>
-{% endblock %}
+{% endblock %} 
