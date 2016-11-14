@@ -1,0 +1,47 @@
+{% trans_default_domain 'FOSUserBundle' %}
+{% set qP = app.request.query.all %}
+{{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register  formAmd'}}) }}
+<h2 class="tituloAzulado">Ingresa tus datos para registrarte </h2><!--tituloAzulado-->
+<div class="col-lg-4 formGuessReg" >            
+    <div class="doctoresHomeIntRight guessHomeInt registroFormulario dos register-user">        
+        <div class="registroCampo">
+            {{ form_errors(form) }}
+        </div>
+        <div class="registroCampo">
+            {{ form_row(form.name,{'attr': {'class': 'fieldini'}}) }}
+        </div>
+        <div class="registroCampo">
+            {{ form_row(form.lastname,{'attr': {'class': 'fieldini'}}) }}
+        </div>
+        <div class="registroCampo">
+            {{ form_row(form.email,{'attr': {'class': 'fieldini'}}) }}
+        </div>
+        <div class="registroCampo">
+            {{ form_row(form.username,{'attr': {'class': 'fieldini'}}) }}
+        </div>
+        <div class="registroCampo ">
+            {{ form_row(form.plainPassword) }}            
+        </div>        
+         
+    </div><!--registroFormulario dos-->   
+</div>
+<div class="col-lg-8">
+    
+    <div class="doctoresHomeIntRight guessHomeInt registroFormulario dos register-user">    
+        <h4 class=""> Terminos y Condiciones</h4><!--tituloAzulado-->   
+       <p class="letraMediana">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque mauris mauris, convallis at finibus vel, vehicula at lorem. Curabitur lobortis turpis non tellus gravida, ac vehicula mi fringilla. Morbi erat tellus, mollis eu eros id, lacinia dapibus lacus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam pharetra nibh convallis nisl accumsan, ut egestas ex accumsan. In ultricies leo ut odio sodales malesuada. Curabitur in felis ut libero iaculis tempor. Proin in felis vitae quam aliquam convallis. Vestibulum facilisis, tellus et suscipit faucibus, tellus libero porttitor nibh, in euismod metus neque tristique lacus. Integer neque sapien, aliquet eget ex nec, euismod gravida turpis. Vestibulum neque ipsum, egestas ac pulvinar ut, consectetur eleifend leo.</p><!--letraPequena-->
+       <p class="letraMediana">Donec ac dapibus augue. Etiam dapibus ex a nisl volutpat, sed dignissim urna mattis. Vestibulum sollicitudin mi vehicula, porta nisi vel, mattis ipsum. Proin in commodo nunc, et malesuada lorem. Phasellus gravida, lorem ac consectetur volutpat, erat sem aliquam lacus, non commodo nulla orci ut enim. Vestibulum leo nisi, suscipit nec augue quis, porta faucibus elit. Nullam sit amet posuere tellus, ac facilisis massa. In semper, ligula sit amet ultricies sollicitudin, justo elit varius ex, rutrum cursus augue nibh quis augue. Vestibulum a augue bibendum, molestie orci imperdiet, lobortis elit. Aenean auctor massa et sem condimentum molestie. Phasellus justo purus, sagittis in venenatis id, interdum et neque. Cras fermentum venenatis ornare. Sed id sodales mauris, eu imperdiet mi. Duis non velit sem.  </p><!--letraPequena-->
+       <div class="registroCampo ">
+            <div style=" display: inline-block"><input type="checkbox" class="checker" name="terGuess" required="required"></div>
+            <div class="aceptoTerminosP " style=" display: inline-block"><sup>*</sup>Acepto los <a target="_blank" href="{{ url('terminos') }}">Términos del servicio</a></div><!--aceptoTerminos-->
+
+        </div><!--registroCampo-->   
+        <p class="letraPequena">Todos los campos con el asterisco ('*') son obligatorios.</p><!--letraPequena-->
+        <p class="letraMediana">POR FAVOR LLENA LOS CAMPOS OBLIGATORIOS</p><!--letraMediana-->        
+        <input type="submit" value="{{ 'registration.submit'|trans }}"  class="submit  rojoFuerte btn-sm pull-right" />
+
+    </div><!--registroFormulario dos-->   
+</div>
+{{ form_widget(form._5, {'value' : qP.tkG}) }}
+{{ form_widget(form._2, {'value' : qP.tokenSh}) }}
+{{ form_end(form) }}

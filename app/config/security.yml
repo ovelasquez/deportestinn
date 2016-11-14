@@ -3,8 +3,8 @@ security:
         FOS\UserBundle\Model\UserInterface: bcrypt
 
     role_hierarchy:
-        ROLE_ADMIN:       ROLE_USER
-        ROLE_SUPER_ADMIN: ROLE_ADMIN
+        ROLE_LIGA:       ROLE_ORGANIZACION
+        ROLE_SUPER_ADMIN: ROLE_LIGA
 
     providers:
         fos_userbundle:
@@ -25,5 +25,13 @@ security:
     access_control:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/, role: ROLE_ADMIN }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }        
+        - { path: ^/, role: ROLE_ORGANIZACION }
+        - { path: ^/ligas/, role: ROLE_SUPER_ADMIN }        
+        - { path: ^/disciplinas/, role: ROLE_SUPER_ADMIN }        
+        - { path: ^/campeonatos/, role: ROLE_LIGA }
+        - { path: ^/organizaciones/, role: ROLE_LIGA }
+        - { path: ^/campeonatodisciplina/, role: ROLE_LIGA }
+        - { path: ^/equipos/, role: ROLE_LIGA }
+        - { path: ^/atletas/, role: ROLE_ORGANIZACION }
+        

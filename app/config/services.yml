@@ -10,3 +10,12 @@ services:
     app.file_uploader:
         class: BackendBundle\FileUploader
         arguments: ['%uploads_directory%']
+        
+    twig.extension:
+        # Register the class (The namespace must match)
+        class: BackendBundle\Extensions\TwigExtensions
+        # Inject doctrine as first parameter
+        arguments: 
+            doctrine : '@doctrine'
+        tags:
+          -  { name: twig.extension }

@@ -3,10 +3,10 @@
 namespace BackendBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-
 use BackendBundle\Entity\Ligas;
 use BackendBundle\Form\LigasType;
 
@@ -15,21 +15,23 @@ use BackendBundle\Form\LigasType;
  *
  * @Route("/ligas")
  */
-class LigasController extends Controller
-{
+class LigasController extends Controller {
+
     /**
      * Lists all Ligas entities.
      *
      * @Route("/", name="ligas_index")
      * @Method("GET")
      */
-    public function indexAction()
-    {
+    public function indexAction() {
+        if (!$this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')) {
+            throw $this->createAccessDeniedException("You don't have access to this page!");
+        }
         $em = $this->getDoctrine()->getManager();
         $ligas = $em->getRepository('BackendBundle:Ligas')->findAll();
-       
+
         return $this->render('ligas/index.html.twig', array(
-            'ligas' => $ligas,
+                    'ligas' => $ligas,
         ));
     }
 
@@ -39,18 +41,21 @@ class LigasController extends Controller
      * @Route("/new", name="ligas_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
-    {        
-        $porciones = explode("-", $request->request->get('datefilter'));                 
+    public function newAction(Request $request) {
+        if (!$this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')) {
+            throw $this->createAccessDeniedException("You don't have access to this page!");
+        }
+
+        $porciones = explode("-", $request->request->get('datefilter'));
         $liga = new Ligas();
         $form = $this->createForm('BackendBundle\Form\LigasType', $liga);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-           
-             $liga->setInicio(new \DateTime(trim($porciones[0])));             
-             $liga->setFin(new \DateTime(trim($porciones[1])));
-          
+
+            $liga->setInicio(new \DateTime(trim($porciones[0])));
+            $liga->setFin(new \DateTime(trim($porciones[1])));
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($liga);
             $em->flush();
@@ -59,8 +64,8 @@ class LigasController extends Controller
         }
 
         return $this->render('ligas/new.html.twig', array(
-            'liga' => $liga,
-            'form' => $form->createView(),
+                    'liga' => $liga,
+                    'form' => $form->createView(),
         ));
     }
 
@@ -70,14 +75,15 @@ class LigasController extends Controller
      * @Route("/{id}", name="ligas_show")
      * @Method("GET")
      */
-    public function showAction(Ligas $liga)
-    {
-        
+    public function showAction(Ligas $liga) {
+        if (!$this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')) {
+            throw $this->createAccessDeniedException("You don't have access to this page!");
+        }
         $deleteForm = $this->createDeleteForm($liga);
 
         return $this->render('ligas/show.html.twig', array(
-            'liga' => $liga,
-            'delete_form' => $deleteForm->createView(),
+                    'liga' => $liga,
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -87,35 +93,37 @@ class LigasController extends Controller
      * @Route("/{id}/edit", name="ligas_edit")
      * @Method({"GET", "POST"})
      */
-    public function editAction(Request $request, Ligas $liga)
-    {
+    public function editAction(Request $request, Ligas $liga) {
+        if (!$this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')) {
+            throw $this->createAccessDeniedException("You don't have access to this page!");
+        }
 
         $deleteForm = $this->createDeleteForm($liga);
         $editForm = $this->createForm('BackendBundle\Form\LigasType', $liga);
         $editForm->handleRequest($request);
 
         //Si va a editar armamos la variable periodo para mostarlo en la vista         
-        $periodo=($liga->getInicio()->format("m/d/Y"))."-".($liga->getFin()->format("m/d/Y"));
+        $periodo = ($liga->getInicio()->format("m/d/Y")) . "-" . ($liga->getFin()->format("m/d/Y"));
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-             //dump($liga); die;
+            //dump($liga); die;
             //Si vamos a almacenar en la BD tratamos a porciones y las asignamos  a las respectivas fechas
-            $porciones = explode("-", $request->request->get('datefilter'));                  
-            $liga->setInicio(new \DateTime(trim($porciones[0])));                                    
+            $porciones = explode("-", $request->request->get('datefilter'));
+            $liga->setInicio(new \DateTime(trim($porciones[0])));
             $liga->setFin(new \DateTime(trim($porciones[1])));
-           
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($liga);
             $em->flush();
 
             return $this->redirectToRoute('ligas_show', array('id' => $liga->getId()));
-        }       
-        
+        }
+
         return $this->render('ligas/edit.html.twig', array(
-            'liga' => $liga,            
-            'periodo' => $periodo,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+                    'liga' => $liga,
+                    'periodo' => $periodo,
+                    'edit_form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -125,8 +133,10 @@ class LigasController extends Controller
      * @Route("/{id}", name="ligas_delete")
      * @Method("DELETE")
      */
-    public function deleteAction(Request $request, Ligas $liga)
-    {
+    public function deleteAction(Request $request, Ligas $liga) {
+        if (!$this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')) {
+            throw $this->createAccessDeniedException("You don't have access to this page!");
+        }
         $form = $this->createDeleteForm($liga);
         $form->handleRequest($request);
 
@@ -146,12 +156,12 @@ class LigasController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm(Ligas $liga)
-    {
+    private function createDeleteForm(Ligas $liga) {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('ligas_delete', array('id' => $liga->getId())))
-            ->setMethod('DELETE')
-            ->getForm()
+                        ->setAction($this->generateUrl('ligas_delete', array('id' => $liga->getId())))
+                        ->setMethod('DELETE')
+                        ->getForm()
         ;
     }
+
 }

@@ -23,9 +23,23 @@ class AtletasController extends Controller {
      * @Method("GET")
      */
     public function indexAction() {
+
         $em = $this->getDoctrine()->getManager();
 
-        $atletas = $em->getRepository('BackendBundle:Atletas')->findAll();
+        $user = $this->get('security.context')->getToken()->getUser();
+
+
+
+        if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')) {
+            $atletas = $em->getRepository('BackendBundle:Atletas')->findAll();
+        } elseif ($this->get('security.context')->isGranted('ROLE_LIGA')) {
+            $atletas = $em->getRepository('BackendBundle:Atletas')->findAllByLiga($user->getLiga());
+        } elseif ($this->get('security.context')->isGranted('ROLE_ORGANIZACION')) {
+            $atletas = $em->getRepository('BackendBundle:Atletas')->findAllByOrganizacion($user->getOrganizacion());
+        } else {
+            throw $this->createAccessDeniedException("You don't have access to this page!");
+        }
+
 
         return $this->render('atletas/index.html.twig', array(
                     'atletas' => $atletas,
@@ -46,8 +60,11 @@ class AtletasController extends Controller {
         $problema = "";
         $em = $this->getDoctrine()->getManager();
 
+
         //Fijamos La Organización por Parameters ORG
-        $_ORG = $this->container->getParameter('org');
+        //$_ORG = $this->container->getParameter('org');
+        //Fijamos La Organización por el usuario logueado
+        $_ORG = $this->getUser()->getOrganizacion();
 
         $disciplinasOrg = $em->getRepository('BackendBundle:OrganizacionCampeonatoDisciplina')->findBy(array("organizacion" => $_ORG), array('disciplina' => 'DESC'));
 
@@ -136,9 +153,22 @@ class AtletasController extends Controller {
         $aEq = $em->getRepository('BackendBundle:AtletaEquipo')->findBy(array("atleta" => $atleta->getId()));
 
         //Fijamos La Organización por Parameters ORG
-        $_ORG = $this->container->getParameter('org');
+        //$_ORG = $this->container->getParameter('org');
+        //Fijamos La Organización por el usuario logueado
+        $_ORG = $this->getUser()->getOrganizacion();
 
-        $disciplinasOrg = $em->getRepository('BackendBundle:OrganizacionCampeonatoDisciplina')->findBy(array("organizacion" => $_ORG), array('disciplina' => 'DESC'));
+        $idsD = array();
+        $idsDb = array();
+
+        //var_dump(empty($_ORG)); die();
+
+        if (!empty($_ORG)):
+            $disciplinasOrg = $em->getRepository('BackendBundle:OrganizacionCampeonatoDisciplina')->findBy(array("organizacion" => $_ORG), array('disciplina' => 'DESC'));
+
+        else:
+            $disciplinasOrg = $em->getRepository('BackendBundle:OrganizacionCampeonatoDisciplina')->findAll();
+
+        endif;
 
         if (count($disciplinasOrg) > 0):
             $idsD = array();
@@ -146,6 +176,7 @@ class AtletasController extends Controller {
 
             foreach ($disciplinasOrg as $disc) {
                 $idsD[$disc->getId()] = array($disc->getDisciplina()->getId(), $disc->getDisciplina()->getNombre(), array());
+               
                 array_push($idsDb, $disc->getId());
             }
 
@@ -179,13 +210,13 @@ class AtletasController extends Controller {
             }
 
             foreach ($eqAsociados as $eq) {
-                if (!in_array($eq,$rEAEx)):
+                if (!in_array($eq, $rEAEx)):
                     $at_eq = new \BackendBundle\Entity\AtletaEquipo();
                     $e = $em->getRepository('BackendBundle:Equipos')->find($eq);
                     $at_eq->setAtleta($atleta);
                     $at_eq->setEquipo($e);
                     $em->persist($at_eq);
-                    $em->flush();                    
+                    $em->flush();
                 else:
                     $clave = array_search($eq, $rEAEx);  // $clave = 1;
                     array_splice($rEAEx, $clave, 1);
@@ -193,13 +224,15 @@ class AtletasController extends Controller {
             }
 
             foreach ($aEq as $ae) {
-                if (in_array($ae->getEquipo()->getId(),$rEAEx)):
+                if (in_array($ae->getEquipo()->getId(), $rEAEx)):
                     $em->remove($ae);
                     $em->flush();
                 endif;
             }
 
-            return $this->redirectToRoute('atletas_edit', array('id' => $atleta->getId()));
+
+
+            return $this->redirectToRoute('atletas_show', array('id' => $atleta->getId()));
         }
 
         return $this->render('atletas/edit.html.twig', array(

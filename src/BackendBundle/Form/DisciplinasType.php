@@ -27,7 +27,7 @@ class DisciplinasType extends AbstractType {
                         'showLibrary' => true //optional                        
                     ),
                     'cropConfig' => array(
-                        'minWidth' => 240,
+                        'minWidth' => 300,
                         'minHeight' => 300,
                         'aspectRatio' => true, //optional
                         'cropRoute' => 'comur_api_crop', //optional

@@ -1,0 +1,8 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+<h2 class="tituloAzulado">Confirma tu cuenta</h2><!--tituloAzulado-->
+<div class="cuadro cuadroError lila"><p>{{ 'registration.check_email'|trans({'%email%': user.email}) }}</p></div>
+{% endblock fos_user_content %}

@@ -4,12 +4,11 @@ namespace BackendBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-
 /**
  * Atletas
  *
  * @ORM\Table(name="atletas")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="BackendBundle\Entity\AtletaRepository")
  */
 class Atletas {
 
@@ -92,14 +91,14 @@ class Atletas {
      */
     private $telefono;
 
-   /**
+    /**
      * @var string
      *
      * @ORM\Column(name="fotografia", type="string", length=255, nullable=false)
      */
     private $fotografia;
 
-   /**
+    /**
      * @var string
      *
      * @ORM\Column(name="imagen_cedula", type="string", length=255, nullable=false)
@@ -136,14 +135,14 @@ class Atletas {
      */
     private $departamento;
 
-  /**
+    /**
      * @var string
      *
      * @ORM\Column(name="contancia", type="string", length=255, nullable=false)
      */
     private $contancia;
 
-     /**
+    /**
      * @var string
      *
      * @ORM\Column(name="carnet", type="string", length=255, nullable=false)
@@ -974,8 +973,8 @@ class Atletas {
      * @return type
      */
     public function getUploadRootDirFotografia() {
-        $dir = str_replace('\\', '/', __DIR__);   
-        return $dir . '/../../../web/' . $this->getUploadDirFotografia();          
+        $dir = str_replace('\\', '/', __DIR__);
+        return $dir . '/../../../web/' . $this->getUploadDirFotografia();
     }
 
     /**
@@ -985,7 +984,7 @@ class Atletas {
     public function getUploadDirFotografia() {
         return 'uploads/atletas/fotos';
     }
-    
+
     /**
      *  get Upload Dir. 
      * @return type
@@ -993,47 +992,48 @@ class Atletas {
     public function getUploadDirCedula() {
         return 'uploads/atletas/cedulas';
     }
-     /**
+
+    /**
      *  get Upload Root Image 
      * @return type
      */
     public function getUploadRootDirCedula() {
-        $dir = str_replace('\\', '/', __DIR__);   
-        return $dir . '/../../../web/' . $this->getUploadDirCedula();          
+        $dir = str_replace('\\', '/', __DIR__);
+        return $dir . '/../../../web/' . $this->getUploadDirCedula();
     }
-    
-     /**
+
+    /**
      *  get Upload Dir. 
      * @return type
      */
     public function getUploadDirContancia() {
         return 'uploads/atletas/constancias';
     }
-     /**
+
+    /**
      *  get Upload Root Image 
      * @return type
      */
     public function getUploadRootDirContancia() {
-        $dir = str_replace('\\', '/', __DIR__);   
-        return $dir . '/../../../web/' . $this->getUploadDirContancia();          
+        $dir = str_replace('\\', '/', __DIR__);
+        return $dir . '/../../../web/' . $this->getUploadDirContancia();
     }
-    
-        /**
+
+    /**
      *  get Upload Dir. 
      * @return type
      */
     public function getUploadDirCarnet() {
         return 'uploads/atletas/carnet';
     }
-     /**
+
+    /**
      *  get Upload Root Image 
      * @return type
      */
     public function getUploadRootDirCarnet() {
-        $dir = str_replace('\\', '/', __DIR__);   
-        return $dir . '/../../../web/' . $this->getUploadDirCarnet();          
+        $dir = str_replace('\\', '/', __DIR__);
+        return $dir . '/../../../web/' . $this->getUploadDirCarnet();
     }
-    
 
-  
 }

@@ -24,6 +24,9 @@ class DisciplinasController extends Controller
      */
     public function indexAction()
     {
+          if (!$this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')) {
+            throw $this->createAccessDeniedException("You don't have access to this page!");
+        }
         $em = $this->getDoctrine()->getManager();
 
         $disciplinas = $em->getRepository('BackendBundle:Disciplinas')->findAll();
@@ -92,7 +95,7 @@ class DisciplinasController extends Controller
             $em->persist($disciplina);
             $em->flush();
 
-            return $this->redirectToRoute('disciplinas_edit', array('id' => $disciplina->getId()));
+            return $this->redirectToRoute('disciplinas_show', array('id' => $disciplina->getId()));
         }
 
         return $this->render('disciplinas/edit.html.twig', array(

@@ -1,0 +1,13 @@
+{% extends "AppUserBundle::layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+    <h2 class="tituloAzulado">Confirmación Exitosa</h2><!--tituloAzulado-->
+    <div class="cuadro uno cuadroError lila" style="background-color: #aebfe3!important">
+        <p>{{ 'registration.confirmed'|trans({'%username%': user.username}) }}</p>
+        {% if targetUrl %}
+            <p><a href="{{ targetUrl }}">{{ 'registration.back'|trans }}</a></p>
+            {% endif %}
+    </div>
+{% endblock fos_user_content %}

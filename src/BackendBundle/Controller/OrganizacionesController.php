@@ -24,6 +24,9 @@ class OrganizacionesController extends Controller {
      * @Method("GET")
      */
     public function indexAction() {
+        if (!$this->get('security.context')->isGranted('ROLE_LIGA')) {
+            throw $this->createAccessDeniedException("You don't have access to this page!");
+        }
         $em = $this->getDoctrine()->getManager();
 
         $organizaciones = $em->getRepository('BackendBundle:Organizaciones')->findAll();
@@ -65,7 +68,10 @@ class OrganizacionesController extends Controller {
 
 
         //Fijamos el Campeonato por Parameters Camp
-        $_CAMP = $this->container->getParameter('camp');
+        //$_CAMP = $this->container->getParameter('camp');
+        //Fijamos El Campeonato por el usuario logueado
+        $_CAMP = $this->getUser()->getCampeonato();
+        
 
 
         //Buscar todas las disciplinas asociadas al campeonato
@@ -91,7 +97,7 @@ class OrganizacionesController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         $disciplinas = $em->getRepository('BackendBundle:OrganizacionCampeonatoDisciplina')->findByOrganizacion($organizacione->getId());
-        
+
         $deportes = array();
         foreach ($disciplinas as &$valor) {
             $disciplina = $em->getRepository('BackendBundle:Disciplinas')->find($valor->getDisciplina()->getId());
@@ -144,8 +150,11 @@ class OrganizacionesController extends Controller {
         }
 
         //Buscar todas las disciplinas asociadas al campeonato
-         //Fijamos el Campeonato por Parameters Camp
-        $_CAMP = $this->container->getParameter('camp');
+        //Fijamos el Campeonato por Parameters Camp
+        // $_CAMP = $this->container->getParameter('camp');
+        //Fijamos El Campeonato por el usuario logueado
+        $_CAMP = $this->getUser()->getCampeonato();
+
         $campeonatoDisciplinas = $em->getRepository('BackendBundle:CampeonatoDisciplina')->findByCampeonato($_CAMP);
         //dump($campeonatoDisciplinas);  
         //Buscar todas las disciplinas asociadas a la organizacion en el campeonato

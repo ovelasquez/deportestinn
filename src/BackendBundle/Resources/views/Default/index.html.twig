@@ -1,9 +1,174 @@
-{% extends 'gentelella.html.twig' %} 
-{% block title %} Ligas {% endblock %}
-{% block Titulo %} DeportesTINN! {% endblock %}
-{% block Subtitulo %} Bienvenidos{% endblock %} 
-{% block cerrar %} href="{{ path('backend_default_index')}}" {% endblock %}    
+{% extends 'gentelella-home.html.twig' %} 
+{% block title %} Inicio {% endblock %}
+
 {% block body %}
-    
+
+    {% if is_granted('ROLE_LIGA') %}
+
+        
+        <div class="row">
+
+            <div class="col-md-55">
+                <div class="x_panel ui-ribbon-container " style="height: 220px;">
+                <div class="ui-ribbon-wrapper">
+                    <div class="ui-ribbon" style="background-color: #a94442;">
+                        Días
+                    </div>
+                </div>
+                <div class="x_title" style="margin-bottom: 0px;">
+                    <h2>Avance de Liga</h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+
+                    <div style="text-align: center; margin-bottom: 0px">
+                        <span class="chart" data-percent="20">
+                            <span class="percent">20</span>
+                            <canvas height="110" width="110"></canvas></span>
+                    </div>
+
+                    <p class="name_title">Porcentaje de ejecución</p>
+                    
+                </div>
+            </div>
+            </div>
+
+            <div class="col-md-55">
+                <div class="tile-stats" style="height: 220px;">
+                    <div class="icon"><i class="fa fa-trophy" style="color: #337ab7"></i> </div>
+                    <div class="count" style="font-size: 5.5em;color: #337ab7">{{camp|length}}</div>
+                    <h3>Número de campeonatos </h3>
+                    <p>Registrados.</p>
+                    <div style="text-align: right"><a href="{{ path('campeonatos_new') }}"  class="btn btn-sm btn-primary " type="button">Agregar Campeonato +</a></div>
+                </div>
+            </div>
+
+            {% for cam in camp %}
+
+                <div class="col-md-55" style="">
+                    <div class="" style="display: block;padding: 4px;margin-bottom: 20px;background-color: #fff;border: 1px solid #ddd;border-radius: 4px; text-align: center">
+                        <div class="image view view-first" style="text-align: center">
+                            <img src="{{ asset('uploads/logos/campeonatos/')}}{{cam.logo}}"  style="height: 150px; display: initial; margin: 10px">
+                            <div class="mask">
+                                <p>{{cam.nombre}}</p>
+                                <div class="tools tools-bottom" style="margin: 90px 0 0 0;">
+                                    <a href="{{ path('campeonatos_edit', { 'id': cam.id }) }}"><i class="fa fa-pencil"></i></a>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="caption">
+                            <p>{{cam.nombre}}</p>
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}      
+
+        </div>
+
+    {% elseif is_granted('ROLE_ORGANIZACION')   %}
+        <div class="row">
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                <div class="tile-stats " style="height: 300px;">
+                    <div class="icon"><i class="fa fa-users" style="color: #337ab7"></i>
+                    </div>
+                    <div class="count" style="font-size: 7.5em;color: #337ab7">{{numa}}</div>
+
+                    <h3>Número de atletas </h3>
+                    <p>Inscritos.</p>
+                    <div style="text-align: right"><a href="{{ path('atletas_new') }}"  class="btn btn-sm btn-primary " type="button">Agregar Atleta +</a></div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-12 col-xs-12">
+                <div class="tile-stats " style="height: 145px;">
+                    <div class="icon"><i class="fa fa-check " style="color: rgba(38,185,154,0.88)"></i>
+                    </div>
+                    <div class="count" style="color: rgba(38,185,154,0.88)">0</div>
+
+                    <h3>Número de atletas </h3>
+                    <p>Revisados.</p>
+
+                </div>
+                <div class="tile-stats " style="height: 145px;">
+                    <div class="icon"><i class="fa fa-exclamation-triangle" style="color: rgba(243,156,18,0.88);"></i>
+                    </div>
+                    <div class="count" style="color: rgba(243,156,18,0.88);">0</div>
+
+                    <h3>Número de atletas </h3>
+                    <p>Por corregir.</p>
+
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-12 col-xs-12">
+                <div class="x_panel ui-ribbon-container " style="height: 300px;">
+                    <div class="ui-ribbon-wrapper">
+                        <div class="ui-ribbon" style="background-color: #a94442;">
+                            Días
+                        </div>
+                    </div>
+                    <div class="x_title">
+                        <h2>Proceso para Inscripción</h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+
+                        <div style="text-align: center; margin-bottom: 17px">
+                            <span class="chart" data-percent="20">
+                                <span class="percent">20</span>
+                                <canvas height="110" width="110"></canvas></span>
+                        </div>
+
+                        <h3 class="name_title">Porcentaje de avance</h3>
+                        <p>del periodo de inscripción</p>
+
+
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="row">
+
+
+            <div class="col-md-55">
+                <div class="tile-stats" style="height: 220px;">
+                    <div class="count" style="font-size: 6.5em;color: #337ab7">{{disc|length}}</div>
+
+                    <h3>Número de disciplinas </h3>
+                    <p>De su participación.</p>
+                </div>
+            </div>
+
+            {% for dis in disc %}
+
+                <div class="col-md-55" style="">
+                    <div class="" style="display: block;padding: 4px;margin-bottom: 20px;background-color: #fff;border: 1px solid #ddd;border-radius: 4px; text-align: center">
+                        <div class="image view view-first" style="text-align: center">
+                            <img src="{{ asset('uploads/logos/disciplinas/')}}{{dis.logo}}"  style="height: 150px; display: initial; margin: 10px">
+                            <div class="mask">
+                                <p>{{dis.nombre}}</p>
+                                <div class="tools tools-bottom" style="margin: 90px 0 0 0;">
+                                    <span>Máx. 0</span>
+                                    <span>Mín. 0</span>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="caption">
+                            <p>{{dis.nombre}}</p>
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}      
+
+        </div>
+
+    {% endif %} 
 
 {% endblock %} 

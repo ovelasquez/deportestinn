@@ -7,6 +7,9 @@ backend:
     resource: "@BackendBundle/Controller/"
     type:     annotation
     prefix:   /
+
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"    
     
 comur_image:
     resource: "@ComurImageBundle/Resources/config/routing.yml"
@@ -22,3 +25,4 @@ fos_user_group:
 fos_user_resetting:
     resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
     prefix: /resetting
+ 

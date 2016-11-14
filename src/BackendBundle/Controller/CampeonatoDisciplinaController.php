@@ -23,6 +23,9 @@ class CampeonatoDisciplinaController extends Controller {
      * @Method("GET")
      */
     public function indexAction() {
+          if (!$this->get('security.context')->isGranted('ROLE_LIGA')) {
+            throw $this->createAccessDeniedException("You don't have access to this page!");
+        }
         $em = $this->getDoctrine()->getManager();
 
         $campeonatoDisciplinas = $em->getRepository('BackendBundle:CampeonatoDisciplina')->findAll();

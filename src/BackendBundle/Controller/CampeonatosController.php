@@ -22,6 +22,10 @@ class CampeonatosController extends Controller {
      * @Method("GET")
      */
     public function indexAction() {
+          if (!$this->get('security.context')->isGranted('ROLE_LIGA')) {
+            throw $this->createAccessDeniedException("You don't have access to this page!");
+        }
+       // $user = $this->getUser();  dump($user);     die();
         $em = $this->getDoctrine()->getManager();
 
         $campeonatos = $em->getRepository('BackendBundle:Campeonatos')->findAll();
@@ -39,9 +43,9 @@ class CampeonatosController extends Controller {
      */
     public function newAction(Request $request) {
         $porciones = explode("-", $request->request->get('datefilter'));
-        
+
         $campeonato = new Campeonatos();
-                       
+
         $form = $this->createForm('BackendBundle\Form\CampeonatosType', $campeonato);
         $form->handleRequest($request);
 
@@ -56,7 +60,7 @@ class CampeonatosController extends Controller {
         }
 
         return $this->render('campeonatos/new.html.twig', array(
-                    'campeonato' => $campeonato,                    
+                    'campeonato' => $campeonato,
                     'form' => $form->createView(),
         ));
     }

@@ -1,0 +1,26 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<h2 class="tituloAzulado">Recupera tu cuenta</h2><!--tituloAzulado-->
+<form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="fos_user_resetting_request">
+    {% if invalid_username is defined %}
+        <div class="cuadro uno cuadroError"><p>{{ 'resetting.request.invalid_username'|trans({'%username%': invalid_username}) }}</p></div>
+        {% endif %}
+    <table cellpadding="0" cellspacing="0" border="0" class="tablaRecuperarCuenta">
+        <tr>
+            <td valign="top" width="5%">&nbsp;</td>
+            <td valign="top" width="15%" class="azulalado">Correo electrónico</td>
+            <td valign="top" width="10%">&nbsp;</td>
+            <td valign="top" width="8%">&nbsp;</td>
+            <td valign="top" width="62%">&nbsp;</td>
+        </tr>
+        <tr>
+            <td valign="bottom" width="5%"><div class="sobreAzulado"></div></td>
+            <td valign="bottom" width="15%" class="azulalado"><input type="text" id="username" name="username" required="required" /></td>
+            <td valign="bottom" width="10%" class="botonesEnvio"><input type="submit"  class="azulazo" value="{{ 'resetting.request.submit'|trans }}" /></td>
+            <td valign="bottom" width="8%" class="botonesEnvio"><a href="{{ url('homepage') }}" class="rojazo"> Cancelar</a></td>
+            <td valign="bottom" width="62%">&nbsp;</td>
+        </tr>
+
+    </table><!--tablaRecueperarCuenta-->
+    
+</form>

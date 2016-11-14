@@ -33,8 +33,8 @@ class CampeonatosType extends AbstractType
                         'showLibrary' => false //optional                        
                     ),
                     'cropConfig' => array(
-                        'minWidth' => 240,
-                        'minHeight' => 300,
+                        'minWidth' => 250,
+                        'minHeight' => 250,
                         'aspectRatio' => true, //optional
                         'cropRoute' => 'comur_api_crop', //optional
                         'forceResize' => true, //optional

@@ -1,0 +1,10 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+<h2 class="tituloAzulado">Recupera tu cuenta</h2><!--tituloAzulado-->
+<div class="cuadro cuadroError lila"><p>
+{{ 'resetting.check_email'|trans({'%email%': email}) }}
+    </p></div>
+{% endblock %}

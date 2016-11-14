@@ -1,0 +1,20 @@
+{% trans_default_domain 'FOSUserBundle' %}
+<!--
+<div class="campo">
+    <label for="nuevaContrasena">Nueva contraseña</label>
+    <input type="text">
+</div>
+-->
+<h2 class="tituloAzulado">Cambiar contraseña</h2><!--tituloAzulado-->
+<form action="{{ path('fos_user_resetting_reset', {'token': token}) }}" {{ form_enctype(form) }} method="POST" class="fos_user_resetting_reset formularioRestablecer">
+    {{ form_widget(form) }}
+    <div class="campo">
+        <ul class="UlBtnLogin">
+            <li><input id="_submit" name="_submit" class="submit lilaOscuro btnRecCont" value="{{ 'resetting.reset.submit'|trans }}" type="submit"></li>
+                    </ul>
+        
+        
+    </div>
+    
+
+</form>

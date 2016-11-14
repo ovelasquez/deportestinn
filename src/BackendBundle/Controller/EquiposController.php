@@ -24,6 +24,9 @@ class EquiposController extends Controller
      */
     public function indexAction()
     {
+          if (!$this->get('security.context')->isGranted('ROLE_LIGA')) {
+            throw $this->createAccessDeniedException("You don't have access to this page!");
+        }
         $em = $this->getDoctrine()->getManager();
 
         $equipos = $em->getRepository('BackendBundle:Equipos')->findAll();

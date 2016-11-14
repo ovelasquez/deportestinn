@@ -5,7 +5,7 @@ namespace BackendBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\EntityRepository;
 
-use BackendBundle\Entity\OrganizacionCampeonatoDisciplina;
+use BackendBundle\Entity\Disciplinas;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -13,19 +13,20 @@ use BackendBundle\Entity\OrganizacionCampeonatoDisciplina;
  */
 
 /**
- * Description of OrganizacionCampeonatoDisciplinaRepository
+ * Description of DisciplinasRepository
  *
  * @author Mariana
  */
-class OrganizacionCampeonatoDisciplinaRepository extends EntityRepository {
+class DisciplinasRepository extends EntityRepository {
 
     //put your code here
 
-    public function findAllWithDisciplinaByOrganizacion($org) {
+    public function findAllByOrganizacion($org) {
         
         $query = $this->getEntityManager()
-                ->createQuery("SELECT  r,d  FROM BackendBundle:OrganizacionCampeonatoDisciplina r "
-                        . "LEFT JOIN BackendBundle:Disciplinas d WITH r.disciplina=d.id WHERE r.organizacion=:org  ORDER BY d.nombre ASC");
+                ->createQuery("SELECT d  FROM BackendBundle:Disciplinas d "
+                        . " LEFT JOIN BackendBundle:OrganizacionCampeonatoDisciplina ocd WITH d.id=ocd.disciplina"
+                        . " WHERE ocd.organizacion=:org  ORDER BY d.nombre ASC");
         $query->setParameter('org', $org);        
         $entities = $query->getResult();
         

@@ -38,7 +38,7 @@
 
                     <!-- menu profile quick info -->
                     <div class="profile">
-
+                        
                         <div class="profile_pic">
                             {% if is_granted('ROLE_LIGA') or  is_granted('ROLE_ORGANIZACION')   %}
                                 {% set liga = findLiga(app.user.getLiga)%}    
@@ -51,7 +51,7 @@
                         </div>
                     </div>
                     <!-- /menu profile quick info -->
-
+                
 
                     <!-- sidebar menu -->
                     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
@@ -63,18 +63,18 @@
                                 <li><a><i class="fa fa-edit"></i> Gestionar <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         {% if (is_granted('ROLE_SUPER_ADMIN')) %}
-                                            <li><a href="{{ path('ligas_index') }}">Ligas</a></li>
-                                            <li><a href="{{ path('disciplinas_index') }}">Disciplinas</a></li>
-                                            {% endif %} 
-                                            {% if ((is_granted('ROLE_SUPER_ADMIN')) or (is_granted('ROLE_LIGA'))) %}
-                                            <li><a href="{{ path('campeonatos_index') }}">Campeonatos</a></li>                                        
-                                            <li><a href="{{ path('campeonatodisciplina_index') }}">Campeonato Disciplinas</a></li>
-                                            <li><a href="{{ path('organizaciones_index') }}">Organizaciones</a></li>
-                                            <li><a href="{{ path('equipos_index') }}">Equipos</a></li>
-                                            {% endif %} 
-                                            {% if ( (is_granted('ROLE_SUPER_ADMIN')) or (is_granted('ROLE_ORGANIZACION'))) %}                                        
-                                            <li><a href="{{ path('atletas_index') }}">Atletas</a></li>  
-                                            {% endif %}  
+                                        <li><a href="{{ path('ligas_index') }}">Ligas</a></li>
+                                        <li><a href="{{ path('disciplinas_index') }}">Disciplinas</a></li>
+                                        {% endif %} 
+                                        {% if ((is_granted('ROLE_SUPER_ADMIN')) or (is_granted('ROLE_LIGA'))) %}
+                                        <li><a href="{{ path('campeonatos_index') }}">Campeonatos</a></li>                                        
+                                        <li><a href="{{ path('campeonatodisciplina_index') }}">Campeonato Disciplinas</a></li>
+                                        <li><a href="{{ path('organizaciones_index') }}">Organizaciones</a></li>
+                                        <li><a href="{{ path('equipos_index') }}">Equipos</a></li>
+                                        {% endif %} 
+                                        {% if ( (is_granted('ROLE_SUPER_ADMIN')) or (is_granted('ROLE_ORGANIZACION'))) %}                                        
+                                        <li><a href="{{ path('atletas_index') }}">Atletas</a></li>  
+                                        {% endif %}  
                                     </ul>
                                 </li>
                             </ul>
@@ -112,8 +112,6 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li class="">
                                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-
-
                                     {% if (is_granted('ROLE_SUPER_ADMIN')) %}
                                         <img src="{{ asset('bundles/backend/images/img.jpg')}}" alt="" width="30px">
                                     {% elseif ((is_granted('ROLE_LIGA'))) %}
@@ -123,7 +121,6 @@
                                         <img src="{{ asset('bundles/backend/images/img.jpg')}}" alt="" width="30px">
                                         
                                     {% endif %}  
-
                                     {% if app.user %}{{ app.user.getNombre }} {{ app.user.getApellido}} {% endif %} 
                                     <span class=" fa fa-angle-down"></span>
                                 </a>
@@ -149,49 +146,7 @@
 
             <!-- page content -->
             <div class="right_col" role="main">
-                <div class="">
-                    <div class="page-title">
-                        <div class="title_left">
-                            <h3>{% block Titulo %} DeportesTINN!!!  {% endblock %}</h3>
-                        </div>
-
-                        <div class="title_right">                            
-                        </div>
-                    </div>
-
-                    <div class="clearfix"></div>
-
-                    <div class="row">
-                        <div class="col-md-12 col-sm-12 col-xs-12">
-                            <div class="x_panel">
-                                <div class="x_title">
-                                    <h2>{% block Subtitulo %} Plain Page {% endblock %} </h2>
-                                    <ul class="nav navbar-right panel_toolbox">
-                                        {% block paneltoolbox %} 
-                                            <li><a class="collapse-link" ><i class="fa fa-chevron-up"></i></a>
-                                            </li>
-                                            <!--li class="dropdown">
-                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                                <ul class="dropdown-menu" role="menu">
-                                                    <li><a href="#">Settings 1</a>
-                                                    </li>
-                                                    <li><a href="#">Settings 2</a>
-                                                    </li>
-                                                </ul>
-                                            </li-->
-                                            <li><a class="close-link" {% block cerrar %}  {% endblock %} ><i class="fa fa-close"></i></a>
-                                            </li>
-                                        {% endblock %}          
-                                    </ul>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="x_content">
-                                    {% block body %} Add content to the page ... {% endblock %}                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            {% block body %} Add content to the page ... {% endblock %} 
             </div>
             <!-- /page content -->
 
@@ -211,8 +166,33 @@
     <script src="{{ asset('bundles/backend/vendors/nprogress/nprogress.js')}}"></script>   
     <!-- Custom Theme Scripts -->
     <script src="{{ asset('bundles/backend/build/js/custom.min.js')}}"></script>
+    <script src="{{ asset('bundles/backend/vendors/Chart.js/dist/Chart.min.js')}}"></script>
+    <script src="{{ asset('bundles/backend/vendors/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js')}}"></script>
+ 
+    
 
-{% block javascripts %}{% endblock %}
+{% block javascripts %}
+    <script>
+        
+    $(function() {
+        $('.chart').easyPieChart({
+          easing: 'easeOutElastic',
+          delay: 3000,
+          barColor: '#26B99A',
+          trackColor: '#fff',
+          scaleColor: false,
+          lineWidth: 20,
+          trackWidth: 16,
+          lineCap: 'butt',
+          onStep: function(from, to, percent) {
+            $(this.el).find('.percent').text(Math.round(percent));
+          }
+        });
+      });
+      
+    </script>
+    
+{% endblock %}
 </body>
 </html>
 
