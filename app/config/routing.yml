@@ -11,3 +11,14 @@ backend:
 comur_image:
     resource: "@ComurImageBundle/Resources/config/routing.yml"
     prefix:   /    
+    
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"    
+
+fos_user_group:
+    resource: "@FOSUserBundle/Resources/config/routing/group.xml"
+    prefix: /group
+    
+fos_user_resetting:
+    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+    prefix: /resetting
