@@ -1,4 +1,7 @@
 {% extends 'gentelella.html.twig' %}
+{% block stylesheets %}    
+    <link href="{{ asset('bundles/backend/vendors/BootstrapFormHelpers/css/bootstrap-formhelpers.min.css')}}" rel="stylesheet"> 
+{% endblock %}
 
 {% block title %} Organizaciones {% endblock %}
 
@@ -96,8 +99,7 @@
             {% for deporte in deportes %}                               
                 <input type="checkbox" name="disciplinas[]" id="disciplina{{i}}" value="{{deporte[1]}}" 
                        {% if i == 1 %} data-parsley-mincheck="1" {% endif %}
-                       {% if deporte[2] == 1 %} checked {% endif %}
-                        class="flat" />  {{deporte[0]}}
+                       {% if deporte[2] == 1 %} checked {% endif %}required />  {{deporte[0]}}
                 <br />
                 {% set i = i+1 %}
             {% endfor %}

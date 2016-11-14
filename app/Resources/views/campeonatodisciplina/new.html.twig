@@ -34,7 +34,7 @@
                for="maximo">{{ form_label(form.maximo) }} 
             <span class="required">*</span>
         </label>
-        <div class="col-md-6 col-sm-6 col-xs-12 ">{{form_widget(form.maximo,{ 'attr': {'data-min':'1', 'class': 'bfh-number data-min="1"  form-control col-md-7 col-xs-12'} } ) }}</div>
+        <div class="col-md-6 col-sm-6 col-xs-12 ">{{form_widget(form.maximo,{ 'attr': {'data-min':'1', 'class': 'bfh-number  form-control col-md-7 col-xs-12'} } ) }}</div>
     </div>
 
     <div class="form-group">
@@ -60,10 +60,10 @@
         </label>
         <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(form.fin) }}</div>
     </div>
-    
+
     <div class="form-group">
         <label class="control-label col-md-3 col-sm-3 col-xs-12"
-                for="fin">Periodo
+               for="fin">Periodo
             <span class="required">*</span>
         </label>
         <div class="col-md-6 col-sm-6 col-xs-12"><input type="text" name="datefilter" value="" class="form-control col-md-7 col-xs-12" /></div>
@@ -80,28 +80,29 @@
 {% endblock %}
 
 {% block javascripts %}
-<script src="{{ asset('bundles/backend/vendors/moment/moment.js')}}"></script>
-<script src="{{ asset('bundles/backend/vendors/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
-<script src="{{ asset('bundles/backend/vendors/BootstrapFormHelpers/js/bootstrap-formhelpers.min.js')}}"></script>
+    <script src="{{ asset('bundles/backend/vendors/moment/moment.js')}}"></script>
+    <script src="{{ asset('bundles/backend/vendors/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
+    <!-- Validar inputs -->
+    <script src="{{ asset('bundles/backend/vendors/BootstrapFormHelpers/js/bootstrap-formhelpers.min.js')}}"></script>
 
-<script type="text/javascript">
-$(document).ready(function() {
-    $("#inicio").hide();
-    $("#fin").hide();        
-});
-$(function() {
-  $('input[name="datefilter"]').daterangepicker({
-      autoUpdateInput: false,
-      locale: {
-          cancelLabel: 'Clear'
-      }
-  });
-  $('input[name="datefilter"]').on('apply.daterangepicker', function(ev, picker) {
-      $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
-  });
-  $('input[name="datefilter"]').on('cancel.daterangepicker', function(ev, picker) {
-      $(this).val('');
-  });
-});
-</script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#inicio").hide();
+            $("#fin").hide();
+        });
+        $(function () {
+            $('input[name="datefilter"]').daterangepicker({
+                autoUpdateInput: false,
+                locale: {
+                    cancelLabel: 'Clear'
+                }
+            });
+            $('input[name="datefilter"]').on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+            });
+            $('input[name="datefilter"]').on('cancel.daterangepicker', function (ev, picker) {
+                $(this).val('');
+            });
+        });
+    </script>
 {% endblock %}

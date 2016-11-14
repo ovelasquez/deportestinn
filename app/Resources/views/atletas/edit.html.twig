@@ -32,13 +32,13 @@
 {% endblock %}    
 
 {% block body %} 
-       {% include "ComurImageBundle:Form:croppable_image_modal.html.twig" with {'include_jquery': false, 'include_bootstrap': false} %}
+    {% include "ComurImageBundle:Form:croppable_image_modal.html.twig" with {'include_jquery': false, 'include_bootstrap': false} %}
 
     {{ form_start(edit_form, { 'attr': {'id':'atletas','class': 'form-horizontal form-label-left', 'data-toggle':'validator'} }) }} 
 
     {{ form_errors(edit_form) }}
 
-   <!-- Smart Wizard -->
+    <!-- Smart Wizard -->
     <p></p>
     <div id="wizard" class="form_wizard wizard_horizontal">
         <ul class="wizard_steps">
@@ -80,7 +80,7 @@
             </li>
             <li>
                 <a href="#step-5">
-                    <span class="step_no">4</span>
+                    <span class="step_no">5</span>
                     <span class="step_descr">
                         Paso 5<br />
                         <small>Deportivos</small>
@@ -89,7 +89,7 @@
             </li>
             <li>
                 <a href="#step-6">
-                    <span class="step_no">4</span>
+                    <span class="step_no">6</span>
                     <span class="step_descr">
                         Paso 6<br />
                         <small>Observaciones</small>
@@ -386,10 +386,34 @@
             <h2 class="StepTitle">Datos Deportivos</h2>
 
             <div class="form-step-4" role="form" data-toggle="validator">
-                <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="equipo">Equipo <span class="required">*</span></label>
+                <div class="form-group form-group-eq">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="equipos[]">Disciplinas <span class="required">*</span></label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                         
+                        <div id="disciplinas" >    
+
+                            {% set i = 1 %}
+                            {% for disciplina in disciplinas %}
+                                {% if disciplina[2][0] is defined %}
+                                    <div style=' border-bottom: 1px solid #cccccc; '>
+
+<!--input type='checkbox'  name="disciplinas[]" value="{{ disciplina[0] }}"  class=' disciplinas {% if disciplina[2] is defined %}hasTeam{% endif%}' /--> {{ disciplina[1] }}
+
+                                        {% if disciplina[2] is defined %}                                    
+                                            <div id="equipos" style="clear: both" class="equipos">  
+
+                                                {% for equipo in disciplina[2] %}
+                                                    <input type='checkbox' style="margin-left:10px" name="equipos[]" class='  equiposCk' {% if (equipo[2]==1)%} checked="checked" {% endif%} value="{{ equipo[0] }}"/> {{ equipo[1] }} </br>
+                                                {% endfor %}
+                                                <br>    
+                                            </div>
+                                        {% endif%}
+                                        {% set i = i+1 %}
+                                    </div>
+                                {% endif%}
+                            {% endfor %}    
+                        </div>
+
+
                     </div>
                 </div>
             </div>
@@ -434,7 +458,7 @@
     <!-- jQuery Smart Wizard -->
     <script src="{{ asset('bundles/backend/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js')}}"></script>
 
-     <!-- Imagenes -->
+    <!-- Imagenes -->
     <script src="{{ asset('bundles/backend/vendors/holder.js') }}"></script>
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script> 
@@ -442,9 +466,25 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-// Smart Wizard         
+            // Smart Wizard         
 
-            
+            $(".disciplinas").click(function () {
+                var isC = $(this).prop('checked');
+                if (isC) {
+                    $(".equipos").each(function () {
+                        //alert($(this).prev(".disciplinas").val() + $(this).prev(".disciplinas").prop('checked'))
+                        if (!$(this).prev(".disciplinas").prop('checked')) {
+                            $(this).hide();
+                        }
+                    });
+
+                    $(this).next(".equipos").show();
+                } else {
+                    $(this).next(".equipos").hide();
+                }
+
+            });
+
 
             $('#wizard').smartWizard({
                 //onLeaveStep: leaveAStepCallback,
@@ -473,7 +513,7 @@
                 includeFinishButton: true, // Add the finish button
                 reverseButtonsOrder: false //shows buttons ordered as: prev, next and finish    
             });
-            
+
             $('.buttonNext').addClass('btn btn-success');
             $('.buttonPrevious').addClass('btn btn-primary');
             $('.buttonFinish').addClass('btn btn-default');
@@ -503,7 +543,19 @@
                     }
                 }
 
-                return isStepValid;
+                var isValEq = true;
+                var numEqSel = elmForm.find(".equiposCk:checked").length;
+
+                if (numEqSel > 2 && stepnumber === 5) {
+                    alert("Ha alcanzado el máximo de equipos permitidos por atleta")
+                    $(".form-group-eq").addClass("has-error has-danger");
+                    isValEq = false;
+                } else if (numEqSel === 0 && stepnumber === 5) {
+                    $(".form-group-eq").addClass("has-error has-danger");
+                    isValEq = false;
+                }
+
+                return isValEq & isStepValid;
                 // ...      
             }
             function validateAllSteps() {

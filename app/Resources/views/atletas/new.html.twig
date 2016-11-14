@@ -1,34 +1,17 @@
 {% extends 'gentelella.html.twig' %} 
 {% block title %} FEVEDEU {% endblock %}
-
 {% block stylesheets %}
     <!-- Wizard -->
     <link href="{{ asset('bundles/backend/vendors/smart-wizard/css/smart_wizard.min.css')}}" rel="stylesheet"> 
-    <link href="{{ asset('bundles/backend/vendors/smart-wizard/css/smart_wizard_theme_arrows.min.css')}}" rel="stylesheet"> 
+    <!--link href="{{ asset('bundles/backend/vendors/smart-wizard/css/smart_wizard_theme_arrows.min.css')}}" rel="stylesheet"--> 
+    <!-- Formatear inputs -->
     <link href="{{ asset('bundles/backend/vendors/BootstrapFormHelpers/css/bootstrap-formhelpers.min.css')}}" rel="stylesheet"> 
 {% endblock %}
 
 {% block Titulo %} Atletas {% endblock %}
 
 {% block Subtitulo %} Crear <small>atleta</small> {% endblock %} 
-
-{% block paneltoolbox %} 
-    <li><a href="{{ path('atletas_index') }}">Back to the list</a>
-    </li>
-    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-    </li>
-    <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-        <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Settings 1</a>
-            </li>
-            <li><a href="#">Settings 2</a>
-            </li>
-        </ul>
-    </li>
-    <li><a class="close-link"><i class="fa fa-close"></i></a>
-    </li>
-{% endblock %}   
+{% block cerrar %} href="{{ path('atletas_index')}}" {% endblock %} 
 
 {% block body %} 
     {% include "ComurImageBundle:Form:croppable_image_modal.html.twig" with {'include_jquery': false, 'include_bootstrap': false} %}
@@ -86,7 +69,7 @@
             </li>
             <li>
                 <a href="#step-5">
-                    <span class="step_no">4</span>
+                    <span class="step_no">5</span>
                     <span class="step_descr">
                         Paso 5<br />
                         <small>Deportivos</small>
@@ -95,7 +78,7 @@
             </li>
             <li>
                 <a href="#step-6">
-                    <span class="step_no">4</span>
+                    <span class="step_no">6</span>
                     <span class="step_descr">
                         Paso 6<br />
                         <small>Observaciones</small>
@@ -104,38 +87,7 @@
             </li>
         </ul>
         <div id="step-1">
-            <h2 class="StepTitle">Datos Personales</h2>
-
-            <div class="form-step-4" role="form" data-toggle="validator">
-                <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="equipo">Disciplinas <span class="required">*</span></label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <select id="disciplinas">    
-                            {% set discF=''%}
-                            {% set i = 1 %}
-                            {% for disciplina in disciplinas %}
-                                {% if disciplina[2][0] is defined %}
-                                    {% if i == 1 %} 
-                                        {% set discF=disciplina%} 
-                                    {% endif %}
-
-                                    <option value="{{ disciplina[0] }}">{{ disciplina[1] }}</option>
-                                    {% set i = i+1 %}
-                                {% endif%}
-                            {% endfor %}    
-                        </select>
-                        {% if discF !='' %}
-                            <select id="equipos">    
-                                {% for equipo in discF[2] %}
-                                    <option value="{{ equipo[0] }}">{{ equipo[1] }}</option>
-                                {% endfor %}    
-                            </select>
-                        {% endif%}
-
-                    </div>
-                </div>
-            </div>
-
+            <h2 class="StepTitle">Datos Personales</h2>                       
             <div class="form-step-0" role="form" data-toggle="validator">
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nacionalidad">Nacionalidad <span class="required">*</span>
@@ -197,11 +149,8 @@
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="fechaNacimiento">Fecha Nacimiento <span class="required">*</span></label>
                     <div id="form-step-0" class="col-md-6 col-sm-6 col-xs-12" data-toggle="validator">
-                        {{form_widget(form.fechaNacimiento,{ 'attr': {'class': 'bfh-datepicker form-control col-md-7 col-xs-12'} } ) }}  
+                        {{form_widget(form.fechaNacimiento,{'attr': {'class': ' col-md-7 col-xs-12'} } ) }}  
                     </div>
-                                       
-                    
-                    
                 </div>
             </div>
             <div class="form-step-0" role="form" data-toggle="validator">
@@ -227,7 +176,7 @@
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="telefono">Teléfono <span class="required">*</span></label>
                     <div id="form-step-0" class="col-md-6 col-sm-6 col-xs-12" data-toggle="validator">
-                        {{form_widget(form.telefono,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                        {{form_widget(form.telefono,{ 'attr': {'data-format':'+58 (ddd) ddd-dddd','class': 'bfh-phone form-control col-md-7 col-xs-12'} } ) }}
                     </div>
                 </div>
             </div>
@@ -249,6 +198,8 @@
                     </div>
                 </div>
             </div>
+
+            
 
         </div>
         <div id="step-2">
@@ -279,10 +230,11 @@
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="ingreso">Año de Ingreso <span class="required">*</span></label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        {{form_widget(form.ingreso,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                        {{form_widget(form.ingreso,{ 'attr': {'data-max':'2015','data-min':'2010', 'class': 'bfh-number  form-control col-md-7 col-xs-12'} } ) }}  
                     </div>
                 </div>
-            </div>
+            </div>            
+
             <div class="form-step-1" role="form" data-toggle="validator">
 
                 <div class="form-group">
@@ -349,11 +301,12 @@
             <div class="form-step-2" role="form" data-toggle="validator">
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contactoTelefono">Teléfono Contacto <span class="required">*</span></label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        {{form_widget(form.contactoTelefono,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                    <div id="form-step-0" class="col-md-6 col-sm-6 col-xs-12" data-toggle="validator">
+                        {{form_widget(form.contactoTelefono,{ 'attr': {'data-format':'+58 (ddd) ddd-dddd','class': 'bfh-phone form-control col-md-7 col-xs-12'} } ) }}
                     </div>
                 </div>
             </div>
+
         </div>
         <div id="step-4">
             <h2 class="StepTitle">Datos Uniformes</h2>
@@ -424,33 +377,58 @@
         </div>
         <div id="step-5">
             <h2 class="StepTitle">Datos Deportivos</h2>
-
             <div class="form-step-4" role="form" data-toggle="validator">
-                <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="equipo">Equipo <span class="required">*</span></label>
+                <div class="form-group form-group-eq">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="equipos[]">Disciplinas <span class="required">*</span></label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div id="disciplinas" >    
+                            
+                            {% set i = 1 %}
+                            {% for disciplina in disciplinas %}
+                                {% if disciplina[2][0] is defined %}
+                                    <div style=' border-bottom: 1px solid #cccccc; '>
+                                        
+                                        <!--input type='checkbox'  name="disciplinas[]" value="{{ disciplina[0] }}"  class=' disciplinas {% if disciplina[2] is defined %}hasTeam{% endif%}' /--> {{ disciplina[1] }}
+
+                                        {% if disciplina[2] is defined %}                                    
+                                            <div id="equipos" style="clear: both" class="equipos">  
+
+                                                {% for equipo in disciplina[2] %}
+                                                    <input type='checkbox' style="margin-left:10px" name="equipos[]" class='  equiposCk'  value="{{ equipo[0] }}"/> {{ equipo[1] }} </br>
+                                                {% endfor %}
+                                                <br>    
+                                            </div>
+                                        {% endif%}
+                                        {% set i = i+1 %}
+                                    </div>
+                                {% endif%}
+                            {% endfor %}    
+                        </div>
+
 
                     </div>
                 </div>
             </div>
 
-            <div class="form-step-4" role="form" data-toggle="validator">
-                <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contactoTelefono">status <span class="required">*</span></label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        {{form_widget(form.status,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
-                    </div>
-                </div>
-            </div>
 
         </div>
         <div id="step-6">
             <h2 class="StepTitle">Observaciones</h2>
+
             <div class="form-step-5" role="form" data-toggle="validator">
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="observaciones">Observaciones </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         {{form_widget(form.observacion,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-step-5" role="form" data-toggle="validator">
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contactoTelefono">status <span class="required">*</span></label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        {{form_widget(form.status,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
                     </div>
                 </div>
             </div>
@@ -466,34 +444,39 @@
     <script src="{{ asset('bundles/backend/vendors/smart-wizard/js/validator.min.js')}}"></script>
     <!-- jQuery Smart Wizard -->
     <script src="{{ asset('bundles/backend/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js')}}"></script>
-    
     <script src="{{ asset('bundles/backend/vendors/BootstrapFormHelpers/js/bootstrap-formhelpers.min.js')}}"></script>
-    
+
     <!-- Imagenes -->
     <script src="{{ asset('bundles/backend/vendors/holder.js') }}"></script>
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script> 
 
+    <!-- Validar inputs -->
+    <script src="{{ asset('bundles/backend/vendors/BootstrapFormHelpers/js/bootstrap-formhelpers.min.js')}}"></script>
+
     <script type="text/javascript">
         $(document).ready(function () {
-            // Smart Wizard
+            // Disciplinas asociadas a la organización del Atleta
             var eqD = '{{jsonEq|raw}}';
             var data = JSON.parse(eqD);
 
+            $(".disciplinas").click(function () {
+                var isC = $(this).prop('checked');
+                if (isC) {
+                    $(".equipos").each(function () {
+                        //alert($(this).prev(".disciplinas").val() + $(this).prev(".disciplinas").prop('checked'))
+                        if (!$(this).prev(".disciplinas").prop('checked')) {
+                            $(this).hide();
+                        }
+                    });
 
-
-            $("#disciplinas").change(function () {
-                var id = $("#disciplinas").val();
-                jQuery.each(data, function (i, val) {
-                    if (val[0] === id) {
-                        $("#equipos option").remove();
-                        jQuery.each(val[2], function (i, valE) {
-                            $("#equipos").append('<option value="' + valE[0] + '">' + valE[1] + '</option>');
-                        });
-                    }
-                });
+                    $(this).next(".equipos").show();
+                } else {
+                    $(this).next(".equipos").hide();
+                }
 
             });
+            // Smart Wizard
             $('#wizard').smartWizard({
                 //onLeaveStep: leaveAStepCallback,
                 onFinish: onFinishCallback,
@@ -527,6 +510,9 @@
             $('.buttonFinish').addClass('btn btn-default');
 
             function leaveAStepCallback(obj, context) {
+                if (context.fromStep===5){
+                    //$(".equipos").hide();
+                }
                 return validateSteps(context.fromStep); // return false to stay on step and true to continue navigation 
             }
 
@@ -536,7 +522,7 @@
                 }
             }
 
-// Your Step validation logic
+            // Your Step validation logic
             function validateSteps(stepnumber) {
                 var isStepValid = true;
 
@@ -551,7 +537,19 @@
                     }
                 }
 
-                return isStepValid;
+                var isValEq = true;
+                var numEqSel = elmForm.find(".equiposCk:checked").length;
+
+                if (numEqSel > 2 && stepnumber === 5) {
+                    alert("Ha alcanzado el máximo de equipos permitidos por atleta")
+                    $(".form-group-eq").addClass("has-error has-danger");
+                    isValEq = false;
+                } else if (numEqSel === 0 && stepnumber === 5) {
+                    $(".form-group-eq").addClass("has-error has-danger");
+                    isValEq = false;
+                }
+
+                return isValEq & isStepValid;
                 // ...      
             }
             function validateAllSteps() {
@@ -571,6 +569,8 @@
                 return isStepValid;
 
             }
+            
+            
         }
         );
     </script>

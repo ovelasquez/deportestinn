@@ -1,69 +1,35 @@
 {% extends 'gentelella.html.twig' %} 
-
 {% block Titulo %} ATLETAS {% endblock %}
 {% block Subtitulo %}Detalle{% endblock %} 
 
-{% block paneltoolbox %} 
-    <li><a href="{{ path('atletas_index') }}">Back to the list</a>
-    </li>
-    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-    </li>
-    <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-        <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Settings 1</a>
-            </li>
-            <li><a href="#">Settings 2</a>
-            </li>
-        </ul>
-    </li>
-    <li><a class="close-link"><i class="fa fa-close"></i></a>
-    </li>
-{% endblock %}   
+{% block cerrar %} href="{{ path('atletas_index')}}" {% endblock %} 
 
 {% block body %}
     <div class="col-md-3 col-sm-3 col-xs-12 profile_left">
         <div class="profile_img">
             <div id="crop-avatar">
                 <!-- Current avatar -->
-                <img class="img-responsive avatar-view"  src="{{ asset('uploads/atletas/fotos/')}}{{atleta.fotografia}}" alt="Avatar" title="Change the avatar">
+                <img class="img-responsive avatar-view"  src="{{ asset('uploads/atletas/fotos/')}}{{atleta.fotografia}}" alt="{{ atleta.primerNombre }}" title="{{ atleta.primerNombre }}">
             </div>
-
-
         </div>
         <h3>{{ atleta.primerApellido }} {{ atleta.primerNombre }}</h3>
 
         <ul class="list-unstyled user_data">
-            <li><i class="fa fa-map-marker user-profile-icon"></i> {{ atleta.nacionalidad }}-{{ atleta.cedula |number_format(0, ',', '.')   }} 
-            </li>
-
-            <li>
-                <i class="fa fa-briefcase user-profile-icon"></i> 
-            </li>
-
-            <li class="m-top-xs">
-                <i class="fa fa-external-link user-profile-icon"></i>
-                <a href="mailto:{{ atleta.email }}" target="_blank">{{ atleta.email }}</a>
-            </li>
+            <li><i class="fa fa-map-marker user-profile-icon"></i> {{ atleta.nacionalidad }}-{{ atleta.cedula |number_format(0, ',', '.')   }} </li>        
+            <li class="m-top-xs"><i class="fa fa-external-link user-profile-icon"></i><a href="mailto:{{ atleta.email }}" target="_blank">{{ atleta.email }}</a></li>
         </ul>
         <a class="btn btn-success" href="{{ path('atletas_edit', { 'id': atleta.id }) }}"><i class="fa fa-edit m-right-xs"></i>Editar</a>
         <br />
     </div>
     <div class="col-md-9 col-sm-9 col-xs-12">
         <div class="" role="tabpanel" data-example-id="togglable-tabs">
-            <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Personales</a>
-                </li>
-                <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Académicos</a>
-                </li>
-                <li role="presentation" class=""><a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">Médicos</a>
-                </li>
-                <li role="presentation" class=""><a href="#tab_content4" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">Uniformes</a>
-                </li>
-                <li role="presentation" class=""><a href="#tab_content5" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">Deportivos</a>
-                </li>
-                <li role="presentation" class=""><a href="#tab_content6" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">Observaciones</a>
-                </li>
+            <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist" style="background: none;">
+                <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Personales</a></li>
+                <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Académicos</a></li>
+                <li role="presentation" class=""><a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">Médicos</a></li>
+                <li role="presentation" class=""><a href="#tab_content4" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">Uniformes</a></li>
+                <li role="presentation" class=""><a href="#tab_content5" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">Deportivos</a></li>
+                <li role="presentation" class=""><a href="#tab_content6" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">Observaciones</a></li>
             </ul>
             <div id="myTabContent" class="tab-content">
                 <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">                               
@@ -71,7 +37,6 @@
                     <br>
                     <table class="table table-striped responsive-utilities	">
                         <tbody>
-
                             <tr>
                                 <th>Cédula</th>
                                 <td>{{ atleta.nacionalidad }}-{{ atleta.cedula |number_format(0, ',', '.')   }}</td>
@@ -110,9 +75,9 @@
                             </tr>
                             <tr>
                                 <th>Imagen Cédula</th>
-                                <td> <a target="_blank" href="{{ asset('uploads/atletas/cedula/')}}{{atleta.imagenCedula}}">  <img src="{{ asset('uploads/atletas/cedula/')}}{{atleta.imagenCedula}}" height="120px"  alt="Avatar" title="Change the avatar"> </a>
-                                    
-                                    </td>
+                                <td> <a target="_blank" href="{{ asset('uploads/atletas/cedulas/')}}{{atleta.imagenCedula}}">  
+                                        <img src="{{ asset('uploads/atletas/cedulas/')}}{{atleta.imagenCedula}}" height="120px"  alt="{{ atleta.primerNombre }}" title="{{ atleta.primerNombre }}"> </a>                                        
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -137,7 +102,7 @@
                             </tr>
                             <tr>
                                 <th>Constancia</th>
-                                <td> <a target="_blank" href="{{ asset('uploads/atletas/constancia/')}}{{ atleta.contancia }}">  <img src="{{ asset('uploads/atletas/constancia/')}}{{ atleta.contancia }}" height="120px"  alt="Avatar" title="Change the avatar" /> </a></td>
+                                <td> <a target="_blank" href="{{ asset('uploads/atletas/constancias/')}}{{ atleta.contancia }}">  <img src="{{ asset('uploads/atletas/constancias/')}}{{ atleta.contancia }}" height="120px"  alt="Avatar" title="Change the avatar" /> </a></td>
                             </tr>
                             <tr>
                                 <th>Carnet</th>
@@ -152,7 +117,6 @@
                     <br>
                     <table class="table table-striped responsive-utilities	">
                         <tbody>
-
                             <tr>
                                 <th>Altura</th>
                                 <td>{{ atleta.altura }}</td>
@@ -223,10 +187,14 @@
                     <br>
                     <table class="table table-striped responsive-utilities	">
                         <tbody>
-                            <tr>
-                                <th> Equipo :</th>
-                                <td></td>
-                            </tr>
+                            {% set i=1%}
+                            {% for eq in atleta_eq %}
+                                <tr>
+                                    <th>{% if i==1 %} Equipo :{% endif%}</th>
+                                    <td> {{eq.equipo.equipoOrganizacionCampeonatoDisciplina.disciplina.nombre}} - {{eq.equipo.nombre}}   </td>
+                                </tr>
+                                {% set i=i+1%}
+                            {% endfor %}    
                             <tr>
                                 <th> Status </th>
                                 <td>{{ atleta.status }}</td>
@@ -243,7 +211,6 @@
                                 <th> </th>
                                 <td>{{ atleta.observacion }}</td>
                             </tr>
-
                         </tbody>
                     </table>
                 </div>

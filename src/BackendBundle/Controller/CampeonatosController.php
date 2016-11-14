@@ -38,7 +38,8 @@ class CampeonatosController extends Controller {
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request) {
-        $porciones = explode("-", $request->request->get('datefilter'));        
+        $porciones = explode("-", $request->request->get('datefilter'));
+        
         $campeonato = new Campeonatos();
                        
         $form = $this->createForm('BackendBundle\Form\CampeonatosType', $campeonato);

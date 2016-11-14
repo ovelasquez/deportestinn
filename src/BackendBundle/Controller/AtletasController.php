@@ -39,6 +39,7 @@ class AtletasController extends Controller {
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request) {
+//        dump($request); die;
         $atleta = new Atletas();
         $form = $this->createForm('BackendBundle\Form\AtletasType', $atleta);
         $form->handleRequest($request);
@@ -48,40 +49,53 @@ class AtletasController extends Controller {
         //Fijamos La Organización por Parameters ORG
         $_ORG = $this->container->getParameter('org');
 
-        $disciplinasOrg = $em->getRepository('BackendBundle:OrganizacionCampeonatoDisciplina')->findBy(array("organizacion" => $_ORG),array('disciplina' => 'DESC'));
-        
+        $disciplinasOrg = $em->getRepository('BackendBundle:OrganizacionCampeonatoDisciplina')->findBy(array("organizacion" => $_ORG), array('disciplina' => 'DESC'));
+
         if (count($disciplinasOrg) > 0):
             $idsD = array();
             $idsDb = array();
-            
-            foreach ($disciplinasOrg as $disc) {                
-                $idsD[$disc->getId()]= array($disc->getDisciplina()->getId(),$disc->getDisciplina()->getNombre(),array());
+
+            foreach ($disciplinasOrg as $disc) {
+                $idsD[$disc->getId()] = array($disc->getDisciplina()->getId(), $disc->getDisciplina()->getNombre(), array());
                 array_push($idsDb, $disc->getId());
             }
-            
+
             $equipos = $em->getRepository('BackendBundle:Equipos')->findAllByDisciplina($idsDb);
-            
-            
+
+
             foreach ($equipos as $equipo) {
-                array_push($idsD[$equipo->getEquipoOrganizacionCampeonatoDisciplina()->getId()][2], array($equipo->getId(),$equipo->getNombre()));
+                array_push($idsD[$equipo->getEquipoOrganizacionCampeonatoDisciplina()->getId()][2], array($equipo->getId(), $equipo->getNombre()));
             }
 
         endif;
 
-        //dump(json_encode($idsD)); die();
+        //dump(($idsD)); die();
 
         if ($form->isSubmitted() && $form->isValid()) {
 
             $em->persist($atleta);
             $em->flush();
 
+            //obtenemos los equipos asociadas a la organizacion            
+            $eqAsociados = $request->request->get('equipos');
+
+            foreach ($eqAsociados as $eq) {
+                $at_eq = new \BackendBundle\Entity\AtletaEquipo();
+                $e = $em->getRepository('BackendBundle:Equipos')->find($eq);
+                $at_eq->setAtleta($atleta);
+                $at_eq->setEquipo($e);
+
+                $em->persist($at_eq);
+                $em->flush();
+            }
+
             return $this->redirectToRoute('atletas_show', array('id' => $atleta->getId()));
-        }                          
+        }
 
         return $this->render('atletas/new.html.twig', array(
                     'atleta' => $atleta,
                     'form' => $form->createView(),
-                    'problema' => $problema,                    
+                    'problema' => $problema,
                     'disciplinas' => $idsD,
                     'jsonEq' => json_encode($idsD),
         ));
@@ -96,9 +110,14 @@ class AtletasController extends Controller {
     public function showAction(Atletas $atleta) {
         $deleteForm = $this->createDeleteForm($atleta);
 
+        $em = $this->getDoctrine()->getManager();
+        $aEq = $em->getRepository('BackendBundle:AtletaEquipo')->findBy(array("atleta" => $atleta->getId()));
+        //dump($aEq[0]->getEquipo()->getEquipoOrganizacionCampeonatoDisciplina()->getDisciplina()); die;
+
         return $this->render('atletas/show.html.twig', array(
                     'atleta' => $atleta,
                     'delete_form' => $deleteForm->createView(),
+                    'atleta_eq' => $aEq,
         ));
     }
 
@@ -113,12 +132,72 @@ class AtletasController extends Controller {
         $editForm = $this->createForm('BackendBundle\Form\AtletasType', $atleta);
         $editForm->handleRequest($request);
 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
+        $aEq = $em->getRepository('BackendBundle:AtletaEquipo')->findBy(array("atleta" => $atleta->getId()));
 
+        //Fijamos La Organización por Parameters ORG
+        $_ORG = $this->container->getParameter('org');
+
+        $disciplinasOrg = $em->getRepository('BackendBundle:OrganizacionCampeonatoDisciplina')->findBy(array("organizacion" => $_ORG), array('disciplina' => 'DESC'));
+
+        if (count($disciplinasOrg) > 0):
+            $idsD = array();
+            $idsDb = array();
+
+            foreach ($disciplinasOrg as $disc) {
+                $idsD[$disc->getId()] = array($disc->getDisciplina()->getId(), $disc->getDisciplina()->getNombre(), array());
+                array_push($idsDb, $disc->getId());
+            }
+
+            $equipos = $em->getRepository('BackendBundle:Equipos')->findAllByDisciplina($idsDb);
+
+
+            foreach ($equipos as $equipo) {
+                $act = 0;
+                foreach ($aEq as $ae) {
+                    if ($ae->getEquipo()->getId() === $equipo->getId()) {
+                        $act = 1;
+                    }
+                }
+                array_push($idsD[$equipo->getEquipoOrganizacionCampeonatoDisciplina()->getId()][2], array($equipo->getId(), $equipo->getNombre(), $act));
+            }
+
+        endif;
+
+
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
 
             $em->persist($atleta);
             $em->flush();
+
+            //obtenemos los equipos asociadas a la organizacion            
+            $eqAsociados = $request->request->get('equipos');
+
+            $rEAEx = array();
+            foreach ($aEq as $ae) {
+                array_push($rEAEx, $ae->getEquipo()->getId());
+            }
+
+            foreach ($eqAsociados as $eq) {
+                if (!in_array($eq,$rEAEx)):
+                    $at_eq = new \BackendBundle\Entity\AtletaEquipo();
+                    $e = $em->getRepository('BackendBundle:Equipos')->find($eq);
+                    $at_eq->setAtleta($atleta);
+                    $at_eq->setEquipo($e);
+                    $em->persist($at_eq);
+                    $em->flush();                    
+                else:
+                    $clave = array_search($eq, $rEAEx);  // $clave = 1;
+                    array_splice($rEAEx, $clave, 1);
+                endif;
+            }
+
+            foreach ($aEq as $ae) {
+                if (in_array($ae->getEquipo()->getId(),$rEAEx)):
+                    $em->remove($ae);
+                    $em->flush();
+                endif;
+            }
 
             return $this->redirectToRoute('atletas_edit', array('id' => $atleta->getId()));
         }
@@ -127,6 +206,9 @@ class AtletasController extends Controller {
                     'atleta' => $atleta,
                     'edit_form' => $editForm->createView(),
                     'delete_form' => $deleteForm->createView(),
+                    'atleta_eq' => $aEq,
+                    'disciplinas' => $idsD,
+                    'jsonEq' => json_encode($idsD),
         ));
     }
 
