@@ -12,7 +12,7 @@ class NacionalidadType extends AbstractType
         $resolver->setDefaults(array(
             'choices' => array(
                 'V' => 'Venezolana',
-                'E' => 'Extranjera',
+                'E' => 'Extranjero',
             )
         ));
     }

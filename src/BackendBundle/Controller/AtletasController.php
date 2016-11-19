@@ -161,7 +161,9 @@ class AtletasController extends Controller {
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Atletas $atleta) {
+        //dump($request);  dump($atleta);        die();
         $deleteForm = $this->createDeleteForm($atleta);
+        
         $editForm = $this->createForm('BackendBundle\Form\AtletasType', $atleta);
         $editForm->handleRequest($request);
 
@@ -216,7 +218,10 @@ class AtletasController extends Controller {
 
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            
+            $atleta->setActualizacion(new \DateTime("now"));                    
 
+           // dump($atleta); die();
             $em->persist($atleta);
             $em->flush();
 
@@ -261,7 +266,7 @@ class AtletasController extends Controller {
                     'atleta_eq' => $aEq,
                     'disciplinas' => $idsD,
                     'jsonEq' => json_encode($idsD),
-            'organizacion' => $organizacion,
+                    'organizacion' => $organizacion,
         ));
     }
 

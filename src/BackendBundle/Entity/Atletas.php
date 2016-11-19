@@ -252,6 +252,29 @@ class Atletas {
      * @ORM\Column(name="observacion", type="text", nullable=true)
      */
     private $observacion;
+    
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="creacion", type="date", nullable=false)
+     */
+    private $creacion;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="actualizacion", type="date", nullable=true)
+     */
+    private $actualizacion;
+    
+      /**
+     * Constructor of the Category class.
+     * (Initialize some fields).
+     */
+    public function __construct()
+    {
+        $this->creacion = new \DateTime();
+    }
 
     /**
      * Get id
@@ -1041,5 +1064,53 @@ class Atletas {
     public function getOrganizacion()
     {
         return $this->organizacion;
+    }
+
+    /**
+     * Set creacion
+     *
+     * @param \DateTime $creacion
+     *
+     * @return Atletas
+     */
+    public function setCreacion($creacion)
+    {
+        $this->creacion = $creacion;
+
+        return $this;
+    }
+
+    /**
+     * Get creacion
+     *
+     * @return \DateTime
+     */
+    public function getCreacion()
+    {
+        return $this->creacion;
+    }
+
+    /**
+     * Set actualizacion
+     *
+     * @param \DateTime $actualizacion
+     *
+     * @return Atletas
+     */
+    public function setActualizacion($actualizacion)
+    {
+        $this->actualizacion = $actualizacion;
+
+        return $this;
+    }
+
+    /**
+     * Get actualizacion
+     *
+     * @return \DateTime
+     */
+    public function getActualizacion()
+    {
+        return $this->actualizacion;
     }
 }
