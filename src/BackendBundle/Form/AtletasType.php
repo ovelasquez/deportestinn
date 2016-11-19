@@ -42,7 +42,7 @@ class AtletasType extends AbstractType {
                         'fileExt' => '*.jpg;*.gif;*.png;*.jpeg', //optional
                         'libraryDir' => null, //optional
                         'libraryRoute' => 'comur_api_image_library', //optional
-                        'showLibrary' => false //optional                        
+                        'showLibrary' => true //optional                        
                     ),
                     'cropConfig' => array(
                         'minWidth' => 400,
@@ -67,7 +67,7 @@ class AtletasType extends AbstractType {
                         'fileExt' => '*.jpg;*.gif;*.png;*.jpeg', //optional
                         'libraryDir' => null, //optional
                         'libraryRoute' => 'comur_api_image_library', //optional
-                        'showLibrary' => false //optional                        
+                        'showLibrary' => true //optional                        
                     ),
                     'cropConfig' => array(
                         'minWidth' => 280,
@@ -84,7 +84,7 @@ class AtletasType extends AbstractType {
                         )
                     ),
                 ))
-                ->add('institucion', 'text', array('required' => true, 'attr' => array('placeholder' => 'Institución')))
+                ->add('organizacion')
                 ->add('departamento', 'text', array('required' => true, 'attr' => array('placeholder' => 'Facultad')))
                 ->add('ingreso', 'text', array('required' => true, 'attr' => array('placeholder' => 'Año de Ingreso')))
                 ->add('contancia', 'comur_image', array(
@@ -92,10 +92,10 @@ class AtletasType extends AbstractType {
                         'uploadRoute' => 'comur_api_upload', //optional
                         'uploadUrl' => $pEntity->getUploadRootDirContancia(), // required - see explanation below (you can also put just a dir path)
                         'webDir' => '../web/' . $pEntity->getUploadDirContancia(), // required - see explanation below (you can also put just a dir path)
-                        'fileExt' => '*.jpg;*.gif;*.png;*.jpeg', //optional
+                        'fileExt' => '*.jpg;*.gif;*.png;*.jpeg;*.pdf', //optional
                         'libraryDir' => null, //optional
                         'libraryRoute' => 'comur_api_image_library', //optional
-                        'showLibrary' => false //optional                        
+                        'showLibrary' => true //optional                        
                     ),
                     'cropConfig' => array(
                         'minWidth' => 638,
@@ -120,7 +120,7 @@ class AtletasType extends AbstractType {
                         'fileExt' => '*.jpg;*.gif;*.png;*.jpeg', //optional
                         'libraryDir' => null, //optional
                         'libraryRoute' => 'comur_api_image_library', //optional
-                        'showLibrary' => false //optional                        
+                        'showLibrary' => true //optional                        
                     ),
                     'cropConfig' => array(
                         'minWidth' => 400,

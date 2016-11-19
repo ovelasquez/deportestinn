@@ -53,21 +53,21 @@ class AtletasController extends Controller {
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request) {
-//        dump($request); die;
-        $atleta = new Atletas();
-        $form = $this->createForm('BackendBundle\Form\AtletasType', $atleta);
-        $form->handleRequest($request);
+        //dump($request); die;
+        //dump($form); die;
         $problema = "";
+
         $em = $this->getDoctrine()->getManager();
 
-
-        //Fijamos La Organización por Parameters ORG
-        //$_ORG = $this->container->getParameter('org');
-        //Fijamos La Organización por el usuario logueado
+        //Fijamos La Organización por el usuario logueado, especificamente para el caso de las orgazizaciones
+        // no aplica a administradores ni ligas
         $_ORG = $this->getUser()->getOrganizacion();
 
+        //dump($this->getUser()); die;
+        //Disciplinas en la que va a participar cada organizacion
         $disciplinasOrg = $em->getRepository('BackendBundle:OrganizacionCampeonatoDisciplina')->findBy(array("organizacion" => $_ORG), array('disciplina' => 'DESC'));
 
+        //Buscamos todos los equipos asociados a las diferentes disciplinas donde va a participar
         if (count($disciplinasOrg) > 0):
             $idsD = array();
             $idsDb = array();
@@ -79,14 +79,15 @@ class AtletasController extends Controller {
 
             $equipos = $em->getRepository('BackendBundle:Equipos')->findAllByDisciplina($idsDb);
 
-
             foreach ($equipos as $equipo) {
                 array_push($idsD[$equipo->getEquipoOrganizacionCampeonatoDisciplina()->getId()][2], array($equipo->getId(), $equipo->getNombre()));
             }
 
         endif;
 
-        //dump(($idsD)); die();
+        $atleta = new Atletas();
+        $form = $this->createForm('BackendBundle\Form\AtletasType', $atleta);
+        $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -115,6 +116,7 @@ class AtletasController extends Controller {
                     'problema' => $problema,
                     'disciplinas' => $idsD,
                     'jsonEq' => json_encode($idsD),
+                    'org' => $_ORG,
         ));
     }
 
@@ -176,7 +178,7 @@ class AtletasController extends Controller {
 
             foreach ($disciplinasOrg as $disc) {
                 $idsD[$disc->getId()] = array($disc->getDisciplina()->getId(), $disc->getDisciplina()->getNombre(), array());
-               
+
                 array_push($idsDb, $disc->getId());
             }
 

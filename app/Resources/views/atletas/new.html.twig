@@ -88,7 +88,7 @@
         </ul>
         <div id="step-1">
             <h2 class="StepTitle">Datos Personales</h2>                       
-            <div class="form-step-0" role="form" data-toggle="validator">
+            <div  class="form-step-0" role="form" data-toggle="validator">
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nacionalidad">Nacionalidad <span class="required">*</span>
                     </label>
@@ -206,15 +206,17 @@
 
             <h2 class="StepTitle">Datos Académicos</h2>
 
-            <div class="form-step-1" role="form" data-toggle="validator">
+            
+            <div id="Organizacion" class="form-step-1" role="form" data-toggle="validator">
 
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="institucion">Institución <span class="required">*</span></label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        {{form_widget(form.institucion,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                        {{form_widget(form.organizacion,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
                     </div>
                 </div>
             </div>
+                    
             <div class="form-step-1" role="form" data-toggle="validator">
 
 
@@ -235,19 +237,19 @@
                 </div>
             </div>            
 
-            <div class="form-step-1" role="form" data-toggle="validator">
+            <div class="form-step-1" role="form" >
 
                 <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contancia">Contancia <span class="required">*</span></label>
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="constancia">Constancia </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         {{form_widget(form.contancia,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
                     </div>
                 </div>
             </div>
-            <div class="form-step-1" role="form" data-toggle="validator">
+            <div class="form-step-1" role="form" >
 
                 <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="carnet">Carnet <span class="required">*</span></label>
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="carnet">Carnet </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         {{form_widget(form.carnet,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
                     </div>
@@ -365,14 +367,14 @@
                 </div>
             </div>
 
-            <div class="form-step-3" role="form" data-toggle="validator">
+            <!--div class="form-step-3" role="form" data-toggle="validator">
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contactoTelefono">Talla de Medias <span class="required">*</span></label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         {{form_widget(form.tallaMedias, { 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
                     </div>
                 </div>
-            </div>
+            </div-->
 
         </div>
         <div id="step-5">
@@ -424,9 +426,9 @@
                 </div>
             </div>
 
-            <div class="form-step-5" role="form" data-toggle="validator">
+            <div id='Status' class="form-step-5" role="form" data-toggle="validator">
                 <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contactoTelefono">status <span class="required">*</span></label>
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contactoTelefono">Status <span class="required">*</span></label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         {{form_widget(form.status,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
                     </div>
@@ -456,6 +458,17 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+            
+            //Selecionamos la organizacion en el Campo Institucion
+            $("#atletas_organizacion").val("{{org}}");
+            $("#Organizacion").hide();
+            $("#atletas_status").val("En Proceso");
+            $("#Status").hide();
+            
+            
+            
+           // $("#atletas_organizacion").prop("disabled","disabled");
+            
             // Disciplinas asociadas a la organización del Atleta
             var eqD = '{{jsonEq|raw}}';
             var data = JSON.parse(eqD);

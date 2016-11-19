@@ -112,14 +112,16 @@ class Atletas {
      */
     private $status;
 
-    //DATOS LABORALES
-
-    /**
-     * @var string
+    //DATOS Organizacion  
+   /**
+     * @var \Organizaciones
      *
-     * @ORM\Column(name="institucion", type="string", length=255, nullable=false)
+     * @ORM\ManyToOne(targetEntity="Organizaciones")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="organizacion_id", referencedColumnName="id")
+     * })
      */
-    private $institucion;
+    private $organizacion;
 
     /**
      * @var string
@@ -138,14 +140,14 @@ class Atletas {
     /**
      * @var string
      *
-     * @ORM\Column(name="contancia", type="string", length=255, nullable=false)
+     * @ORM\Column(name="contancia", type="string", length=255, nullable=true)
      */
     private $contancia;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="carnet", type="string", length=255, nullable=false)
+     * @ORM\Column(name="carnet", type="string", length=255, nullable=true)
      */
     private $carnet;
 
@@ -240,7 +242,7 @@ class Atletas {
     /**
      * @var string
      *
-     * @ORM\Column(name="talla_medias", type="string", length=10, nullable=false)
+     * @ORM\Column(name="talla_medias", type="string", length=10, nullable=true)
      */
     private $tallaMedias;
 
@@ -250,10 +252,6 @@ class Atletas {
      * @ORM\Column(name="observacion", type="text", nullable=true)
      */
     private $observacion;
-
-    public function __toString() {
-        return $this->getCedula();
-    }
 
     /**
      * Get id
@@ -550,27 +548,7 @@ class Atletas {
         return $this->status;
     }
 
-    /**
-     * Set institucion
-     *
-     * @param string $institucion
-     *
-     * @return Atletas
-     */
-    public function setInstitucion($institucion) {
-        $this->institucion = $institucion;
 
-        return $this;
-    }
-
-    /**
-     * Get institucion
-     *
-     * @return string
-     */
-    public function getInstitucion() {
-        return $this->institucion;
-    }
 
     /**
      * Set ingreso
@@ -1035,5 +1013,33 @@ class Atletas {
         $dir = str_replace('\\', '/', __DIR__);
         return $dir . '/../../../web/' . $this->getUploadDirCarnet();
     }
+    
+    public function __toString() {
+        return $this->getCedula();
+    }
 
+
+    /**
+     * Set organizacion
+     *
+     * @param \BackendBundle\Entity\Organizaciones $organizacion
+     *
+     * @return Atletas
+     */
+    public function setOrganizacion(\BackendBundle\Entity\Organizaciones $organizacion = null)
+    {
+        $this->organizacion = $organizacion;
+
+        return $this;
+    }
+
+    /**
+     * Get organizacion
+     *
+     * @return \BackendBundle\Entity\Organizaciones
+     */
+    public function getOrganizacion()
+    {
+        return $this->organizacion;
+    }
 }

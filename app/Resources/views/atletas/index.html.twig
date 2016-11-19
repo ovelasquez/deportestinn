@@ -20,27 +20,34 @@
                 <th>Id</th>
                 <th>Fotografía</th>
                 <th>Cédula</th>
-                <th>Nombre</th>                
-                <th class=" no-link last"><span class="nobr">Acciones</span></th>
+                <th>Nombre</th> 
+                <th>Estatus</th> 
+                <th >Acciones</th>
             </tr>
         </thead>
         <tbody>
             {% for atleta in atletas %}
                 <tr>
-                    <td><a href="{{ path('atletas_show', { 'id': atleta.id }) }}">{{ atleta.id }}</a></td>
+                    <td WIDTH=50><a href="{{ path('atletas_show', { 'id': atleta.id }) }}">{{ loop.index  }}</a></td>                    
                     <td><img src="{{ asset('uploads/atletas/fotos/')}}{{atleta.fotografia}}"  height="50px" alt="" class="imgage"></td>
                     <td>{{ atleta.nacionalidad }}-{{ atleta.cedula |number_format(0, ',', '.')   }} </td>
-                    <td>{{ atleta.primerApellido }} {{ atleta.primerNombre }}</td>                
-                    <td>
-                        <ul>
-                            <li>
-                                <a href="{{ path('atletas_show', { 'id': atleta.id }) }}">show</a>
-                            </li>
-                            <li>
-                                <a href="{{ path('atletas_edit', { 'id': atleta.id }) }}">edit</a>
-                            </li>
-                        </ul>
-                    </td>
+                    <td>{{ atleta.primerApellido }} {{ atleta.primerNombre }}</td> 
+                    <td><button type="button" class="btn 
+                                {% if atleta.status=="En Proceso"  %}
+                                    btn-info
+                                {% elseif atleta.status=="Por Corregir" %}
+                                   btn-warning
+                                {% else %}
+                                    btn-success
+                                {% endif %}
+
+                                 btn-xs">{{ atleta.status }}</button></td>    
+                    <td> 
+                        <p>
+                            <a href="{{ path('atletas_show', { 'id': atleta.id }) }}"><button class="btn btn-xs btn-success"><i class="fa fa-eye"></i> </button></a> 
+                            <a href="{{ path('atletas_edit', { 'id': atleta.id }) }}"><button class="btn btn-xs btn-warning"><i class="fa fa-pencil"></i> </button></a>                                                 
+                        </p>
+                    </td>                                        
                 </tr>
             {% endfor %}                            
         </tbody>
