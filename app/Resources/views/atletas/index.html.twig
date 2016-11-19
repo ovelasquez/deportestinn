@@ -9,8 +9,8 @@
     <link href="{{ asset('bundles/backend/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css')}}" rel="stylesheet"> 
     <link href="{{ asset('bundles/backend/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css')}}" rel="stylesheet"> 
 {% endblock %}
-{% block Titulo %} ATLETAS {% endblock %}
-{% block Subtitulo %}Listado{% endblock %}
+{% block Titulo %} {{ organizacion }} {% endblock %}
+{% block Subtitulo %}Atletas Registrados{% endblock %}
 {% block cerrar %} href="{{ path('atletas_index')}}" {% endblock %}    
 {% block body %}
     <br />

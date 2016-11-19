@@ -11,11 +11,9 @@ class StatusType extends AbstractType
     {
         $resolver->setDefaults(array(
             'choices' => array(
-                'En Proceso' => 'En Proceso',
-                'Revisado' => 'Revisado',
-                'Validado' => 'Validado',
+                'En Proceso' => 'En Proceso',                
                 'Por Corregir' => 'Por Corregir',
-                
+                'Aprobado' => 'Aprobado',
             )
         ));
     }

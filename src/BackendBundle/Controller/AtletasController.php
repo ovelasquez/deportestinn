@@ -23,12 +23,9 @@ class AtletasController extends Controller {
      * @Method("GET")
      */
     public function indexAction() {
-
         $em = $this->getDoctrine()->getManager();
-
         $user = $this->get('security.context')->getToken()->getUser();
-
-
+        $organizacion = '';
 
         if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')) {
             $atletas = $em->getRepository('BackendBundle:Atletas')->findAll();
@@ -36,13 +33,14 @@ class AtletasController extends Controller {
             $atletas = $em->getRepository('BackendBundle:Atletas')->findAllByLiga($user->getLiga());
         } elseif ($this->get('security.context')->isGranted('ROLE_ORGANIZACION')) {
             $atletas = $em->getRepository('BackendBundle:Atletas')->findAllByOrganizacion($user->getOrganizacion());
+            $organizacion = $em->getRepository('BackendBundle:Organizaciones')->find($this->getUser()->getOrganizacion());
         } else {
             throw $this->createAccessDeniedException("You don't have access to this page!");
         }
 
-
         return $this->render('atletas/index.html.twig', array(
                     'atletas' => $atletas,
+                    'organizacion' => $organizacion,
         ));
     }
 
@@ -56,12 +54,16 @@ class AtletasController extends Controller {
         //dump($request); die;
         //dump($form); die;
         $problema = "";
+        $organizacion = '';
 
         $em = $this->getDoctrine()->getManager();
 
         //Fijamos La Organización por el usuario logueado, especificamente para el caso de las orgazizaciones
         // no aplica a administradores ni ligas
         $_ORG = $this->getUser()->getOrganizacion();
+        if ($_ORG != Null) {
+            $organizacion = $em->getRepository('BackendBundle:Organizaciones')->find($this->getUser()->getOrganizacion());
+        }
 
         //dump($this->getUser()); die;
         //Disciplinas en la que va a participar cada organizacion
@@ -117,6 +119,7 @@ class AtletasController extends Controller {
                     'disciplinas' => $idsD,
                     'jsonEq' => json_encode($idsD),
                     'org' => $_ORG,
+                    'organizacion' => $organizacion,
         ));
     }
 
@@ -128,8 +131,18 @@ class AtletasController extends Controller {
      */
     public function showAction(Atletas $atleta) {
         $deleteForm = $this->createDeleteForm($atleta);
-
+        $organizacion = '';
         $em = $this->getDoctrine()->getManager();
+
+        //Fijamos La Organización por el usuario logueado, especificamente para el caso de las orgazizaciones
+        // no aplica a administradores ni ligas
+        $_ORG = $this->getUser()->getOrganizacion();
+        if ($_ORG != Null) {
+
+            $organizacion = $em->getRepository('BackendBundle:Organizaciones')->find($this->getUser()->getOrganizacion());
+        }
+
+
         $aEq = $em->getRepository('BackendBundle:AtletaEquipo')->findBy(array("atleta" => $atleta->getId()));
         //dump($aEq[0]->getEquipo()->getEquipoOrganizacionCampeonatoDisciplina()->getDisciplina()); die;
 
@@ -137,6 +150,7 @@ class AtletasController extends Controller {
                     'atleta' => $atleta,
                     'delete_form' => $deleteForm->createView(),
                     'atleta_eq' => $aEq,
+                    'organizacion' => $organizacion,
         ));
     }
 
@@ -154,10 +168,13 @@ class AtletasController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $aEq = $em->getRepository('BackendBundle:AtletaEquipo')->findBy(array("atleta" => $atleta->getId()));
 
-        //Fijamos La Organización por Parameters ORG
-        //$_ORG = $this->container->getParameter('org');
-        //Fijamos La Organización por el usuario logueado
+        $organizacion = '';
+        //Fijamos La Organización por el usuario logueado, especificamente para el caso de las orgazizaciones
+        // no aplica a administradores ni ligas
         $_ORG = $this->getUser()->getOrganizacion();
+        if ($_ORG != Null) {
+            $organizacion = $em->getRepository('BackendBundle:Organizaciones')->find($this->getUser()->getOrganizacion());
+        }
 
         $idsD = array();
         $idsDb = array();
@@ -244,6 +261,7 @@ class AtletasController extends Controller {
                     'atleta_eq' => $aEq,
                     'disciplinas' => $idsD,
                     'jsonEq' => json_encode($idsD),
+            'organizacion' => $organizacion,
         ));
     }
 
