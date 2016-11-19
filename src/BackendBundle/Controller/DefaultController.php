@@ -30,7 +30,6 @@ class DefaultController extends Controller {
             throw $this->createAccessDeniedException("You don't have access to this page!");
         }
 
-        $numa = count($atletas);
 
         //dump($numa); die;
         
@@ -38,7 +37,7 @@ class DefaultController extends Controller {
                     'camp' => $camp,
                     'atletas' => $atletas,
                     'disc' => $disc,
-                    'numa' => $numa,
+                    'numa' => count($atletas),
         ));
     }
 

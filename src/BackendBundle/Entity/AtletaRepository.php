@@ -21,15 +21,28 @@ class AtletaRepository extends EntityRepository {
 
     //put your code here
 
-    public function findAllByOrganizacion($org) {
+    public function findAllByOrganizacion($org) {               
+        $query = $this->getEntityManager()
+                ->createQuery("SELECT ae   FROM BackendBundle:Atletas a "
+                        . " INNER JOIN BackendBundle:AtletaEquipo ae WITH a.id=ae.atleta "
+                        . " INNER JOIN BackendBundle:Equipos e WITH e.id=ae.equipo"
+                        . " INNER JOIN BackendBundle:OrganizacionCampeonatoDisciplina ocd WITH e.equipoOrganizacionCampeonatoDisciplina=ocd.id and ocd.organizacion=:org "
+                        
+                        . " ORDER BY a.id ASC");
+        $query->setParameter('org', $org);        
+        $entities = $query->getResult();        
+        return $entities;
+    }
+    
+    public function findAllWithDisciplina() {
         
         $query = $this->getEntityManager()
-                ->createQuery("SELECT  a  FROM BackendBundle:Atletas a "
+                ->createQuery("SELECT  a, d  FROM BackendBundle:Atletas a "
                         . " LEFT JOIN BackendBundle:AtletaEquipo ae WITH a.id=ae.atleta "
                         . " LEFT JOIN BackendBundle:Equipos e WITH e.id=ae.equipo"
                         . " LEFT JOIN BackendBundle:OrganizacionCampeonatoDisciplina ocd WITH e.equipoOrganizacionCampeonatoDisciplina=ocd.id"
-                        . " WHERE ocd.organizacion=:org  ORDER BY a.primerNombre ASC");
-        $query->setParameter('org', $org);        
+                        . " LEFT JOIN BackendBundle:Disciplinas d WITH ocd.disciplina=d.id"
+                        . "  ORDER BY a.primerNombre ASC");
         $entities = $query->getResult();
         
         return $entities;

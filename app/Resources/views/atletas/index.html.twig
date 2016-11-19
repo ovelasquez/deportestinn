@@ -11,7 +11,7 @@
 {% endblock %}
 {% block Titulo %} {{ organizacion }} {% endblock %}
 {% block Subtitulo %}Atletas Registrados{% endblock %}
-{% block cerrar %} href="{{ path('atletas_index')}}" {% endblock %}    
+{% block cerrar %} href="{{ path('backend_default_index')}}" {% endblock %}    
 {% block body %}
     <br />
     <table id="datatable-buttons" class="table table-striped table-bordered">
@@ -21,34 +21,39 @@
                 <th>Fotografía</th>
                 <th>Cédula</th>
                 <th>Nombre</th> 
+                <th>Deporte</th> 
                 <th>Estatus</th> 
                 <th >Acciones</th>
             </tr>
         </thead>
         <tbody>
-            {% for atleta in atletas %}
+            {% set cont = 1 %}
+            {% for atleta in atletas %}               
                 <tr>
-                    <td WIDTH=50><a href="{{ path('atletas_show', { 'id': atleta.id }) }}">{{ loop.index  }}</a></td>                    
-                    <td><img src="{{ asset('uploads/atletas/fotos/')}}{{atleta.fotografia}}"  height="50px" alt="" class="imgage"></td>
-                    <td>{{ atleta.nacionalidad }}-{{ atleta.cedula |number_format(0, ',', '.')   }} </td>
-                    <td>{{ atleta.primerApellido }} {{ atleta.primerNombre }}</td> 
+                     <td><a href="{{ path('atletas_show', { 'id': atleta.atleta.id }) }}">{{ atleta.atleta.id }}</a></td>
+                    <td><img src="{{ asset('uploads/atletas/fotos/')}}{{atleta.atleta.fotografia}}"  height="50px" alt="" class="imgage"></td>
+                    <td>{{ atleta.atleta.nacionalidad }}-{{ atleta.atleta.cedula |number_format(0, ',', '.')   }} </td>
+                    <td>{{ atleta.atleta.primerApellido }} {{ atleta.atleta.primerNombre }}</td> 
+                    <td>{{ atleta.equipo.equipoOrganizacionCampeonatoDisciplina.disciplina }}</td> 
                     <td><button type="button" class="btn 
-                                {% if atleta.status=="En Proceso"  %}
+                                {% if atleta.atleta.status=="En Proceso"  %}
                                     btn-info
-                                {% elseif atleta.status=="Por Corregir" %}
+                                {% elseif atleta.atleta.status=="Por Corregir" %}
                                    btn-warning
                                 {% else %}
                                     btn-success
                                 {% endif %}
 
-                                 btn-xs">{{ atleta.status }}</button></td>    
+                                 btn-xs">{{ atleta.atleta.status }}</button></td>    
                     <td> 
                         <p>
-                            <a href="{{ path('atletas_show', { 'id': atleta.id }) }}"><button class="btn btn-xs btn-success"><i class="fa fa-eye"></i> </button></a> 
-                            <a href="{{ path('atletas_edit', { 'id': atleta.id }) }}"><button class="btn btn-xs btn-warning"><i class="fa fa-pencil"></i> </button></a>                                                 
+                            <a href="{{ path('atletas_show', { 'id': atleta.atleta.id }) }}"><button class="btn btn-xs btn-success"><i class="fa fa-eye"></i> </button></a> 
+                            <a href="{{ path('atletas_edit', { 'id': atleta.atleta.id }) }}"><button class="btn btn-xs btn-warning"><i class="fa fa-pencil"></i> </button></a>                                                 
                         </p>
-                    </td>                                        
+                    </td>                                                                                                                                 
                 </tr>
+                {% set cont = cont +1 %}
+
             {% endfor %}                            
         </tbody>
     </table>

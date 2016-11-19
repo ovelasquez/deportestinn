@@ -1,36 +1,32 @@
 {% extends 'gentelella-home.html.twig' %} 
-{% block title %} Inicio {% endblock %}
-
+{% block title %} DeportesTinn | Inicio {% endblock %}
 {% block body %}
-
-    {% if is_granted('ROLE_LIGA') %}
-
-        
+    {% if is_granted('ROLE_LIGA') %}       
         <div class="row">
 
             <div class="col-md-55">
                 <div class="x_panel ui-ribbon-container " style="height: 220px;">
-                <div class="ui-ribbon-wrapper">
-                    <div class="ui-ribbon" style="background-color: #a94442;">
-                        Días
+                    <div class="ui-ribbon-wrapper">
+                        <div class="ui-ribbon" style="background-color: #a94442;">
+                            Días
+                        </div>
+                    </div>
+                    <div class="x_title" style="margin-bottom: 0px;">
+                        <h2>Avance de Liga</h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+
+                        <div style="text-align: center; margin-bottom: 0px">
+                            <span class="chart" data-percent="20">
+                                <span class="percent">20</span>
+                                <canvas height="110" width="110"></canvas></span>
+                        </div>
+
+                        <p class="name_title">Porcentaje de ejecución</p>
+
                     </div>
                 </div>
-                <div class="x_title" style="margin-bottom: 0px;">
-                    <h2>Avance de Liga</h2>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="x_content">
-
-                    <div style="text-align: center; margin-bottom: 0px">
-                        <span class="chart" data-percent="20">
-                            <span class="percent">20</span>
-                            <canvas height="110" width="110"></canvas></span>
-                    </div>
-
-                    <p class="name_title">Porcentaje de ejecución</p>
-                    
-                </div>
-            </div>
             </div>
 
             <div class="col-md-55">
@@ -74,10 +70,11 @@
                 <div class="tile-stats " style="height: 300px;">
                     <div class="icon"><i class="fa fa-users" style="color: #337ab7"></i>
                     </div>
-                    <div class="count" style="font-size: 7.5em;color: #337ab7">{{numa}}</div>
-
-                    <h3>Número de atletas </h3>
-                    <p>Inscritos.</p>
+                    <div class="count" style="font-size: 7.5em;color: #337ab7">
+                        <a href="{{ path('atletas_index') }}">{{numa}}</a>
+                        </div>
+                    <h3>Atletas Inscritos</h3>
+                    <p>En el campeonato</p>
                     <div style="text-align: right"><a href="{{ path('atletas_new') }}"  class="btn btn-sm btn-primary " type="button">Agregar Atleta +</a></div>
                 </div>
             </div>
@@ -86,7 +83,6 @@
                     <div class="icon"><i class="fa fa-check " style="color: rgba(38,185,154,0.88)"></i>
                     </div>
                     <div class="count" style="color: rgba(38,185,154,0.88)">0</div>
-
                     <h3>Número de atletas </h3>
                     <p>Revisados.</p>
 
@@ -95,10 +91,8 @@
                     <div class="icon"><i class="fa fa-exclamation-triangle" style="color: rgba(243,156,18,0.88);"></i>
                     </div>
                     <div class="count" style="color: rgba(243,156,18,0.88);">0</div>
-
                     <h3>Número de atletas </h3>
                     <p>Por corregir.</p>
-
                 </div>
             </div>
             <div class="col-md-3 col-sm-12 col-xs-12">
@@ -109,7 +103,7 @@
                         </div>
                     </div>
                     <div class="x_title">
-                        <h2>Proceso para Inscripción</h2>
+                        <h2>Proceso de Inscripción</h2>
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">

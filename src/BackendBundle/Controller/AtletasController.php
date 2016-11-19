@@ -32,11 +32,13 @@ class AtletasController extends Controller {
         } elseif ($this->get('security.context')->isGranted('ROLE_LIGA')) {
             $atletas = $em->getRepository('BackendBundle:Atletas')->findAllByLiga($user->getLiga());
         } elseif ($this->get('security.context')->isGranted('ROLE_ORGANIZACION')) {
-            $atletas = $em->getRepository('BackendBundle:Atletas')->findAllByOrganizacion($user->getOrganizacion());
+            $atletas = $em->getRepository('BackendBundle:Atletas')->findAllByOrganizacion($user->getOrganizacion());            
             $organizacion = $em->getRepository('BackendBundle:Organizaciones')->find($this->getUser()->getOrganizacion());
         } else {
             throw $this->createAccessDeniedException("You don't have access to this page!");
         }
+        
+        dump($atletas); 
 
         return $this->render('atletas/index.html.twig', array(
                     'atletas' => $atletas,

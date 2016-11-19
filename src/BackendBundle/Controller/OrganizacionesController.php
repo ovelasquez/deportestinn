@@ -70,12 +70,12 @@ class OrganizacionesController extends Controller {
         //Fijamos el Campeonato por Parameters Camp
         //$_CAMP = $this->container->getParameter('camp');
         //Fijamos El Campeonato por el usuario logueado
-        $_CAMP = $this->getUser()->getCampeonato();
-        
-
+        $_CAMP = $this->getUser()->getCampeonato();  
+        //dump($this->getUser()); die();
 
         //Buscar todas las disciplinas asociadas al campeonato
         $campeonatoDisciplinas = $em->getRepository('BackendBundle:CampeonatoDisciplina')->findByCampeonato($_CAMP);
+       // dump($campeonatoDisciplinas); die();
 
         return $this->render('organizaciones/new.html.twig', array(
                     'organizacione' => $organizacione,
