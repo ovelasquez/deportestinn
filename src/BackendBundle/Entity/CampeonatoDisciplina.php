@@ -24,16 +24,62 @@ class CampeonatoDisciplina
     /**
      * @var integer
      *
-     * @ORM\Column(name="maximo", type="integer", nullable=true)
+     * @ORM\Column(name="maximo", type="integer", nullable=false)
      */
     private $maximo;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="minimo", type="integer", nullable=true)
+     * @ORM\Column(name="minimo", type="integer", nullable=false)
      */
     private $minimo;
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="abierto", type="integer", nullable=false)
+     */
+    private $abierto;
+    
+      /**
+     * @var integer
+     *
+     * @ORM\Column(name="entrenador", type="integer", nullable=false)
+     */
+    private $entrenador;
+    
+       /**
+     * @var integer
+     *
+     * @ORM\Column(name="asistente", type="integer", nullable=false)
+     */
+    private $asistente;
+    
+     /**
+     * @var integer
+     *
+     * @ORM\Column(name="delegado", type="integer", nullable=false)
+     */
+    private $delegado;
+    
+      /**
+     * @var integer
+     *
+     * @ORM\Column(name="medico", type="integer", nullable=false)
+     */
+    private $medico;
+    
+          /**
+     * @var integer
+     *
+     * @ORM\Column(name="logistico", type="integer", nullable=false)
+     */
+    private $logistico;
+    
+    
+    
+    
 
   /**
      * @var \DateTime
@@ -225,5 +271,149 @@ class CampeonatoDisciplina
     public function getCampeonato()
     {
         return $this->campeonato;
+    }
+
+    /**
+     * Set abierto
+     *
+     * @param integer $abierto
+     *
+     * @return CampeonatoDisciplina
+     */
+    public function setAbierto($abierto)
+    {
+        $this->abierto = $abierto;
+
+        return $this;
+    }
+
+    /**
+     * Get abierto
+     *
+     * @return integer
+     */
+    public function getAbierto()
+    {
+        return $this->abierto;
+    }
+
+    /**
+     * Set entrenador
+     *
+     * @param integer $entrenador
+     *
+     * @return CampeonatoDisciplina
+     */
+    public function setEntrenador($entrenador)
+    {
+        $this->entrenador = $entrenador;
+
+        return $this;
+    }
+
+    /**
+     * Get entrenador
+     *
+     * @return integer
+     */
+    public function getEntrenador()
+    {
+        return $this->entrenador;
+    }
+
+    /**
+     * Set asistente
+     *
+     * @param integer $asistente
+     *
+     * @return CampeonatoDisciplina
+     */
+    public function setAsistente($asistente)
+    {
+        $this->asistente = $asistente;
+
+        return $this;
+    }
+
+    /**
+     * Get asistente
+     *
+     * @return integer
+     */
+    public function getAsistente()
+    {
+        return $this->asistente;
+    }
+
+    /**
+     * Set delegado
+     *
+     * @param integer $delegado
+     *
+     * @return CampeonatoDisciplina
+     */
+    public function setDelegado($delegado)
+    {
+        $this->delegado = $delegado;
+
+        return $this;
+    }
+
+    /**
+     * Get delegado
+     *
+     * @return integer
+     */
+    public function getDelegado()
+    {
+        return $this->delegado;
+    }
+
+    /**
+     * Set medico
+     *
+     * @param integer $medico
+     *
+     * @return CampeonatoDisciplina
+     */
+    public function setMedico($medico)
+    {
+        $this->medico = $medico;
+
+        return $this;
+    }
+
+    /**
+     * Get medico
+     *
+     * @return integer
+     */
+    public function getMedico()
+    {
+        return $this->medico;
+    }
+
+    /**
+     * Set logistico
+     *
+     * @param integer $logistico
+     *
+     * @return CampeonatoDisciplina
+     */
+    public function setLogistico($logistico)
+    {
+        $this->logistico = $logistico;
+
+        return $this;
+    }
+
+    /**
+     * Get logistico
+     *
+     * @return integer
+     */
+    public function getLogistico()
+    {
+        return $this->logistico;
     }
 }

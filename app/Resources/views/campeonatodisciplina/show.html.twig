@@ -39,13 +39,40 @@
                                 <td>{{ campeonatoDisciplina.disciplina }}</td>
                             </tr>
                             <tr>
-                                <th>Maximo</th>
+                                <th>Nómina Abierta</th>
+                                <td>{{ campeonatoDisciplina.abierto }}</td>
+                            </tr>
+                            <tr>
+                                <th>Maximo de Atletas</th>
                                 <td>{{ campeonatoDisciplina.maximo }}</td>
                             </tr>
                             <tr>
-                                <th>Minimo</th>
+                                <th>Minimo de Atletas</th>
                                 <td>{{ campeonatoDisciplina.minimo }}</td>
                             </tr>
+                              <tr>
+                                <th>Entrenador</th>
+                                <td>{{ campeonatoDisciplina.entrenador }}</td>
+                            </tr>
+                              <tr>
+                                <th>Asistente</th>
+                                <td>{{ campeonatoDisciplina.asistente }}</td>
+                            </tr>
+                              <tr>
+                                <th>Delegado</th>
+                                <td>{{ campeonatoDisciplina.delegado }}</td>
+                            </tr>
+                            
+                              <tr>
+                                <th>Medico</th>
+                                <td>{{ campeonatoDisciplina.medico }}</td>
+                            </tr>
+                            
+                              <tr>
+                                <th>Logistico</th>
+                                <td>{{ campeonatoDisciplina.logistico }}</td>
+                            </tr>
+                            
                             <tr>
                                 <th>Inicio</th>
                                 <td>{% if campeonatoDisciplina.inicio %}{{ campeonatoDisciplina.inicio|date('d-m-Y') }}{% endif %}</td>

@@ -31,6 +31,12 @@
         </label>
         <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(edit_form.disciplina,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>
     </div>
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                for="abierto">Nómina Abierta <span class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(edit_form.abierto,{ 'attr': {'data-min':'1', 'class': 'bfh-number form-control col-md-7 col-xs-12'} } ) }}</div>
+    </div>
 
     <div class="form-group">
         <label class="control-label col-md-3 col-sm-3 col-xs-12"
@@ -46,6 +52,46 @@
                 class="required">*</span>
         </label>
         <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(edit_form.minimo,{ 'attr': {'data-min':'1', 'class': 'bfh-number form-control col-md-7 col-xs-12'} } ) }}</div>
+    </div>
+    
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12"
+               for="entrenador">{{ form_label(edit_form.entrenador) }} <span
+                class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(edit_form.entrenador,{ 'attr': {'data-min':'1', 'class': 'bfh-number form-control col-md-7 col-xs-12'} } ) }}</div>
+    </div>
+    
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12"
+               for="asistente">{{ form_label(edit_form.asistente) }} <span
+                class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(edit_form.asistente,{ 'attr': {'data-min':'0', 'class': 'bfh-number form-control col-md-7 col-xs-12'} } ) }}</div>
+    </div>
+    
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12"
+               for="delegado">{{ form_label(edit_form.delegado) }} <span
+                class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(edit_form.delegado,{ 'attr': {'data-min':'0', 'class': 'bfh-number form-control col-md-7 col-xs-12'} } ) }}</div>
+    </div>
+    
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12"
+               for="medico">{{ form_label(edit_form.medico) }} <span
+                class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(edit_form.medico,{ 'attr': {'data-min':'0', 'class': 'bfh-number form-control col-md-7 col-xs-12'} } ) }}</div>
+    </div>
+    
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12"
+               for="logistico">{{ form_label(edit_form.logistico) }} <span
+                class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(edit_form.logistico,{ 'attr': {'data-min':'0', 'class': 'bfh-number form-control col-md-7 col-xs-12'} } ) }}</div>
     </div>
 
     <div id="inicio" class="form-group">

@@ -106,6 +106,7 @@ class CampeonatoDisciplinaController extends Controller {
 
             return $this->redirectToRoute('campeonatodisciplina_show', array('id' => $campeonatoDisciplina->getId()));            
         }
+        //dump($editForm->createView()); die;
 
         return $this->render('campeonatodisciplina/edit.html.twig', array(
                     'campeonatoDisciplina' => $campeonatoDisciplina,
