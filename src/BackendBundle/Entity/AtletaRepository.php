@@ -34,6 +34,8 @@ class AtletaRepository extends EntityRepository {
         return $entities;
     }
     
+    
+    
     public function findAllWithDisciplina() {
         
         $query = $this->getEntityManager()

@@ -107,7 +107,7 @@ class AtletasType extends AbstractType {
                             array(
                                 'maxWidth' => 360,
                                 'maxHeight' => 450,
-                                'useAsFieldImage' => true  //optional
+                                'useAsFieldImage' => false  //optional
                             )
                         )
                     ),

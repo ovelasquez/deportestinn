@@ -41,8 +41,8 @@
                         
                         <div class="profile_pic">
                             {% if is_granted('ROLE_LIGA') or  is_granted('ROLE_ORGANIZACION')   %}
-                                {% set liga = findLiga(app.user.getLiga)%}    
-                                <img src="{{ asset('uploads/logos/ligas/')}}{{liga.logo}}" alt="{{liga.nombre}}" class="img-circle profile_img" >
+                                {#% set liga = findLiga(app.user.getLiga)%#}    
+                                <!--img src="{#{ asset('uploads/logos/ligas/')}}{{liga.logo}#}" alt="{#{liga.nombre}#}" class="img-circle profile_img" -->
                             {% endif %}                            
                         </div>
                         <div class="profile_info">                            
@@ -115,7 +115,7 @@
                                     {% if (is_granted('ROLE_SUPER_ADMIN')) %}
                                         <img src="{{ asset('bundles/backend/images/img.jpg')}}" alt="" width="30px">
                                     {% elseif ((is_granted('ROLE_LIGA'))) %}
-                                        <img src="{{ asset('uploads/logos/ligas/')}}{{liga.logo}}" alt="" width="30px">
+                                        <img src="{#{ asset('uploads/logos/ligas/')}#}{#{ligas.logo}#}" alt="" width="30px">
                                     {% elseif ( (is_granted('ROLE_ORGANIZACION'))) %}  
                                         {% set orga = findOrganizacion(app.user.getOrganizacion)%}    
                                         <img src="{{ asset('bundles/backend/images/img.jpg')}}" alt="" width="30px">

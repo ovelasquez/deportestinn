@@ -31,15 +31,12 @@ class AtletasController extends Controller {
             $atletas = $em->getRepository('BackendBundle:Atletas')->findAll();
         } elseif ($this->get('security.context')->isGranted('ROLE_LIGA')) {
             $atletas = $em->getRepository('BackendBundle:Atletas')->findAllByLiga($user->getLiga());
-        } elseif ($this->get('security.context')->isGranted('ROLE_ORGANIZACION')) {            
-            $atletas = $em->getRepository('BackendBundle:Atletas')->findAllByOrganizacion($user->getOrganizacion());            
+        } elseif ($this->get('security.context')->isGranted('ROLE_ORGANIZACION')) {
+            $atletas = $em->getRepository('BackendBundle:Atletas')->findAllByOrganizacion($user->getOrganizacion());
             $organizacion = $em->getRepository('BackendBundle:Organizaciones')->find($this->getUser()->getOrganizacion());
-           
         } else {
             throw $this->createAccessDeniedException("You don't have access to this page!");
         }
-        
-       // dump($atletas); 
 
         return $this->render('atletas/index.html.twig', array(
                     'atletas' => $atletas,
@@ -54,72 +51,115 @@ class AtletasController extends Controller {
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request) {
-        //dump($request); die;
-        //dump($form); die;
-        $problema = "";
+        $problema = array();
         $organizacion = '';
+        $idsD = array();
+        $idsDb = array();
+        $guardo = false;
 
         $em = $this->getDoctrine()->getManager();
-
-        //Fijamos La Organización por el usuario logueado, especificamente para el caso de las orgazizaciones
-        // no aplica a administradores ni ligas
+        //Fijamos La Organización por el usuario logueado, especificamente para el caso de las orgazizaciones no aplica a administradores ni ligas
         $_ORG = $this->getUser()->getOrganizacion();
         if ($_ORG != Null) {
             $organizacion = $em->getRepository('BackendBundle:Organizaciones')->find($this->getUser()->getOrganizacion());
+
+            //Disciplinas en la que va a participar cada organizacion
+            $disciplinasOrg = $em->getRepository('BackendBundle:OrganizacionCampeonatoDisciplina')->findBy(array("organizacion" => $_ORG), array('disciplina' => 'DESC'));
+
+            //Buscamos todos los equipos asociados a las diferentes disciplinas donde va a participar
+            if (count($disciplinasOrg) > 0):
+                foreach ($disciplinasOrg as $disc) {
+                    $idsD[$disc->getId()] = array($disc->getDisciplina()->getId(), $disc->getDisciplina()->getNombre(), array());
+                    array_push($idsDb, $disc->getId());
+                }
+                $equipos = $em->getRepository('BackendBundle:Equipos')->findAllByDisciplina($idsDb);
+                foreach ($equipos as $equipo) {
+                    array_push($idsD[$equipo->getEquipoOrganizacionCampeonatoDisciplina()->getId()][2], array($equipo->getId(), $equipo->getNombre()));
+                }
+            endif;
         }
-         
-
-        //dump($this->getUser()); die;
-        //Disciplinas en la que va a participar cada organizacion
-        $disciplinasOrg = $em->getRepository('BackendBundle:OrganizacionCampeonatoDisciplina')->findBy(array("organizacion" => $_ORG), array('disciplina' => 'DESC'));
-
-        //Buscamos todos los equipos asociados a las diferentes disciplinas donde va a participar
-        if (count($disciplinasOrg) > 0):
-            $idsD = array();
-            $idsDb = array();
-
-            foreach ($disciplinasOrg as $disc) {
-                $idsD[$disc->getId()] = array($disc->getDisciplina()->getId(), $disc->getDisciplina()->getNombre(), array());
-                array_push($idsDb, $disc->getId());
-            }
-
-            $equipos = $em->getRepository('BackendBundle:Equipos')->findAllByDisciplina($idsDb);
-
-            foreach ($equipos as $equipo) {
-                array_push($idsD[$equipo->getEquipoOrganizacionCampeonatoDisciplina()->getId()][2], array($equipo->getId(), $equipo->getNombre()));
-            }
-
-        endif;                
 
         $atleta = new Atletas();
         $form = $this->createForm('BackendBundle\Form\AtletasType', $atleta);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            $em->persist($atleta);
-            $em->flush();
-
-            //obtenemos los equipos asociadas a la organizacion            
-            $eqAsociados = $request->request->get('equipos');
-
-            foreach ($eqAsociados as $eq) {
-                $at_eq = new \BackendBundle\Entity\AtletaEquipo();
-                $e = $em->getRepository('BackendBundle:Equipos')->find($eq);
-                $at_eq->setAtleta($atleta);
-                $at_eq->setEquipo($e);
-
-                $em->persist($at_eq);
-                $em->flush();
+            //Buscamos las disciplinas/equipos donde desea participar
+            $equipo = array();
+            foreach ($request->request->get('equipos') as $valor) {
+                array_push($equipo, $em->getRepository('BackendBundle:Equipos')->find($valor));
             }
 
-            return $this->redirectToRoute('atletas_show', array('id' => $atleta->getId()));
-        }
+            //Buscamos los valores de la fecha de inicio y de fin, asi como el valor de la nomina abierta de las  disciplinas donde desea participar
+            $campeonatoDisciplina = array();
+            foreach ($equipo as $valor) {
+                array_push($campeonatoDisciplina, $em->getRepository('BackendBundle:CampeonatoDisciplina')->findOneBy(array('disciplina' => $valor->getEquipoOrganizacionCampeonatoDisciplina()->getDisciplina(), 'campeonato' => $valor->getEquipoOrganizacionCampeonatoDisciplina()->getOrganizacion()->getCampeonato()->getId())));
+            }
 
+            $i = 0;
+            foreach ($campeonatoDisciplina as $valor) {
+                //Verificamos si estamos dentro del rango de fecha permitido para la inscripcion
+                $inicio = $valor->getInicio();
+                $fin = $valor->getFin();
+                $hoy = new \DateTime('now');
+
+                //Si esta dentro del rango
+                if (($hoy >= $inicio) && ($hoy <= $fin)) {
+                    //Verificamos sino estamos por encima del máx de atletas de la Nomina Abierta
+                    $nominaAbierta = $valor->getAbierto();
+                    //Buscamos la cantidad de atletas registrados
+                    $registrados = $em->getRepository('BackendBundle:AtletaEquipo')->findByEquipo(array('equipo' => $equipo[$i]->getId()));
+
+                    $cantidadAtletas = 0;
+                    foreach ($registrados as $reg) {
+                        if ($this->getUser()->getOrganizacion() == $reg->getEquipo()->getEquipoOrganizacionCampeonatoDisciplina()->getOrganizacion()->getId()) {
+                            $cantidadAtletas++;
+                        }
+                    }
+                    if ($nominaAbierta > $cantidadAtletas) {
+                        if (!$guardo) {
+                            $em->persist($atleta);                           
+                            $guardo = true;
+                        }
+                        //obtenemos los equipos asociadas a la organizacion            
+                        $at_eq = new \BackendBundle\Entity\AtletaEquipo();
+                        $at_eq->setAtleta($atleta);
+                        $at_eq->setEquipo($equipo[$i]);
+                        $em->persist($at_eq);
+                    } else {
+                        array_push($problema, "*** El número Máximo de Atletas de la Nómina Abierta ya fue Registrado en la disciplina " . $valor->getDisciplina()->getNombre());
+                    }
+                } else {
+                    array_push($problema, "*** Inscripción Fuera de Fecha para la disciplina " . $valor->getDisciplina()->getNombre());
+                }
+                $i++;
+            }
+            $this->get('session')->getFlashBag()->add('error', $problema);
+
+            if ($guardo) {
+                $em->flush();
+                if (empty($problema)) {
+                    $this->addFlash('success', 'Atleta registrado satisfactoriamente');
+                } else {
+                    $this->addFlash('success', 'Atleta registrado parcialmente, ver el error indicado a continuacion:');
+                }
+                return $this->redirectToRoute('atletas_show', array(
+                            'id' => $atleta->getId(),
+                ));
+            } else {
+                return $this->render('atletas/new.html.twig', array(
+                            'atleta' => $atleta,
+                            'form' => $form->createView(),
+                            'disciplinas' => $idsD,
+                            'jsonEq' => json_encode($idsD),
+                            'org' => $_ORG,
+                            'organizacion' => $organizacion,
+                ));
+            }
+        }
         return $this->render('atletas/new.html.twig', array(
                     'atleta' => $atleta,
                     'form' => $form->createView(),
-                    'problema' => $problema,
                     'disciplinas' => $idsD,
                     'jsonEq' => json_encode($idsD),
                     'org' => $_ORG,
@@ -134,18 +174,29 @@ class AtletasController extends Controller {
      * @Method("GET")
      */
     public function showAction(Atletas $atleta) {
+
+        if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')) {
+            
+        } elseif ($this->get('security.context')->isGranted('ROLE_LIGA')) {
+            
+        } elseif ($this->get('security.context')->isGranted('ROLE_ORGANIZACION')) {
+            //Verifica que solo la universidad que registro el atleta lo pueda ver
+            if (!($atleta->getOrganizacion()->getId() == $this->getUser()->getOrganizacion())) {
+                throw $this->createAccessDeniedException("You don't have access to this page!");
+            }
+        } else {
+            throw $this->createAccessDeniedException("You don't have access to this page!");
+        }
         $deleteForm = $this->createDeleteForm($atleta);
         $organizacion = '';
         $em = $this->getDoctrine()->getManager();
+        $problema = array();
 
-        //Fijamos La Organización por el usuario logueado, especificamente para el caso de las orgazizaciones
-        // no aplica a administradores ni ligas
+        //Fijamos La Organización por el usuario logueado, especificamente para el caso de las orgazizaciones  no aplica a administradores ni ligas
         $_ORG = $this->getUser()->getOrganizacion();
         if ($_ORG != Null) {
-
             $organizacion = $em->getRepository('BackendBundle:Organizaciones')->find($this->getUser()->getOrganizacion());
         }
-
 
         $aEq = $em->getRepository('BackendBundle:AtletaEquipo')->findBy(array("atleta" => $atleta->getId()));
         //dump($aEq[0]->getEquipo()->getEquipoOrganizacionCampeonatoDisciplina()->getDisciplina()); die;
@@ -155,6 +206,7 @@ class AtletasController extends Controller {
                     'delete_form' => $deleteForm->createView(),
                     'atleta_eq' => $aEq,
                     'organizacion' => $organizacion,
+                    'problemas' => $problema,
         ));
     }
 
@@ -165,9 +217,23 @@ class AtletasController extends Controller {
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Atletas $atleta) {
+
+        if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')) {
+            
+        } elseif ($this->get('security.context')->isGranted('ROLE_LIGA')) {
+            
+        } elseif ($this->get('security.context')->isGranted('ROLE_ORGANIZACION')) {
+            //Verifica que solo la universidad que registro el atleta lo pueda ver
+            if (!($atleta->getOrganizacion()->getId() == $this->getUser()->getOrganizacion())) {
+                throw $this->createAccessDeniedException("You don't have access to this page!");
+            }
+        } else {
+            throw $this->createAccessDeniedException("You don't have access to this page!");
+        }
+
         //dump($request);  dump($atleta);        die();
         $deleteForm = $this->createDeleteForm($atleta);
-        
+
         $editForm = $this->createForm('BackendBundle\Form\AtletasType', $atleta);
         $editForm->handleRequest($request);
 
@@ -222,10 +288,10 @@ class AtletasController extends Controller {
 
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            
-            $atleta->setActualizacion(new \DateTime("now"));                    
 
-           // dump($atleta); die();
+            $atleta->setActualizacion(new \DateTime("now"));
+
+            // dump($atleta); die();
             $em->persist($atleta);
             $em->flush();
 

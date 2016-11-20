@@ -26,7 +26,8 @@ class DefaultController extends Controller {
         if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')) {
             //$atletas = $em->getRepository('BackendBundle:Atletas')->findAll();
         } elseif ($this->get('security.context')->isGranted('ROLE_LIGA')) {
-            $liga = $em->getRepository('BackendBundle:Campeonatos')->find($user->getLiga());
+            $liga = $em->getRepository('BackendBundle:Ligas')->find($user->getLiga());
+//            dump ($liga); die();
             $camp = $em->getRepository('BackendBundle:Campeonatos')->findAll(array("liga" => $liga));
         } elseif ($this->get('security.context')->isGranted('ROLE_ORGANIZACION')) {            
             $atletas = $em->getRepository('BackendBundle:Atletas')->findByOrganizacion($user->getOrganizacion());
