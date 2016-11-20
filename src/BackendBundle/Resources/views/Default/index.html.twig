@@ -72,7 +72,7 @@
                     </div>
                     <div class="count" style="font-size: 7.5em;color: #337ab7">
                         <a href="{{ path('atletas_index') }}">{{numa}}</a>
-                        </div>
+                    </div>
                     <h3>Atletas Inscritos</h3>
                     <p>En el campeonato</p>
                     <div style="text-align: right"><a href="{{ path('atletas_new') }}"  class="btn btn-sm btn-primary " type="button">Agregar Atleta +</a></div>
@@ -82,15 +82,15 @@
                 <div class="tile-stats " style="height: 145px;">
                     <div class="icon"><i class="fa fa-check " style="color: rgba(38,185,154,0.88)"></i>
                     </div>
-                    <div class="count" style="color: rgba(38,185,154,0.88)">0</div>
+                    <div class="count" style="color: rgba(38,185,154,0.88)">{{contAprobado}}</div>
                     <h3>Número de atletas </h3>
-                    <p>Revisados.</p>
+                    <p>Aprobados</p>
 
                 </div>
                 <div class="tile-stats " style="height: 145px;">
                     <div class="icon"><i class="fa fa-exclamation-triangle" style="color: rgba(243,156,18,0.88);"></i>
                     </div>
-                    <div class="count" style="color: rgba(243,156,18,0.88);">0</div>
+                    <div class="count" style="color: rgba(243,156,18,0.88);">{{contCorregir}}</div>
                     <h3>Número de atletas </h3>
                     <p>Por corregir.</p>
                 </div>
@@ -103,22 +103,17 @@
                         </div>
                     </div>
                     <div class="x_title">
-                        <h2>Proceso de Inscripción</h2>
+                        <h2>Porcentaje de avance</h2>
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
-
                         <div style="text-align: center; margin-bottom: 17px">
-                            <span class="chart" data-percent="20">
-                                <span class="percent">20</span>
-                                <canvas height="110" width="110"></canvas></span>
+                            <span class="chart" data-percent="{{dias}}">
+                                <span class="percent">{{dias}}</span>
+                                <canvas height="100" width="100"></canvas></span>
                         </div>
-
-                        <h3 class="name_title">Porcentaje de avance</h3>
-                        <p>del periodo de inscripción</p>
-
-
-
+                        <h3 class="name_title">del periodo de inscripción</h3>
+                        <p>Incio:{{inicio|date('d-m-Y')}} - Fin:{{fin|date('d-m-Y')}}</p>
                     </div>
                 </div>
             </div>
@@ -127,38 +122,40 @@
         </div>
 
         <div class="row">
-
-
             <div class="col-md-55">
                 <div class="tile-stats" style="height: 220px;">
-                    <div class="count" style="font-size: 6.5em;color: #337ab7">{{disc|length}}</div>
-
+                    <div class="count" style="font-size: 6.5em;color: #337ab7">{{(disc|length)/2}}</div>
                     <h3>Número de disciplinas </h3>
-                    <p>De su participación.</p>
+                    <p>a participar en el Campeonato</p>
                 </div>
             </div>
-
             {% for dis in disc %}
-
+                {% if loop.index is divisible by(2) %}
                 <div class="col-md-55" style="">
                     <div class="" style="display: block;padding: 4px;margin-bottom: 20px;background-color: #fff;border: 1px solid #ddd;border-radius: 4px; text-align: center">
                         <div class="image view view-first" style="text-align: center">
-                            <img src="{{ asset('uploads/logos/disciplinas/')}}{{dis.logo}}"  style="height: 150px; display: initial; margin: 10px">
-                            <div class="mask">
-                                <p>{{dis.nombre}}</p>
-                                <div class="tools tools-bottom" style="margin: 90px 0 0 0;">
-                                    <span>Máx. 0</span>
-                                    <span>Mín. 0</span>
+                            
+                                <img src="{{ asset('uploads/logos/disciplinas/')}}{{dis.disciplina.logo}}"  style="height: 150px; display: initial; margin: 10px">
+                                <div class="mask">
+                                    <p>{{dis.disciplina.nombre}}</p>
+                                    <div class="tools tools-bottom" style="margin: 90px 0 0 0;">
+                        
+                          {# % if loop.index is not divisible by(2) %#}
+                                    <!--span>Máx. </span-->
+                                    <!--span>Mín. </span-->
+                            {#% endif %#}     
+                             <span> -- </span>
+                             <span>-- </span>
+                                 
+                                    </div>
                                 </div>
-
+                            </div>
+                            <div class="caption">
+                                <p>{{dis.disciplina.nombre}}</p>
                             </div>
                         </div>
-                        <div class="caption">
-                            <p>{{dis.nombre}}</p>
-                        </div>
                     </div>
-                </div>
-
+                {% endif %}
             {% endfor %}      
 
         </div>

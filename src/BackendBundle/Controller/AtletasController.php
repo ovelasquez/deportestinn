@@ -31,14 +31,15 @@ class AtletasController extends Controller {
             $atletas = $em->getRepository('BackendBundle:Atletas')->findAll();
         } elseif ($this->get('security.context')->isGranted('ROLE_LIGA')) {
             $atletas = $em->getRepository('BackendBundle:Atletas')->findAllByLiga($user->getLiga());
-        } elseif ($this->get('security.context')->isGranted('ROLE_ORGANIZACION')) {
+        } elseif ($this->get('security.context')->isGranted('ROLE_ORGANIZACION')) {            
             $atletas = $em->getRepository('BackendBundle:Atletas')->findAllByOrganizacion($user->getOrganizacion());            
             $organizacion = $em->getRepository('BackendBundle:Organizaciones')->find($this->getUser()->getOrganizacion());
+           
         } else {
             throw $this->createAccessDeniedException("You don't have access to this page!");
         }
         
-        dump($atletas); 
+       // dump($atletas); 
 
         return $this->render('atletas/index.html.twig', array(
                     'atletas' => $atletas,
@@ -66,6 +67,7 @@ class AtletasController extends Controller {
         if ($_ORG != Null) {
             $organizacion = $em->getRepository('BackendBundle:Organizaciones')->find($this->getUser()->getOrganizacion());
         }
+         
 
         //dump($this->getUser()); die;
         //Disciplinas en la que va a participar cada organizacion
@@ -87,7 +89,7 @@ class AtletasController extends Controller {
                 array_push($idsD[$equipo->getEquipoOrganizacionCampeonatoDisciplina()->getId()][2], array($equipo->getId(), $equipo->getNombre()));
             }
 
-        endif;
+        endif;                
 
         $atleta = new Atletas();
         $form = $this->createForm('BackendBundle\Form\AtletasType', $atleta);
@@ -269,6 +271,7 @@ class AtletasController extends Controller {
                     'disciplinas' => $idsD,
                     'jsonEq' => json_encode($idsD),
                     'organizacion' => $organizacion,
+                    'org' => $_ORG,
         ));
     }
 

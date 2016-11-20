@@ -387,6 +387,7 @@
                             
                             {% set i = 1 %}
                             {% for disciplina in disciplinas %}
+                                
                                 {% if disciplina[2][0] is defined %}
                                     <div style=' border-bottom: 1px solid #cccccc; '>
                                         
@@ -458,14 +459,11 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            
-            //Selecionamos la organizacion en el Campo Institucion
+             //Selecionamos la organizacion en el Campo Institucion
             $("#atletas_organizacion").val("{{org}}");
             $("#Organizacion").hide();
             $("#atletas_status").val("En Proceso");
             $("#Status").hide();
-            
-            
             
            // $("#atletas_organizacion").prop("disabled","disabled");
             

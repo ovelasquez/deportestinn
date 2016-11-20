@@ -154,9 +154,10 @@ class OrganizacionesController extends Controller {
         // $_CAMP = $this->container->getParameter('camp');
         //Fijamos El Campeonato por el usuario logueado
         $_CAMP = $this->getUser()->getCampeonato();
+       // dump($this->getUser());
 
         $campeonatoDisciplinas = $em->getRepository('BackendBundle:CampeonatoDisciplina')->findByCampeonato($_CAMP);
-        //dump($campeonatoDisciplinas);  
+        dump($campeonatoDisciplinas);  
         //Buscar todas las disciplinas asociadas a la organizacion en el campeonato
         // $em = $this->getDoctrine()->getManager();
         $disciplinas = $em->getRepository('BackendBundle:OrganizacionCampeonatoDisciplina')->findByOrganizacion($organizacione->getId());

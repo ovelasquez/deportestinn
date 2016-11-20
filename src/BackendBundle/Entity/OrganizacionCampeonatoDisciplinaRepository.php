@@ -33,5 +33,16 @@ class OrganizacionCampeonatoDisciplinaRepository extends EntityRepository {
     }
     
     
+    public function findAllDisciplinasByCampeonatoDisciplina($org) {
+        
+        $query = $this->getEntityManager()
+                ->createQuery("SELECT  ocd, cd  FROM BackendBundle:OrganizacionCampeonatoDisciplina ocd "
+                        . "LEFT JOIN BackendBundle:CampeonatoDisciplina cd WITH ocd.disciplina=cd.disciplina "
+                        . "WHERE ocd.organizacion=:org  ORDER BY cd.id ASC");
+        $query->setParameter('org', $org);        
+        $entities = $query->getResult();
+        
+        return $entities;
+    }    
 
 }

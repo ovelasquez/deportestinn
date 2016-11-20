@@ -192,7 +192,7 @@
 
             <h2 class="StepTitle">Datos Académicos</h2>
 
-            <div class="form-step-1" role="form" data-toggle="validator">
+            <div id="Organizacion" class="form-step-1" role="form" >
 
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="institucion">Institución <span class="required">*</span></label>
@@ -395,7 +395,7 @@
                 </div>
             </div>
 
-            <div class="form-step-4" role="form" data-toggle="validator">
+            <div id="Status" class="form-step-4" role="form" data-toggle="validator">
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contactoTelefono">status <span class="required">*</span></label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
@@ -444,6 +444,12 @@
     <script type="text/javascript">
         $(document).ready(function () {
             // Smart Wizard         
+             //Selecionamos la organizacion en el Campo Institucion
+            //$("#atletas_organizacion").val("{{org}}");
+            $("#Organizacion").hide();
+           // $("#atletas_status").val("En Proceso");
+            $("#Status").hide();
+            
 
             $(".disciplinas").click(function () {
                 var isC = $(this).prop('checked');
