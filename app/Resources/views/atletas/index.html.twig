@@ -15,12 +15,12 @@
 
 
 {% block paneltoolbox %} 
-    
+
     <li>
         <a href="{{ path('atletas_new') }}"  class="btn btn-success" style="  padding: 6px 12px;  color: white;">Registrar Atleta</a>
     </li>
-    
-    
+
+
 {% endblock %}  
 
 {% block body %}
@@ -41,7 +41,7 @@
             {% set cont = 1 %}
             {% for atleta in atletas %}               
                 <tr>
-                     <td><a href="{{ path('atletas_show', { 'id': atleta.atleta.id }) }}">{{ atleta.atleta.id }}</a></td>
+                    <td><a href="{{ path('atletas_show', { 'id': atleta.atleta.id }) }}">{{ atleta.atleta.id }}</a></td>
                     <td><img src="{{ asset('uploads/atletas/fotos/')}}{{atleta.atleta.fotografia}}"  height="50px" alt="" class="imgage"></td>
                     <td>{{ atleta.atleta.nacionalidad }}-{{ atleta.atleta.cedula |number_format(0, ',', '.')   }} </td>
                     <td>{{ atleta.atleta.primerApellido }} {{ atleta.atleta.primerNombre }}</td> 
@@ -50,12 +50,12 @@
                                 {% if atleta.atleta.status=="En Proceso"  %}
                                     btn-info
                                 {% elseif atleta.atleta.status=="Por Corregir" %}
-                                   btn-warning
+                                    btn-warning
                                 {% else %}
                                     btn-success
                                 {% endif %}
 
-                                 btn-xs">{{ atleta.atleta.status }}</button></td>    
+                                btn-xs">{{ atleta.atleta.status }}</button></td>    
                     <td> 
                         <p>
                             <a href="{{ path('atletas_show', { 'id': atleta.atleta.id }) }}"><button class="btn btn-xs btn-warning"><i class="fa fa-eye"></i> </button></a> 
@@ -69,7 +69,7 @@
         </tbody>
     </table>
     <br/><br/>
-    
+
 
 
 {% endblock %} 
@@ -92,9 +92,9 @@
     <script src="{{ asset('bundles/backend/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js')}}"></script>    
     <script src="{{ asset('bundles/backend/vendors/datatables.net-scroller/js/dataTables.scroller.min.js')}}"></script>
 
-    <script src="{{ asset('bundles/backend/vendors/jszip/dist/jszip.min.js')}}"></script>       
-    <script src="{{ asset('bundles/backend/vendors/pdfmake/build/pdfmake.min.js')}}"></script>     
-    <script src="{{ asset('bundles/backend/vendors/pdfmake/build/vfs_fonts.js')}}"></script>    
+    <script src="{{ asset('bundles/backend/vendors/jszip/jszip.min.js')}}"></script>       
+    <script src="{{ asset('bundles/backend/vendors/pdfmake/pdfmake.min.js')}}"></script>     
+    <script src="{{ asset('bundles/backend/vendors/pdfmake/vfs_fonts.js')}}"></script>     
 
 
     <!-- Datatables -->
