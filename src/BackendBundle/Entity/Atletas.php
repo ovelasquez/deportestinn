@@ -144,7 +144,16 @@ class Atletas {
     /**
      * @ORM\Column(type="string",nullable=true)
      *
-     * @Assert\File(mimeTypes={ "application/pdf" })
+     * @Assert\File(
+     *  maxSize="5242880",
+ *      mimeTypes = {
+ *          "image/png",
+ *          "image/jpeg",
+ *          "image/jpg",
+ *          "image/gif",
+ *          "application/pdf",
+ *          "application/x-pdf"
+ *      }
      */
     private $contancia;
 
