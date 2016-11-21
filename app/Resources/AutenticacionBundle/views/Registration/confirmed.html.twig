@@ -4,12 +4,13 @@
 
 {% block fos_user_content %}
     <h2 class="tituloAzulado">Confirmación Exitosa</h2><!--tituloAzulado-->
-    <div class="cuadro uno cuadroError lila" style="background-color: #aebfe3!important">
+    
+    <div>
+        
         <p>{{ 'registration.confirmed'|trans({'%username%': user.username}) }}</p>
         {% if targetUrl %}
             <p><a href="{{ targetUrl }}">{{ 'registration.back'|trans }}</a></p>
             {% endif %}
-
-    <a href="{{ path('backend_default_index') }}" class="btn btn-primary" role="button">Ingresar</a>
+    
     </div>
 {% endblock fos_user_content %}
