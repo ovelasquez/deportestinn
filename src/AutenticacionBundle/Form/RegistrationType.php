@@ -1,6 +1,6 @@
 <?php
 
-namespace AutenticacionBundle\Entity;
+namespace AutenticacionBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -11,13 +11,18 @@ class RegistrationType extends AbstractType {
         $builder
                 ->add('nombre', null, array('label' => 'Nombre'))
                 ->add('apellido', null, array('label' => 'Apellido'))
-                ->add('campeonato', null, array('label' => 'Apellido'))
-                ->add('organizacion', null, array('label' => 'Apellido'))
-                ->add('liga', null, array(
-                    'label' => 'Liga',
-                    'empty_value' => 'Seleccione',
-                    'attr' => array('class' => 'form-control'),
-                    'label_attr' => array('class' => 'col-lg-2 control-label')))
+                ->add('liga', null, array('label' => 'liga')) 
+                ->add('campeonato', null, array('label' => 'campeonato'))
+                ->add('organizacion', null, array('label' => 'organizacion'))                    
+                ->add('roles', 'choice', array(
+                    'placeholder' => 'Seleccione',
+                    'multiple'=>true,
+                    'choices' => array(
+                        'ROLE_LIGA' => 'LIGA',
+                        'ROLE_ORGANIZACION' => 'ORGANIZACION',
+                        'ROLE_SUPER_ADMIN' => 'SUPER ADMIN',                        
+                    ), 'required' => true, 'attr' => array('class' => 'typeField'), 'label' => 'Perfil de usuario',
+                ))
         ;
     }
 
@@ -26,7 +31,7 @@ class RegistrationType extends AbstractType {
     }
 
     public function getName() {
-        return 'app_user_registration';
+        return 'autenticacion_registration';
     }
 
 }

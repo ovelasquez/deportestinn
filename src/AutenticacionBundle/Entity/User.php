@@ -4,12 +4,16 @@ namespace AutenticacionBundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
+ * 
  */
-class User extends BaseUser {
+class User extends BaseUser
+{
 
     /**
      * @ORM\Id
@@ -62,11 +66,7 @@ class User extends BaseUser {
      */
     private $organizacion;
 
-    public function __construct() {
-        parent::__construct();
-        // your own logic
-    }
-
+    
 
     /**
      * Set apellido
@@ -204,8 +204,13 @@ class User extends BaseUser {
         return $this->roles;
     }
     
+    public function __construct()
+    {
+        parent::__construct();
+    }
+    
     public function __toString()
     {
-        return (string) $this->getNombre();
+        return (string) $this->getName();
     }
 }

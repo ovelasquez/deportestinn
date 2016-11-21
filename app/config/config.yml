@@ -94,3 +94,16 @@ fos_user:
     db_driver: orm
     firewall_name: main
     user_class: AutenticacionBundle\Entity\User
+    registration:
+        form:
+            type: autenticacion_registration     
+        confirmation:
+            enabled: true
+            from_email:
+                address:        velasquez.oscar@gmail.com 
+                sender_name:    DeportesTINN            
+    from_email:
+        address:        velasquez.oscar@gmail.com 
+        sender_name:    DeportesTINN    
+    service:
+        mailer: fos_user.mailer.twig_swift

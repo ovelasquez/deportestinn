@@ -7,7 +7,7 @@
             {% endif %}
 
     <form action="{{ path("fos_user_security_check") }}" method="post">
-        <h1>Login Form</h1>
+        <h1>Bienvenidos</h1>
         {% if csrf_token %}
             <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
         {% endif %}
@@ -22,8 +22,8 @@
             <input type="submit" id="_submit" name="_submit" class="btn btn-default submit" value="{{ 'security.login.submit'|trans }}" />
             
             
+            <a href="{{ path('fos_user_resetting_request') }}" class="olvContr">Olvidó su password</a>
             
-            <a class="reset_pass" href="#">Olvidó su password?</a>
         </div>
 
         <div class="clearfix"></div>

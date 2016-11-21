@@ -38,161 +38,155 @@
 
                     <!-- menu profile quick info -->
                     <div class="profile">
-                        
-                        <div class="profile_pic">
-                            {% if is_granted('ROLE_LIGA') or  is_granted('ROLE_ORGANIZACION')   %}
-                                {% set liga = findLiga(app.user.getLiga)%}    
-                                <img src="{{ asset('uploads/logos/ligas/')}}{{liga.logo}}" alt="{{liga.nombre}}" class="img-circle profile_img" >
-                            {% endif %}                            
-                        </div>
-                        <div class="profile_info">                            
-                            <span>Bienvenido,</span>
-                            <h2> {% if app.user %}{{ app.user.getNombre }} {{ app.user.getApellido}} {% endif %} </h2>
-                        </div>
-                    </div>
-                    <!-- /menu profile quick info -->
-                
 
-                    <!-- sidebar menu -->
-                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                        <div class="menu_section">
-                            <h3>General</h3>
-                            <ul class="nav side-menu">
-                                <li><a href="{{ path('backend_default_index') }}"><i class="fa fa-home"></i> Home </a>
-                                </li>
-                                <li><a><i class="fa fa-edit"></i> Gestionar <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
+                        <div class="profile_pic">
+                            {% if is_granted('ROLE_LIGA') or  is_granted('ROLE_ORGANIZACION') and app.user.getLiga is defined  %}                                
+                                {% set liga = findLiga(app.user.getLiga)%}    
+                                {% if liga != false  %}  
+                                    <img src="{{ asset('uploads/logos/ligas/')}}{{liga.logo}}" alt="{{liga.nombre}}" class="img-circle profile_img" >
+                                {% endif %}     {% endif %}                            
+                            </div>
+                            <div class="profile_info">                            
+                                <span>Bienvenido,</span>
+                                <h2> {% if app.user %}{{ app.user.getNombre }} {{ app.user.getApellido}} {% endif %} </h2>
+                            </div>
+                        </div>
+                        <!-- /menu profile quick info -->
+
+
+                        <!-- sidebar menu -->
+                        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                            <div class="menu_section">
+                                <h3>General</h3>
+                                <ul class="nav side-menu">
+                                    <li><a href="{{ path('backend_default_index') }}"><i class="fa fa-home"></i> Home </a>
+                                    </li>
+                                    <li><a><i class="fa fa-edit"></i> Gestionar <span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            {% if (is_granted('ROLE_SUPER_ADMIN')) %}
+                                                <li><a href="{{ path('ligas_index') }}">Ligas</a></li>
+                                                <li><a href="{{ path('disciplinas_index') }}">Disciplinas</a></li>
+                                                {% endif %} 
+                                                {% if ((is_granted('ROLE_SUPER_ADMIN')) or (is_granted('ROLE_LIGA'))) %}
+                                                <li><a href="{{ path('campeonatos_index') }}">Campeonatos</a></li>                                        
+                                                <li><a href="{{ path('campeonatodisciplina_index') }}">Campeonato Disciplinas</a></li>
+                                                <li><a href="{{ path('organizaciones_index') }}">Organizaciones</a></li>
+                                                <li><a href="{{ path('equipos_index') }}">Equipos</a></li>
+                                                {% endif %} 
+                                                {% if ( (is_granted('ROLE_SUPER_ADMIN')) or (is_granted('ROLE_ORGANIZACION'))) %}                                        
+                                                <li><a href="{{ path('atletas_index') }}">Atletas</a></li>  
+                                                {% endif %}  
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>                        
+                        </div>
+                        <!-- /sidebar menu -->
+
+                        <!-- /menu footer buttons -->
+                        <div class="sidebar-footer hidden-small">
+                            <a data-toggle="tooltip" data-placement="top" title="Settings">
+                                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                            </a>
+                            <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+                                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+                            </a>
+                            <a data-toggle="tooltip" data-placement="top" title="Lock">
+                                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+                            </a>
+                            <a href="{{ path('fos_user_security_logout')}}"data-toggle="tooltip" data-placement="top" title="Logout">
+                                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                            </a>
+                        </div>
+                        <!-- /menu footer buttons -->
+                    </div>
+                </div>
+
+                <!-- top navigation -->
+                <div class="top_nav">
+                    <div class="nav_menu">
+                        <nav>
+                            <div class="nav toggle">
+                                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                            </div>
+
+                            <ul class="nav navbar-nav navbar-right">
+                                <li class="">
+                                    <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                         {% if (is_granted('ROLE_SUPER_ADMIN')) %}
-                                        <li><a href="{{ path('ligas_index') }}">Ligas</a></li>
-                                        <li><a href="{{ path('disciplinas_index') }}">Disciplinas</a></li>
-                                        {% endif %} 
-                                        {% if ((is_granted('ROLE_SUPER_ADMIN')) or (is_granted('ROLE_LIGA'))) %}
-                                        <li><a href="{{ path('campeonatos_index') }}">Campeonatos</a></li>                                        
-                                        <li><a href="{{ path('campeonatodisciplina_index') }}">Campeonato Disciplinas</a></li>
-                                        <li><a href="{{ path('organizaciones_index') }}">Organizaciones</a></li>
-                                        <li><a href="{{ path('equipos_index') }}">Equipos</a></li>
-                                        {% endif %} 
-                                        {% if ( (is_granted('ROLE_SUPER_ADMIN')) or (is_granted('ROLE_ORGANIZACION'))) %}                                        
-                                        <li><a href="{{ path('atletas_index') }}">Atletas</a></li>  
+                                            <img src="{{ asset('bundles/backend/images/user.png')}}" alt="" width="30px">
+                                        {% elseif ((is_granted('ROLE_LIGA'))) %}
+                                            <img src="{{ asset('bundles/backend/images/user.png')}}" alt="" width="30px">
+                                        {% elseif ( (is_granted('ROLE_ORGANIZACION'))) %}  
+                                            {% set orga = findOrganizacion(app.user.getOrganizacion)%}    
+                                            <img src="{{ asset('bundles/backend/images/user.png')}}" alt="" width="30px">
+
                                         {% endif %}  
+                                        {% if app.user %}{{ app.user.getNombre }} {{ app.user.getApellido}} {% endif %} 
+                                        <span class=" fa fa-angle-down"></span>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-usermenu pull-right">                                        
+                                        <li><a href="{{ path('fos_user_change_password')}}"><i class="fa fa-edit pull-right"></i> Cambiar Contraseña</a></li>
+                                        <li><a href="{{ path('fos_user_security_logout')}}"><i class="fa fa-sign-out pull-right"></i> Salir</a></li>
                                     </ul>
                                 </li>
+
+
                             </ul>
-                        </div>                        
+                        </nav>
                     </div>
-                    <!-- /sidebar menu -->
+                </div>
+                <!-- /top navigation -->
 
-                    <!-- /menu footer buttons -->
-                    <div class="sidebar-footer hidden-small">
-                        <a data-toggle="tooltip" data-placement="top" title="Settings">
-                            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-                        </a>
-                        <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                            <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-                        </a>
-                        <a data-toggle="tooltip" data-placement="top" title="Lock">
-                            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-                        </a>
-                        <a href="{{ path('fos_user_security_logout')}}"data-toggle="tooltip" data-placement="top" title="Logout">
-                            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-                        </a>
+                <!-- page content -->
+                <div class="right_col" role="main">
+                    {% block body %} Add content to the page ... {% endblock %} 
+                </div>
+                <!-- /page content -->
+
+                <!-- footer content -->
+                <footer>
+                    <div class="pull-right">
+                        DeportesTINN - Un aliado deportivo a tu alacance <a href="https://somostinn.net">SomosTINN</a>
                     </div>
-                    <!-- /menu footer buttons -->
-                </div>
+                    <div class="clearfix"></div>
+                </footer>
+                <!-- /footer content -->
             </div>
-
-            <!-- top navigation -->
-            <div class="top_nav">
-                <div class="nav_menu">
-                    <nav>
-                        <div class="nav toggle">
-                            <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-                        </div>
-
-                        <ul class="nav navbar-nav navbar-right">
-                            <li class="">
-                                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    {% if (is_granted('ROLE_SUPER_ADMIN')) %}
-                                        <img src="{{ asset('bundles/backend/images/user.png')}}" alt="" width="30px">
-                                    {% elseif ((is_granted('ROLE_LIGA'))) %}
-                                        <img src="{{ asset('bundles/backend/images/user.png')}}" alt="" width="30px">
-                                    {% elseif ( (is_granted('ROLE_ORGANIZACION'))) %}  
-                                        {% set orga = findOrganizacion(app.user.getOrganizacion)%}    
-                                        <img src="{{ asset('bundles/backend/images/user.png')}}" alt="" width="30px">
-                                        
-                                    {% endif %}  
-                                    {% if app.user %}{{ app.user.getNombre }} {{ app.user.getApellido}} {% endif %} 
-                                    <span class=" fa fa-angle-down"></span>
-                                </a>
-                                <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                    <!--li><a href="javascript:;"> Profile</a></li>
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="badge bg-red pull-right">50%</span>
-                                            <span>Settings</span>
-                                        </a>
-                                    </li>
-                                    <li><a href="javascript:;">Ayuda</a></li-->
-                                    <li><a href="{{ path('fos_user_security_logout')}}"><i class="fa fa-sign-out pull-right"></i> Salir</a></li>
-                                </ul>
-                            </li>
-
-
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-            <!-- /top navigation -->
-
-            <!-- page content -->
-            <div class="right_col" role="main">
-            {% block body %} Add content to the page ... {% endblock %} 
-            </div>
-            <!-- /page content -->
-
-            <!-- footer content -->
-            <footer>
-                <div class="pull-right">
-                    DeportesTINN - Un aliado deportivo a tu alacance <a href="https://somostinn.net">SomosTINN</a>
-                </div>
-                <div class="clearfix"></div>
-            </footer>
-            <!-- /footer content -->
         </div>
-    </div>
-    <!-- FastClick -->
-    <script src="{{ asset('bundles/backend/vendors/fastclick/lib/fastclick.js')}}"></script>    
-    <!-- NProgress -->
-    <script src="{{ asset('bundles/backend/vendors/nprogress/nprogress.js')}}"></script>   
-    <!-- Custom Theme Scripts -->
-    <script src="{{ asset('bundles/backend/build/js/custom.min.js')}}"></script>
-    <script src="{{ asset('bundles/backend/vendors/Chart.js/dist/Chart.min.js')}}"></script>
-    <script src="{{ asset('bundles/backend/vendors/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js')}}"></script>
- 
-    
+        <!-- FastClick -->
+        <script src="{{ asset('bundles/backend/vendors/fastclick/lib/fastclick.js')}}"></script>    
+        <!-- NProgress -->
+        <script src="{{ asset('bundles/backend/vendors/nprogress/nprogress.js')}}"></script>   
+        <!-- Custom Theme Scripts -->
+        <script src="{{ asset('bundles/backend/build/js/custom.min.js')}}"></script>
+        <script src="{{ asset('bundles/backend/vendors/Chart.js/dist/Chart.min.js')}}"></script>
+        <script src="{{ asset('bundles/backend/vendors/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js')}}"></script>
 
-{% block javascripts %}
-    <script>
-        
-    $(function() {
-        $('.chart').easyPieChart({
-          easing: 'easeOutElastic',
-          delay: 3000,
-          barColor: '#26B99A',
-          trackColor: '#fff',
-          scaleColor: false,
-          lineWidth: 20,
-          trackWidth: 16,
-          lineCap: 'butt',
-          onStep: function(from, to, percent) {
-            $(this.el).find('.percent').text(Math.round(percent));
-          }
-        });
-      });
-      
-    </script>
-    
-{% endblock %}
-</body>
+
+
+        {% block javascripts %}
+            <script>
+
+                $(function () {
+                    $('.chart').easyPieChart({
+                        easing: 'easeOutElastic',
+                        delay: 3000,
+                        barColor: '#26B99A',
+                        trackColor: '#fff',
+                        scaleColor: false,
+                        lineWidth: 20,
+                        trackWidth: 16,
+                        lineCap: 'butt',
+                        onStep: function (from, to, percent) {
+                            $(this.el).find('.percent').text(Math.round(percent));
+                        }
+                    });
+                });
+
+            </script>
+
+        {% endblock %}
+    </body>
 </html>
 
