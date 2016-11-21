@@ -9,5 +9,7 @@
         {% if targetUrl %}
             <p><a href="{{ targetUrl }}">{{ 'registration.back'|trans }}</a></p>
             {% endif %}
+
+    <a href="{{ path('backend_default_index') }}" class="btn btn-primary" role="button">Ingresar</a>
     </div>
 {% endblock fos_user_content %}
