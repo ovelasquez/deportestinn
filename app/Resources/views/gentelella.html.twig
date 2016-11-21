@@ -8,18 +8,23 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>DeportesTinn! | {% block title %} {% endblock %} </title>
         <!-- jQuery 2.2.4 -->
-        <script src="{{ asset('bundles/backend/vendors/jquery/dist/jquery.min.js')}}"></script>                              
+        <script src="{{ asset('bundles/backend/vendors/jquery/jquery.min.js')}}"></script>                              
         <!-- Bootstrap -->
-        <script src="{{ asset('bundles/backend/vendors/bootstrap/dist/js/bootstrap.min.js')}}"></script>  
+        <script src="{{ asset('bundles/backend/vendors/bootstrap/bootstrap.min.js')}}"></script> 
+        
         <script src="{{ asset('bundles/backend/vendors/holder.js') }}"></script>
-        <!-- Bootstrap -->
-        <link href="{{ asset('bundles/backend/vendors/bootstrap/dist/css/bootstrap.min.css')}}"   rel="stylesheet">        
+        
+          <!-- Bootstrap -->
+        <link href="{{ asset('bundles/backend/vendors/bootstrap/bootstrap.min.css')}}"   rel="stylesheet">   
+        
         <!-- Font Awesome -->        
         <link href="{{ asset('bundles/backend/vendors/font-awesome/css/font-awesome.min.css')}}"   rel="stylesheet">    
+        
         <!-- NProgress -->
         <link href="{{ asset('bundles/backend/vendors/nprogress/nprogress.css')}}"   rel="stylesheet">
-        <!-- Custom Theme Style -->
-        <link href="{{ asset('bundles/backend/build/css/custom.min.css')}}"   rel="stylesheet">
+        
+    <!-- Custom Theme Style -->
+        <link href="{{ asset('bundles/backend/vendors/bootstrap/custom.min.css')}}"   rel="stylesheet">
 
     {% block stylesheets %}{% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
@@ -131,7 +136,7 @@
                                     <span class=" fa fa-angle-down"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">                                    
-                                     <li><a href="{{ path('fos_user_change_password')}}"><i class="fa fa-edit pull-right"></i> Cambiar Contraseña</a></li>
+                                    <li><a href="{{ path('fos_user_change_password')}}"><i class="fa fa-edit pull-right"></i> Cambiar Contraseña</a></li>
                                     <li><a href="{{ path('fos_user_security_logout')}}"><i class="fa fa-sign-out pull-right"></i> Salir</a></li>
                                 </ul>
                             </li>

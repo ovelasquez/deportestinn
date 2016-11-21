@@ -8,18 +8,23 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>DeportesTinn! | {% block title %} {% endblock %} </title>
         <!-- jQuery 2.2.4 -->
-        <script src="{{ asset('bundles/backend/vendors/jquery/dist/jquery.min.js')}}"></script>                              
+        <script src="{{ asset('bundles/backend/vendors/jquery/jquery.min.js')}}"></script>                              
         <!-- Bootstrap -->
-        <script src="{{ asset('bundles/backend/vendors/bootstrap/dist/js/bootstrap.min.js')}}"></script>  
+        <script src="{{ asset('bundles/backend/vendors/bootstrap/bootstrap.min.js')}}"></script> 
+
         <script src="{{ asset('bundles/backend/vendors/holder.js') }}"></script>
+
         <!-- Bootstrap -->
-        <link href="{{ asset('bundles/backend/vendors/bootstrap/dist/css/bootstrap.min.css')}}"   rel="stylesheet">        
+        <link href="{{ asset('bundles/backend/vendors/bootstrap/bootstrap.min.css')}}"   rel="stylesheet">   
+
         <!-- Font Awesome -->        
         <link href="{{ asset('bundles/backend/vendors/font-awesome/css/font-awesome.min.css')}}"   rel="stylesheet">    
+
         <!-- NProgress -->
         <link href="{{ asset('bundles/backend/vendors/nprogress/nprogress.css')}}"   rel="stylesheet">
+
         <!-- Custom Theme Style -->
-        <link href="{{ asset('bundles/backend/build/css/custom.min.css')}}"   rel="stylesheet">
+        <link href="{{ asset('bundles/backend/vendors/bootstrap/custom.min.css')}}"   rel="stylesheet">
 
     {% block stylesheets %}{% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
@@ -154,16 +159,16 @@
                 <!-- /footer content -->
             </div>
         </div>
-        <!-- FastClick -->
-        <script src="{{ asset('bundles/backend/vendors/fastclick/lib/fastclick.js')}}"></script>    
-        <!-- NProgress -->
-        <script src="{{ asset('bundles/backend/vendors/nprogress/nprogress.js')}}"></script>   
-        <!-- Custom Theme Scripts -->
-        <script src="{{ asset('bundles/backend/build/js/custom.min.js')}}"></script>
-        <script src="{{ asset('bundles/backend/vendors/Chart.js/dist/Chart.min.js')}}"></script>
-        <script src="{{ asset('bundles/backend/vendors/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js')}}"></script>
-
-
+         
+         <!-- FastClick -->
+    <script src="{{ asset('bundles/backend/vendors/fastclick/lib/fastclick.js')}}"></script>    
+    <!-- NProgress -->
+    <script src="{{ asset('bundles/backend/vendors/nprogress/nprogress.js')}}"></script>   
+    <!-- Custom Theme Scripts -->
+    <script src="{{ asset('bundles/backend/build/js/custom.min.js')}}"></script>
+               
+        <script src="{{ asset('bundles/backend/vendors/Chart.js/Chart.min.js')}}"></script>
+        <script src="{{ asset('bundles/backend/vendors/jquery.easy-pie-chart/jquery.easypiechart.min.js')}}"></script>                     
 
         {% block javascripts %}
             <script>
