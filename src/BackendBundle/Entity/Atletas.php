@@ -153,7 +153,7 @@ class Atletas {
  *          "image/gif",
  *          "application/pdf",
  *          "application/x-pdf"
- *      }
+ *      })
      */
     private $contancia;
 
