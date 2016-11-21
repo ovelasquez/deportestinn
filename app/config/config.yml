@@ -15,7 +15,7 @@ parameters:
     campeonatos_directory: '/logos/campeonatos'
     atletas_foto_directory: '/atletas/fotos'
     atletas_cedula_directory: '/atletas/cedula'
-    atletas_constancia_directory: '/atletas/constancia'
+    atletas_constancia_directory: '%kernel.root_dir%/../web/uploads/atletas/constancias'
     atletas_carnet_directory: '/atletas/carnet'
     org: '1'
     camp: '3'

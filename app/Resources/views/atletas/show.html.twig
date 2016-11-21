@@ -3,6 +3,14 @@
 {% block Titulo %} {{organizacion}}{% endblock %}
 {% block Subtitulo %}Detalle{% endblock %} 
 {% block cerrar %} href="{{ path('atletas_index')}}" {% endblock %} 
+{% block paneltoolbox %} 
+    <li>
+        <a  class="btn btn-success" href="{{ path('atletas_edit', { 'id': atleta.id }) }}" style="  padding: 6px 12px;  color: white;">Editar </a>
+    </li>
+    <li><a  class="btn btn-primary" href="{{ path('atletas_index')}}" style="  padding: 6px 12px;  color: white;">Volver </a>
+    </li>    
+    
+{% endblock %}  
 {% block body %}
 
     {% for msg in app.session.flashBag.get('success') %}
@@ -13,7 +21,7 @@
     {% for msgs in app.session.flashBag.get('error') %}
         <div class="alert alert-danger">
             {% for msg in msgs %}
-                {{ msg }}
+                <p>{{ msg }}</p>
             {% endfor %}
 
         </div>
@@ -32,7 +40,7 @@
             <li><i class="fa fa-map-marker user-profile-icon"></i> {{ atleta.nacionalidad }}-{{ atleta.cedula |number_format(0, ',', '.')   }} </li>        
             <li class="m-top-xs"><i class="fa fa-external-link user-profile-icon"></i><a href="mailto:{{ atleta.email }}" target="_blank">{{ atleta.email }}</a></li>
         </ul>
-        <a class="btn btn-success" href="{{ path('atletas_edit', { 'id': atleta.id }) }}"><i class="fa fa-edit m-right-xs"></i>Editar</a>
+        <!--a class="btn btn-success" href="{{ path('atletas_edit', { 'id': atleta.id }) }}"><i class="fa fa-edit m-right-xs"></i>Editar</a-->
         <br />
     </div>
     <div class="col-md-9 col-sm-9 col-xs-12">
@@ -116,7 +124,11 @@
                             </tr>
                             <tr>
                                 <th>Constancia</th>
-                                <td> <a target="_blank" href="{{ asset('uploads/atletas/constancias/')}}{{ atleta.contancia }}">  <img src="{{ asset('uploads/atletas/constancias/')}}{{ atleta.contancia }}" height="120px"  alt="Avatar" title="Change the avatar" /> </a></td>
+                                <td> 
+                                    {% if (atleta.contancia != '') %}
+                                    <a target="_blank" href="{{ asset('uploads/atletas/constancias/')}}{{ atleta.contancia }}">Ver constancia (PDF)</a>
+                                    {%endif%}
+                                    <!--a target="_blank" href="{{ asset('uploads/atletas/constancias/')}}{{ atleta.contancia }}">  <img src="{{ asset('uploads/atletas/constancias/')}}{{ atleta.contancia }}" height="120px"  alt="Avatar" title="Change the avatar" /> </a></td-->
                             </tr>
                             <tr>
                                 <th>Carnet</th>

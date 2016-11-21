@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\File\File;
 use BackendBundle\Entity\Atletas;
 use BackendBundle\Form\AtletasType;
 
@@ -118,7 +119,14 @@ class AtletasController extends Controller {
                     }
                     if ($nominaAbierta > $cantidadAtletas) {
                         if (!$guardo) {
-                            $em->persist($atleta);                           
+
+                            //Guardar Constacia
+                            $file = $atleta->getContancia();
+                            $fileName = $this->get('app.file_uploader_constancia')->upload($file);
+                            $atleta->setContancia($fileName);
+
+                            //Atleta persist
+                            $em->persist($atleta);
                             $guardo = true;
                         }
                         //obtenemos los equipos asociadas a la organizacion            
@@ -134,14 +142,18 @@ class AtletasController extends Controller {
                 }
                 $i++;
             }
-            $this->get('session')->getFlashBag()->add('error', $problema);
+
 
             if ($guardo) {
+
                 $em->flush();
+
+
                 if (empty($problema)) {
                     $this->addFlash('success', 'Atleta registrado satisfactoriamente');
                 } else {
                     $this->addFlash('success', 'Atleta registrado parcialmente, ver el error indicado a continuacion:');
+                    $this->get('session')->getFlashBag()->add('error', $problema);
                 }
                 return $this->redirectToRoute('atletas_show', array(
                             'id' => $atleta->getId(),
@@ -218,6 +230,16 @@ class AtletasController extends Controller {
      */
     public function editAction(Request $request, Atletas $atleta) {
 
+        $constOriginal = $atleta->getContancia();
+
+        if (is_file($this->getParameter('atletas_constancia_directory') . '/' . $constOriginal)):
+            $atleta->setContancia(
+                    new File($this->getParameter('atletas_constancia_directory') . '/' . $atleta->getContancia())
+            );
+        endif;
+
+
+
         if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')) {
             
         } elseif ($this->get('security.context')->isGranted('ROLE_LIGA')) {
@@ -238,6 +260,8 @@ class AtletasController extends Controller {
         $editForm->handleRequest($request);
 
         $em = $this->getDoctrine()->getManager();
+
+        //Buscamos todos los equipos registrados al atleta
         $aEq = $em->getRepository('BackendBundle:AtletaEquipo')->findBy(array("atleta" => $atleta->getId()));
 
         $organizacion = '';
@@ -250,6 +274,7 @@ class AtletasController extends Controller {
 
         $idsD = array();
         $idsDb = array();
+        $problema = array();
 
         //var_dump(empty($_ORG)); die();
 
@@ -262,8 +287,8 @@ class AtletasController extends Controller {
         endif;
 
         if (count($disciplinasOrg) > 0):
-            $idsD = array();
-            $idsDb = array();
+            // $idsD = array();
+            //$idsDb = array();
 
             foreach ($disciplinasOrg as $disc) {
                 $idsD[$disc->getId()] = array($disc->getDisciplina()->getId(), $disc->getDisciplina()->getNombre(), array());
@@ -287,44 +312,139 @@ class AtletasController extends Controller {
         endif;
 
 
+
+
+
         if ($editForm->isSubmitted() && $editForm->isValid()) {
 
+            //*****Actualizar datos de Atletas
             $atleta->setActualizacion(new \DateTime("now"));
+            $atletaDisciplinaRegistrado = 0;
 
-            // dump($atleta); die();
+            //*****Guardar Constacia
+            $files = $request->files;
+
+            $uploadedFile = $files->get('atletas')['contancia'];
+            if (count($uploadedFile) == 0) {
+
+                if ($request->request->get('constOld') !== null && $request->request->get('constOld') == '0') :
+                    if (is_file($this->getParameter('atletas_constancia_directory') . '/' . $constOriginal)):
+                        unlink($this->getParameter('atletas_constancia_directory') . '/' . $constOriginal);
+                    endif;
+
+                    $atleta->setContancia('');
+                else:
+                    $atleta->setContancia($constOriginal);
+                endif;
+            } else {
+                $file = $atleta->getContancia();
+                $fileName = $this->get('app.file_uploader_constancia')->upload($file);
+                $atleta->setContancia($fileName);
+
+                if (!empty($constOriginal)) {
+                    if (is_file($this->getParameter('atletas_constancia_directory') . '/' . $constOriginal)):
+                        unlink($this->getParameter('atletas_constancia_directory') . '/' . $constOriginal);
+                    endif;
+                }
+            }
+
+
+
             $em->persist($atleta);
             $em->flush();
 
-            //obtenemos los equipos asociadas a la organizacion            
+
+            //*****Actualizar equipos
+            //obtenemos los equipos marcados en el editar que desea registrar
             $eqAsociados = $request->request->get('equipos');
 
+            //almacena todos los id de los equipos asociados en la entidad AtletaEquipo
             $rEAEx = array();
+
             foreach ($aEq as $ae) {
                 array_push($rEAEx, $ae->getEquipo()->getId());
             }
 
+
+//            dump($eqAsociados); //equipo q asociados a la universidad
+//            dump($rEAEx); //equipo q tengo registrado
+//            die();
+
             foreach ($eqAsociados as $eq) {
+
                 if (!in_array($eq, $rEAEx)):
-                    $at_eq = new \BackendBundle\Entity\AtletaEquipo();
-                    $e = $em->getRepository('BackendBundle:Equipos')->find($eq);
-                    $at_eq->setAtleta($atleta);
-                    $at_eq->setEquipo($e);
-                    $em->persist($at_eq);
-                    $em->flush();
+                    //Busco el equipo
+                    $disciplina = $em->getRepository('BackendBundle:Equipos')->find($eq);
+
+                    //Buscamos los valores de la fecha de inicio y de fin, asi como el valor de la nomina abierta de las  disciplinas donde desea participar
+                    $valor = $em->getRepository('BackendBundle:CampeonatoDisciplina')->findOneBy(array('disciplina' => $disciplina->getEquipoOrganizacionCampeonatoDisciplina()->getDisciplina()->getId()));
+
+                    //Verificamos si estamos dentro del rango de fecha permitido para la inscripcion
+                    $inicio = $valor->getInicio();
+                    $fin = $valor->getFin();
+                    $hoy = new \DateTime('now');
+
+                    //Si esta dentro del rango
+                    if (($hoy >= $inicio) && ($hoy <= $fin)) {
+                        //Verificamos sino estamos por encima del máx de atletas de la Nomina Abierta
+                        $nominaAbierta = $valor->getAbierto();
+
+                        //Buscamos la cantidad de atletas registrados
+                        $registrados = $em->getRepository('BackendBundle:AtletaEquipo')->findByEquipo(array('equipo' => $disciplina->getId()));
+
+                        $cantidadAtletas = count($registrados);
+//                        foreach ($registrados as $reg) {
+//                            if ($this->getUser()->getOrganizacion() == $reg->getEquipo()->getEquipoOrganizacionCampeonatoDisciplina()->getOrganizacion()->getId()) {
+//                                $cantidadAtletas++;
+//                            }
+//                        }
+
+                        if ($cantidadAtletas < $nominaAbierta) {
+                            $at_eq = new \BackendBundle\Entity\AtletaEquipo();
+                            $at_eq->setAtleta($atleta);
+                            $at_eq->setEquipo($disciplina);
+                            $em->persist($at_eq);
+                            $em->flush();
+                            $atletaDisciplinaRegistrado++;
+                        } else {
+                            array_push($problema, "*** El número Máximo de Atletas en la Nómina Abierta ya fue Registrado en la disciplina: " . $valor->getDisciplina()->getNombre());
+                        }
+                    } else {
+                        array_push($problema, "*** Inscripción Fuera de Fecha para la disciplina: " . $valor->getDisciplina()->getNombre());
+                    }
                 else:
+                    //Buscamos si el equipo lo tengo asociado en AtletaEquipo
                     $clave = array_search($eq, $rEAEx);  // $clave = 1;
-                    array_splice($rEAEx, $clave, 1);
+                    //Determina si el equipo queda asociado al atleta, y contamos como una disciplina asociada al atleta
+                    if ($clave !== false):
+                        $atletaDisciplinaRegistrado++;
+                        array_splice($rEAEx, $clave, 1);
+                    endif;
+
                 endif;
             }
 
-            foreach ($aEq as $ae) {
-                if (in_array($ae->getEquipo()->getId(), $rEAEx)):
-                    $em->remove($ae);
-                    $em->flush();
-                endif;
+            if ($atletaDisciplinaRegistrado === 0):
+                array_push($problema, "¡Las diciplinas no fueron actualizadas, verificar errores!");
+            else:
+                foreach ($aEq as $ae) {
+                    if (in_array($ae->getEquipo()->getId(), $rEAEx)):
+                        $em->remove($ae);
+                        $em->flush();
+                    endif;
+                }
+            endif;
+
+
+
+
+            if (empty($problema)) {
+                $this->addFlash('success', 'Atleta registrado satisfactoriamente');
+            } else {
+                $this->addFlash('success', 'Atleta registrado parcialmente, ver el error indicado a continuacion:');
+                $this->get('session')->getFlashBag()->add('error', $problema);
             }
-
-
+//            dump($problema); die();
 
             return $this->redirectToRoute('atletas_show', array('id' => $atleta->getId()));
         }
@@ -338,6 +458,7 @@ class AtletasController extends Controller {
                     'jsonEq' => json_encode($idsD),
                     'organizacion' => $organizacion,
                     'org' => $_ORG,
+                    'urlConstOld' => $constOriginal,
         ));
     }
 

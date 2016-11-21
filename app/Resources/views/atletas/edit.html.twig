@@ -8,19 +8,34 @@
 {% block Titulo %} {{organizacion}}{% endblock %}
 {% block Subtitulo %} Editar <small>Atleta</small>  {% endblock %} 
 {% block cerrar %} href="{{ path('atletas_index')}}" {% endblock %} 
+
+{% block paneltoolbox %} 
+    <li>
+        {{ form_start(delete_form) }}
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        {{ form_end(delete_form) }}
+    </li>
+    <li><a  class="btn btn-primary" href="{{ path('atletas_index')}}" style="  padding: 6px 12px;  color: white;">Volver </a>
+    </li>    
+    
+{% endblock %}         
+
 {% block body %} 
     {% include "ComurImageBundle:Form:croppable_image_modal.html.twig" with {'include_jquery': false, 'include_bootstrap': false} %}
+
+
 
     {{ form_start(edit_form, { 'attr': {'id':'atletas','class': 'form-horizontal form-label-left', 'data-toggle':'validator'} }) }} 
 
     {{ form_errors(edit_form) }}
+
 
     <!-- Smart Wizard -->
     <p></p>
     <div id="wizard" class="form_wizard wizard_horizontal">
         <ul class="wizard_steps">
             <li>
-                <a href="#step-1">
+                <a href="#step-1" id="btt-step-1">
                     <span class="step_no">1</span>
                     <span class="step_descr">
                         Paso 1<br />
@@ -29,7 +44,7 @@
                 </a>
             </li>
             <li>
-                <a href="#step-2">
+                <a href="#step-2" id="btt-step-1">
                     <span class="step_no">2</span>
                     <span class="step_descr">
                         Paso 2<br />
@@ -38,7 +53,7 @@
                 </a>
             </li>
             <li>
-                <a href="#step-3">
+                <a href="#step-3" id="btt-step-1">
                     <span class="step_no">3</span>
                     <span class="step_descr">
                         Paso 3<br />
@@ -47,7 +62,7 @@
                 </a>
             </li>
             <li>
-                <a href="#step-4">
+                <a href="#step-4" id="btt-step-1">
                     <span class="step_no">4</span>
                     <span class="step_descr">
                         Paso 4<br />
@@ -56,7 +71,7 @@
                 </a>
             </li>
             <li>
-                <a href="#step-5">
+                <a href="#step-5" id="btt-step-1">
                     <span class="step_no">5</span>
                     <span class="step_descr">
                         Paso 5<br />
@@ -65,7 +80,7 @@
                 </a>
             </li>
             <li>
-                <a href="#step-6">
+                <a href="#step-6" id="btt-step-1">
                     <span class="step_no">6</span>
                     <span class="step_descr">
                         Paso 6<br />
@@ -225,6 +240,10 @@
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contancia">Contancia <span class="required">*</span></label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
+                        {% if (atleta.contancia != '') %}
+                            <input type="hidden" name="constOld" id="constOld" value="1" />
+                            <p   id="old_file_const"><a target="_blank" href="{{ asset('uploads/atletas/constancias/')}}{{ urlConstOld }}">Ver constancia cargada</a>&nbsp; &nbsp; [<a href="#" class="removeConst" ><i class="fa fa-close"></i>]</p>
+                        {%endif%}
                         {{form_widget(edit_form.contancia,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
                     </div>
                 </div>
@@ -353,10 +372,10 @@
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contactoTelefono">Talla de Medias <span class="required">*</span></label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        {{form_widget(edit_form.tallaMedias, { 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
-                    </div>
-                </div>
-            </div-->
+            {{form_widget(edit_form.tallaMedias, { 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+        </div>
+    </div>
+</div-->
 
         </div>
         <div id="step-5">
@@ -423,9 +442,7 @@
 
     {{ form_end(edit_form) }}
 
-    {{ form_start(delete_form) }}
-    <button type="submit" class="btn btn-danger">Eliminar</button>
-    {{ form_end(delete_form) }}
+
 {% endblock %}
 
 {% block javascripts %}    
@@ -444,12 +461,12 @@
     <script type="text/javascript">
         $(document).ready(function () {
             // Smart Wizard         
-             //Selecionamos la organizacion en el Campo Institucion
+            //Selecionamos la organizacion en el Campo Institucion
             //$("#atletas_organizacion").val("{{org}}");
             $("#Organizacion").hide();
-           // $("#atletas_status").val("En Proceso");
+            // $("#atletas_status").val("En Proceso");
             $("#Status").hide();
-            
+
 
             $(".disciplinas").click(function () {
                 var isC = $(this).prop('checked');
@@ -491,7 +508,7 @@
                 ajaxType: 'POST',
                 // Events
                 onLeaveStep: leaveAStepCallback, // triggers when leaving a step
-                onShowStep: null, // triggers when showing a step
+                onShowStep: showAStep, // triggers when showing a step
                 //onFinish: null, // triggers when Finish button is clicked
                 includeFinishButton: true, // Add the finish button
                 reverseButtonsOrder: false //shows buttons ordered as: prev, next and finish    
@@ -509,6 +526,17 @@
                 if (validateAllSteps()) {
                     $("#atletas").submit();
                 }
+            }
+
+            function showAStep(obj, context) {
+                $("#step-" + (obj.attr('rel')) + " .form-control").each(function () {
+                    if ($(this).is(":visible")) {
+                        $(this).focus().select();
+
+                        return false;
+                    }
+                });
+
             }
 
 // Your Step validation logic
@@ -558,6 +586,11 @@
                 return isStepValid;
 
             }
+
+            $(".removeConst").click(function () {
+                $(this).parent("p").remove();
+                $("#constOld").val(0);
+            });
         }
         );
     </script>

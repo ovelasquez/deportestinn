@@ -3,12 +3,15 @@
 namespace BackendBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Atletas
  *
  * @ORM\Table(name="atletas")
  * @ORM\Entity(repositoryClass="BackendBundle\Entity\AtletaRepository")
+ * @UniqueEntity(fields="cedula", message="Disculpe, Ya se ha registardo un Atleta con este número de Cédula ")
  */
 class Atletas {
 
@@ -31,7 +34,7 @@ class Atletas {
     /**
      * @var string
      *
-     * @ORM\Column(name="cedula", type="string", length=255, nullable=false)
+     * @ORM\Column(name="cedula", type="string", unique=true, length=255, nullable=false)
      */
     private $cedula;
 
@@ -137,12 +140,14 @@ class Atletas {
      */
     private $departamento;
 
+      
     /**
-     * @var string
+     * @ORM\Column(type="string",nullable=true)
      *
-     * @ORM\Column(name="contancia", type="string", length=255, nullable=true)
+     * @Assert\File(mimeTypes={ "application/pdf" })
      */
     private $contancia;
+
 
     /**
      * @var string
@@ -256,14 +261,14 @@ class Atletas {
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="creacion", type="date", nullable=false)
+     * @ORM\Column(name="creacion", type="datetime", nullable=false)
      */
     private $creacion;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="actualizacion", type="date", nullable=true)
+     * @ORM\Column(name="actualizacion", type="datetime", nullable=true)
      */
     private $actualizacion;
     
@@ -638,6 +643,7 @@ class Atletas {
     public function getContancia() {
         return $this->contancia;
     }
+    
 
     /**
      * Set carnet

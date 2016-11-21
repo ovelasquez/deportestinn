@@ -7,9 +7,9 @@ services:
 #    app.brochure_uploader:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
-    app.file_uploader:
+    app.file_uploader_constancia:
         class: BackendBundle\FileUploader
-        arguments: ['%uploads_directory%']
+        arguments: ['%atletas_constancia_directory%']
         
     twig.extension:
         # Register the class (The namespace must match)

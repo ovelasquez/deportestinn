@@ -13,6 +13,13 @@
 {% block Subtitulo %} Crear <small>Atleta</small> {% endblock %} 
 {% block cerrar %} href="{{ path('atletas_index')}}" {% endblock %} 
 
+{% block paneltoolbox %} 
+    
+    <li><a  class="btn btn-primary" href="{{ path('atletas_index')}}" style="  padding: 6px 12px;  color: white;">Volver </a>
+    </li>    
+    
+{% endblock %}         
+
 {% block body %} 
     {% include "ComurImageBundle:Form:croppable_image_modal.html.twig" with {'include_jquery': false, 'include_bootstrap': false} %}
     <br /> 
@@ -517,7 +524,7 @@
                 ajaxType: 'POST',
                 // Events
                 onLeaveStep: leaveAStepCallback, // triggers when leaving a step
-                onShowStep: null, // triggers when showing a step
+                onShowStep: showAStep, // triggers when showing a step
                 //onFinish: null, // triggers when Finish button is clicked
                 includeFinishButton: true, // Add the finish button
                 reverseButtonsOrder: false //shows buttons ordered as: prev, next and finish    
@@ -538,6 +545,17 @@
                 if (validateAllSteps()) {
                     $('form').submit();
                 }
+            }
+            
+            function showAStep(obj, context){
+                $("#step-" + (obj.attr('rel')) +" .form-control").each(function(){
+                    if ($(this).is(":visible")){
+                      $(this).focus().select(); 
+                      
+                      return false;
+                    }
+                });
+               
             }
 
             // Your Step validation logic

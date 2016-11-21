@@ -5,6 +5,7 @@ namespace BackendBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use BackendBundle\Form\Type\GeneroType;
 use BackendBundle\Form\Type\NacionalidadType;
 use BackendBundle\Form\Type\SangreType;
@@ -25,7 +26,7 @@ class AtletasType extends AbstractType {
 
         $builder
                 ->add('nacionalidad', NacionalidadType::class, array('placeholder' => 'Seleccione',))
-                ->add('cedula', 'integer', array('required' => true, 'attr' => array('placeholder' => 'Cédula de Identidad')))
+                ->add('cedula', 'integer', array('error_bubbling' => true, 'required' => true, 'attr' => array('placeholder' => 'Cédula de Identidad')))
                 ->add('primerApellido', 'text', array('required' => true, 'attr' => array('placeholder' => 'Primer Apellido')))
                 ->add('segundoApellido', 'text', array('required' => false, 'attr' => array('placeholder' => 'Segundo Apellido')))
                 ->add('primerNombre', 'text', array('required' => true, 'attr' => array('placeholder' => 'Primer Nombre')))
@@ -87,7 +88,7 @@ class AtletasType extends AbstractType {
                 ->add('organizacion')
                 ->add('departamento', 'text', array('required' => true, 'attr' => array('placeholder' => 'Facultad')))
                 ->add('ingreso', 'text', array('required' => true, 'attr' => array('placeholder' => 'Año de Ingreso')))
-                ->add('contancia', 'comur_image', array(
+                /*->add('contancia', 'comur_image', array('required' => false,
                     'uploadConfig' => array(
                         'uploadRoute' => 'comur_api_upload', //optional
                         'uploadUrl' => $pEntity->getUploadRootDirContancia(), // required - see explanation below (you can also put just a dir path)
@@ -111,8 +112,9 @@ class AtletasType extends AbstractType {
                             )
                         )
                     ),
-                ))
-                ->add('carnet', 'comur_image', array(
+                ))*/
+                ->add('contancia', FileType::class, array('required' => false,'label' => 'Constancia de estudio (PDF)'))
+                ->add('carnet', 'comur_image', array('required' => false,
                     'uploadConfig' => array(
                         'uploadRoute' => 'comur_api_upload', //optional
                         'uploadUrl' => $pEntity->getUploadRootDirCarnet(), // required - see explanation below (you can also put just a dir path)
