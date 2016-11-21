@@ -21,7 +21,8 @@
     <div class="col-md-9 col-sm-9 col-xs-12">
         <div class="" role="tabpanel" data-example-id="togglable-tabs">
             <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Información</a> </li>                                
+                <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Información</a> </li> 
+                <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Disciplinas</a></li>
             </ul>
             <div id="myTabContent" class="tab-content">
                 <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">                               
@@ -32,18 +33,7 @@
                             <tr>
                                 <th>Campeonato</th>
                                 <td>{{ organizacione.campeonato }}</td>
-                            </tr>
-                            <tr>
-                                <th>Diaiplinas</th>
-                                <td> 
-                                    <ul>                                                                              
-                                        {% for disciplina in disciplinas %}
-                                            <li>{{disciplina}}  </li>
-                                            {% endfor %}
-                                    </ul>
-
-                                </td>
-                            </tr>
+                            </tr>                            
                             <tr>
                                 <th>Responsable</th>
                                 <td>{{ organizacione.responsable }}</td>
@@ -65,6 +55,19 @@
                                 <td>{{ organizacione.direccion }}</td>
                             </tr>
 
+                        </tbody>                        
+                    </table>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">                                   
+                    <h2>Datos Deportivos</h2>
+                    <br>
+                    <table class="table table-striped responsive-utilities">
+                        <tbody>                                                                                                            
+                            {% for disciplina in disciplinas %}
+                                 <tr>
+                                    <td> {{disciplina}}  </td>
+                                     </tr>
+                                {% endfor %}
                         </tbody>                        
                     </table>
                 </div>

@@ -41,9 +41,12 @@
 
                         <div class="profile_pic">
                             {% if is_granted('ROLE_LIGA') or  is_granted('ROLE_ORGANIZACION')   %}
-                                {#% set liga = findLiga(app.user.getLiga)%#}    
-                                <!--img src="{#{ asset('uploads/logos/ligas/')}}{{liga.logo}}" alt="{{liga.nombre}#}" class="img-circle profile_img" -->
-                            {% endif %}                            
+                                {% set liga = findLiga(app.user.getLiga)%}    
+                                {% if liga != false  %}  
+                                    <img src="{{ asset('uploads/logos/ligas/')}}{{liga.logo}}" alt="{{liga.nombre}}" class="img-circle profile_img" >
+                                {% endif %}   
+                            {% endif %}  
+
                         </div>
                         <div class="profile_info">                            
                             <span>Bienvenido,</span>
@@ -117,25 +120,18 @@
                                     {% if (is_granted('ROLE_SUPER_ADMIN')) %}
                                         <img src="{{ asset('bundles/backend/images/user.png')}}" alt="" width="30px">
                                     {% elseif ((is_granted('ROLE_LIGA'))) %}                                        
-                                         <img src="{{ asset('bundles/backend/images/user.png')}}" alt="" width="30px">
+                                        <img src="{{ asset('bundles/backend/images/user.png')}}" alt="" width="30px">
                                     {% elseif ( (is_granted('ROLE_ORGANIZACION'))) %}  
                                         {% set orga = findOrganizacion(app.user.getOrganizacion)%}    
                                         <img src="{{ asset('bundles/backend/images/user.png')}}" alt="" width="30px">
-                                        
+
                                     {% endif %}  
 
                                     {% if app.user %}{{ app.user.getNombre }} {{ app.user.getApellido}} {% endif %} 
                                     <span class=" fa fa-angle-down"></span>
                                 </a>
-                                <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                    <!--li><a href="javascript:;"> Profile</a></li>
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="badge bg-red pull-right">50%</span>
-                                            <span>Settings</span>
-                                        </a>
-                                    </li>
-                                    <li><a href="javascript:;">Ayuda</a></li-->
+                                <ul class="dropdown-menu dropdown-usermenu pull-right">                                    
+                                     <li><a href="{{ path('fos_user_change_password')}}"><i class="fa fa-edit pull-right"></i> Cambiar Contraseña</a></li>
                                     <li><a href="{{ path('fos_user_security_logout')}}"><i class="fa fa-sign-out pull-right"></i> Salir</a></li>
                                 </ul>
                             </li>

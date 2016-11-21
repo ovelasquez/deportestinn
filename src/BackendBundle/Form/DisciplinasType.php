@@ -14,6 +14,7 @@ class DisciplinasType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $pEntity = $builder->getForm()->getData();
+        
         $builder
                 ->add('nombre')
                 ->add('logo', 'comur_image', array(
@@ -27,15 +28,15 @@ class DisciplinasType extends AbstractType {
                         'showLibrary' => true //optional                        
                     ),
                     'cropConfig' => array(
-                        'minWidth' => 300,
-                        'minHeight' => 300,
+                        'minWidth' => 350,
+                        'minHeight' => 350,
                         'aspectRatio' => true, //optional
                         'cropRoute' => 'comur_api_crop', //optional
                         'forceResize' => true, //optional
                         'thumbs' => array(//optional
                             array(
-                                'maxWidth' => 120,
-                                'maxHeight' => 150,
+                                'maxWidth' => 200,
+                                'maxHeight' => 200,
                                 'useAsFieldImage' => true  //optional
                             )
                         )

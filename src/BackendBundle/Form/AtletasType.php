@@ -43,7 +43,7 @@ class AtletasType extends AbstractType {
                         'fileExt' => '*.jpg;*.gif;*.png;*.jpeg', //optional
                         'libraryDir' => null, //optional
                         'libraryRoute' => 'comur_api_image_library', //optional
-                        'showLibrary' => true //optional                        
+                        'showLibrary' => false //optional                        
                     ),
                     'cropConfig' => array(
                         'minWidth' => 400,
@@ -68,7 +68,7 @@ class AtletasType extends AbstractType {
                         'fileExt' => '*.jpg;*.gif;*.png;*.jpeg', //optional
                         'libraryDir' => null, //optional
                         'libraryRoute' => 'comur_api_image_library', //optional
-                        'showLibrary' => true //optional                        
+                        'showLibrary' => false //optional                        
                     ),
                     'cropConfig' => array(
                         'minWidth' => 280,
@@ -134,7 +134,7 @@ class AtletasType extends AbstractType {
                             array(
                                 'maxWidth' => 120,
                                 'maxHeight' => 150,
-                                'useAsFieldImage' => true  //optional
+                                'useAsFieldImage' => false  //optional
                             )
                         )
                     ),

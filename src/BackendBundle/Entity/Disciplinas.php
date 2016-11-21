@@ -109,7 +109,7 @@ class Disciplinas
      * @return type
      */
     public function getUploadDir() {
-        return 'uploads/logos/disciplinas';
+        return 'bundles/backend/images/logos/disciplinas/';
     }
 
     /**
