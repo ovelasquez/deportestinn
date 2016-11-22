@@ -1,95 +1,83 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <!-- Meta, title, CSS, favicons, etc. -->
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>DeportesTINN | Login</title>
 
-        <title>{% block title %}DeportesTINN!|Login {% endblock %}</title>        
         <!-- Bootstrap -->
-        <link href="{{ asset('bundles/backend/vendors/bootstrap/bootstrap.min.css')}}"   rel="stylesheet">                
-        <!-- Font Awesome -->        
-        <link href="{{ asset('bundles/backend/vendors/font-awesome/css/font-awesome.min.css')}}"   rel="stylesheet">    
-        <!-- NProgress -->
-        <link href="{{ asset('bundles/backend/vendors/nprogress/nprogress.css')}}"   rel="stylesheet">               
-        <!-- Animate.css -->
-        <link href="{{ asset('bundles/backend/vendors/animate.css/animate.min.css')}}"   rel="stylesheet">
-        <!-- Custom Theme Style -->
-        <link href="{{ asset('bundles/backend/vendors/bootstrap/custom.min.css')}}"   rel="stylesheet">
-
-    {% block stylesheets %}{% endblock %}
-
-
-    <!--[if lt IE 9]>
-            <script src="{{ asset('bundles/backend/js/ie8-responsive-file-warning.js')}}"></script>
-            <![endif]-->
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-              <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-              <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-            <![endif]-->
-
-</head>
-
-<body class="login">
-
-    <div>
-        <a class="hiddenanchor" id="signup"></a>
-        <a class="hiddenanchor" id="signin"></a>
-
-        <div class="login_wrapper">
-            <div class="animate form login_form">
-                <section class="login_content">
-                {% block fos_user_content %}{% endblock fos_user_content %}
+        <script src="{{ asset('bundles/autenticacion/js/pace.js')}}"></script> 
+        <link href="{{ asset('bundles/autenticacion/css/bootstrap.css') }}" rel="stylesheet">       
+        <link href="{{ asset('bundles/autenticacion/css/theme.css') }}" rel="stylesheet"> 
+        <link href="{{ asset('bundles/autenticacion/css/font-awesome.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/autenticacion/css/animate.css') }}" rel="stylesheet">        
+        <link href="http://fonts.googleapis.com/css?family=Roboto+Slab:700,400|Open+Sans+Condensed:300" rel='stylesheet' type='text/css'>
+        <link href="{{ asset('bundles/autenticacion/css/theme-loading-bar.css') }}" rel="stylesheet">  
+        
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <div class="container" id="container" style="display:none;">
+            <header>            
+                    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+                      <div class="container">
+                            <div class="navbar-header">
+                              <a class="navbar-brand top-navbar-brand" href="{{ path('backend_default_index') }}">
+                              <img src="{{ asset('bundles/autenticacion/images/tinn-logo.png')}}" alt="somosTINN.net" class="" > </a>
+                            </div>
+                            <!--ul class="nav navbar-nav navbar-right bigger-130 hidden-xs">
+                                    <li><a href="#"><i class="fa fa-google"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            </ul-->
+                      </div>
+                    </nav>
+            </header>
+            <section id="form" class="animated fadeInDown">
+                <div class="container">    
+                    <div id="loginbox" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                    {% block fos_user_content %}                    
+                       CONTENIDO :)
+                    {% endblock fos_user_content %} 
+                    </div>
+                </div>
             </section>
-        </div>
-
-        <div id="register" class="animate form registration_form">
-            <section class="login_content">
-                <form>
-                    <h1>Create Account</h1>
-                    <div>
-                        <input type="text" class="form-control" placeholder="Username" required="" />
-                    </div>
-                    <div>
-                        <input type="email" class="form-control" placeholder="Email" required="" />
-                    </div>
-                    <div>
-                        <input type="password" class="form-control" placeholder="Password" required="" />
-                    </div>
-                    <div>
-                        <a class="btn btn-default submit" href="index.html">Submit</a>
-                    </div>
-
-                    <div class="clearfix"></div>
-
-                    <div class="separator">
-                        <p class="change_link">Already a member ?
-                            <a href="#signin" class="to_register"> Log in </a>
-                        </p>
-
-                        <div class="clearfix"></div>
-                        <br />
-
-                        <div>
-                            <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1>
-                            <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
-                        </div>
-                    </div>
-                </form>
-            </section>
-        </div>
-    </div>
+            <footer>
+                    <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
+                      <div class="container text-center">
+                            <div class="footer-content">
+                              ¿Todavía no se ha registrado? <a href="register.html" class="btn btn-primary"> Registrarse Aquí </a>
+                            </div>
+                      </div><!-- /.container-fluid -->
+        </nav>
+    </footer-->
 </div>
-<!-- jQuery 2.2.4 -->
-<script src="{{ asset('bundles/backend/vendors/jquery/jquery.min.js')}}"></script>                              
-<!-- Bootstrap -->
-<script src="{{ asset('bundles/backend/vendors/bootstrap.min.js')}}"></script>  
-
-
-{% block javascripts %}{% endblock %}
+<script src="{{ asset('bundles/autenticacion/js/jquery.min.js')}}"> </script> 
+<script src="{{ asset('bundles/autenticacion/js/bootstrap.min.js')}}"> </script> 
+<script src="{{ asset('bundles/autenticacion/js/jquery.backstretch.min.js')}}"> </script> 
+<script>
+    Pace.on('hide', function () {
+        $("#container").fadeIn('1000');
+        $.backstretch([            
+            "/web/bundles/autenticacion/images/7.jpg",
+            "/web/bundles/autenticacion/images/8.jpg",
+            "/web/bundles/autenticacion/images/9.jpg",
+            "/web/bundles/autenticacion/images/10.jpg",
+            "/web/bundles/autenticacion/images/11.jpg",
+            "/web/bundles/autenticacion/images/12.jpg",
+            "/web/bundles/autenticacion/images/13.jpg",
+            "/web/bundles/autenticacion/images/14.jpg",
+            "/web/bundles/autenticacion/images/15.jpg",
+            "/web/bundles/autenticacion/images/16.jpg",
+            "/web/bundles/autenticacion/images/17.jpg"
+        ], {duration: 5000, fade: 1000});
+    });
+</script>
 </body>
 </html>

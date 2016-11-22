@@ -45,11 +45,17 @@
                     <div class="profile">
 
                         <div class="profile_pic">
-                            {% if is_granted('ROLE_LIGA') or  is_granted('ROLE_ORGANIZACION') and app.user.getLiga is defined  %}                                
+                        {% if is_granted('ROLE_ORGANIZACION') %}
+                                <img src="{{ asset('bundles/backend/images/logos/tinn/logoTinn.png')}}" alt="logo-somosTINN" class="img-circle profile_img" >
+                           {% elseif is_granted('ROLE_LIGA') and app.user.getLiga is defined %}
+                                                         
                                 {% set liga = findLiga(app.user.getLiga)%}    
                                 {% if liga != false  %}  
                                     <img src="{{ asset('uploads/logos/ligas/')}}{{liga.logo}}" alt="{{liga.nombre}}" class="img-circle profile_img" >
-                                {% endif %}     {% endif %}                            
+                                {% endif %}
+                            {% endif%}
+                            
+
                             </div>
                             <div class="profile_info">                            
                                 <span>Bienvenido,</span>
